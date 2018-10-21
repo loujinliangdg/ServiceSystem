@@ -26,6 +26,9 @@ class App extends Component {
       this.props.history.replace(`/login`)
     }
   }
+  render(){
+    return <div></div>
+  }
 }
 
 export default App;

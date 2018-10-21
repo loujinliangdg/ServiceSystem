@@ -1,0 +1,13 @@
+.forget-password{padding: 0 20px;}
+.forget-password .big-child{margin: 0 -20px;}
+.forget-password .big-child .big-img{display:block;width: 90%;margin:5px auto;}
+
+.forget-password .p-26{font-size: 13px;/*px*/color: #0A0A0A;line-height: 1.923;margin-top: 15px;}
+.forget-password .p-28{font-size: 14px;/*px*/color: #0A0A0A;line-height: 1.786;}
+
+.forget-password .p-28 .open-bianla{vertical-align: middle;}
+.forget-password .p-28 .app-icon{display:inline-block;width: 102px;vertical-align: middle;}
+
+.forget-password h1{margin: 18px 0 12px;}
+
+.forget-password h1{font-size: 17px;/*px*/font-weight: bold;color: #0A0A0A;}

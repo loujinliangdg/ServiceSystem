@@ -6,9 +6,9 @@ class Req{
          */
         this['自动登陆'] = '/api/deviceSetInfo/checkLogin'  
         /**
-         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1047
+         * 文档地址：?
          */
-        this['登陆变啦'] = '/api/vhelper/loginBianla'
+        this['登陆变啦'] = '/api/deviceSetInfo/loginBianla'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');
