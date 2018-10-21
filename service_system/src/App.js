@@ -12,10 +12,11 @@ class App extends Component {
     super(props);
     let search = window.location.search;
     let code = null;
+    // 如果有参数
     if(search){
       code = (qs.parse(search.replace(/^\?&*/,''))).code
     }
-    console.log(this.props)
+    // console.log(this.props)
     // 如果有code去自动登陆
     if(code){
       this.props.history.replace(`/autoLogin?code=${code}`)

@@ -1,14 +1,21 @@
 import axios from 'axios'
 class Req{
     constructor(){
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1010
+         */
         this['自动登陆'] = '/api/deviceSetInfo/checkLogin'  
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1047
+         */
+        this['登陆变啦'] = '/api/vhelper/loginBianla'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');
         if(authorization){
             axios.defaults.headers.authorization = authorization;
         }
-        axios.get(`${host}${this[name]}`,{params:data}).then(function(result){
+        axios.get(`${this[name]}`,{params:data}).then(function(result){
             if(result.headers.authorization){
                 window.sessionStorage.setItem('authorization',result.headers.authorization)
             }
@@ -20,7 +27,7 @@ class Req{
         if(authorization){
             axios.defaults.headers.authorization = authorization;
         }
-        axios.post(`${host}${this[name]}`,data).then(function(result){
+        axios.post(`${this[name]}`,data).then(function(result){
             if(result.headers.authorization){
                 window.sessionStorage.setItem('authorization',result.headers.authorization)
             }
