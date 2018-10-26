@@ -9,6 +9,38 @@ class Req{
          * 文档地址：?
          */
         this['登陆变啦'] = '/api/deviceSetInfo/loginBianla'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1702
+         */
+        this['根据文章类型获取子分类'] = '/api/customerService/getClassifyByType'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1703
+         */
+        this['根据子分类获取文章列表'] = '/api/customerService/getArticleByClassify'
+        /**
+         * 文档地址：/api/customerService/getArticleByType
+         */
+        this['根据类型获取文章列表'] = '/api/customerService/getArticleByType'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1708
+         */
+        this['置顶的常见问题'] = '/api/customerService/topProblem'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1705
+         */
+        this['根据文章id获取文章'] = '/api/customerService/getArticleById'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1713
+         */
+        this['获取轮播图'] = '/api/customerService/getBanner'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1715
+         */
+        this['设备管理首页的信息'] = '/api/customerService/deviceHomePage'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1716
+         */
+        this['设备运行状态'] = '/api/customerService/myDeviceRunningState'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');

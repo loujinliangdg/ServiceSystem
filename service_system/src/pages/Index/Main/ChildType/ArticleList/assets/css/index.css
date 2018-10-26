@@ -1,0 +1,19 @@
+.Article2{
+    width: 100%;
+    padding: 0 4%;
+    box-sizing: border-box;
+}
+.Article2 .article-list-item{
+    width: 100%;
+    padding: 3%;
+    box-sizing: border-box;
+    margin:5% 0;
+    box-shadow:0px 0px 6px rgba(69,69,69,0.1);
+    border-radius: 0.2em;
+}
+.Article2 .article-list-item .coverPicture{
+    width: 32.5%;
+    padding-bottom: 32.5%;
+    margin-right: 15px;
+    border-radius: 0.3em;
+}

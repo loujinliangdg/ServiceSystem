@@ -1,0 +1,54 @@
+.Question{
+    width: 100%;
+    height: auto;
+    background: #fff;
+}
+.Question .q-list{
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 15px;
+}
+.Question .q-list .q-item{
+    border-bottom:1px solid #F5F5F5;
+    padding-bottom:13.88%;
+    padding-right: 15px;
+    position: relative;
+}
+.Question .q-list .q-item > .inner{
+    position: absolute;
+    left:0;
+    right:15px;
+    top:0;
+    bottom:0;
+}
+.Question .q-list .head h3{
+    font-size:15px;
+    color:#424242;
+    margin: 0;
+}
+.Question .q-list .head a{
+    font-size:14px;
+    color:#B5B5B5;
+}
+.Question .q-list .body .flex1{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.Question .q-list .body p{
+    font-size: 15px;
+    color: #424242;
+    margin: 0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.Question .q-list .q-item .shuang-you-jian-tou{
+    width: 9px;
+    margin-left: 8px;
+}
+.Question .q-list .q-item .you-jian-tou{
+    width: 6px;
+    margin-left: 8px;
+}
+

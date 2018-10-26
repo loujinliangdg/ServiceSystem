@@ -1,0 +1,29 @@
+.myDevice{
+    width: 100%;
+    padding: 0 4%;
+    min-height: 100vw;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background: #F5F5F5;
+    overflow: hidden;
+}
+.myDevice .list{
+    list-style: none;
+    padding: 0;
+    margin:0;
+}
+.myDevice .list .list-item{
+    background: #fff;
+    margin-top: 4%;
+    border-radius: 0.4em;
+}
+.myDevice .list .flex{
+    font-size: 15px;
+    padding: 0.5em 0.8em 0.5em 0.8em;
+}
+.myDevice .list .flex > div:first-child{
+    color:#9E9E9E;
+}
+.myDevice .list .flex > div:last-child{
+    color:#333333;
+}

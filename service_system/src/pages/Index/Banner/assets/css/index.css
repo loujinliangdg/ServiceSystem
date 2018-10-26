@@ -1,0 +1,16 @@
+.Banner{
+    width:100%;
+    padding-bottom: 40%;
+    /* background: #000; */
+    position: relative;
+}
+.Banner .banner-inner{
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+}
+.Banner .banner-inner .banner-image{
+    max-width: 100% !important;
+}

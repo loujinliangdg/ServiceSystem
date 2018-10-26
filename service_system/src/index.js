@@ -10,6 +10,15 @@ import Login from './pages/Login'
 import ForgetPassword from './pages/ForgetPassword'
 import AutoLogin from './pages/AutoLogin'
 import Index from './pages/Index'
+import ChildType from './pages/Index/Main/ChildType'
+import ArticleList from './pages/Index/Main/ChildType/ArticleList'
+import Article from './pages/Index/Main/ChildType/ArticleList/Article'
+
+import DeviceManagementHome from './pages/Index/Main/DeviceManagementHome'
+import DeviceManagement from './pages/Index/Main/DeviceManagementHome/DeviceManagement'
+import MemberManagement from './pages/Index/Main/DeviceManagementHome/MemberManagement'
+import MyDevice from './pages/Index/Main/DeviceManagementHome/MyDevice'
+
 
 
 ReactDOM.render(
@@ -21,6 +30,13 @@ ReactDOM.render(
         <Route path="/autoLogin" component={AutoLogin} chineseName="自动登陆"></Route>
         
         <Route path="/index" exact={true} component={Index} chineseName="首页"></Route>
+        <Route path="/index/childType" exact={true}  component={ChildType} chineseName="文章子分类"></Route>
+        <Route path="/index/childType/articleList" exact={true}  component={ArticleList} chineseName="文章列表"></Route>
+        <Route path="/index/childType/articleList/article" exact={true}  component={Article} chineseName="文章"></Route>
+        <Route path="/index/deviceManagementHome" exact={true}  component={DeviceManagementHome} chineseName="设备管理主页"></Route>
+        <Route path="/index/deviceManagementHome/deviceManagement" exact={true}  component={DeviceManagement} chineseName="设备管理"></Route>
+        <Route path="/index/deviceManagementHome/memberManagement" exact={true}  component={MemberManagement} chineseName="成员管理"></Route>
+        <Route path="/index/deviceManagementHome/myDevice" exact={true}  component={MyDevice} chineseName="我的设备"></Route>
     </Switch>
 </HashRouter> , document.getElementById('root'));
 

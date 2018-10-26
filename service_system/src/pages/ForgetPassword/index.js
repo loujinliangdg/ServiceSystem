@@ -13,7 +13,7 @@ class ForgetPassword extends Component{
             <div className="App forget-password">
                 <p className="p-26">如果您忘记了变啦登录密码，可以去变啦APP上设置新的密码，操作方法如下，设置完成就可以用新密码进行登录了!</p>
                 <h1>步骤1：</h1>
-                <p className="p-28"><span className="open-bianla">打开变啦APP</span><img className="app-icon" src={appIcon_png} /></p>
+                <p className="p-28"><span className="open-bianla">打开变啦APP</span><img className="app-icon" src={appIcon_png} alt="" /></p>
                 <h1>步骤2：</h1>
                 <p className="p-28">进入变啦APP登录页（登录状态下退出登录即可回到登录页）点击忘记密码</p>
                 <div className="big-child">

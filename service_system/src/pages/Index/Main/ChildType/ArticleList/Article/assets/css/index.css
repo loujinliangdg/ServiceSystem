@@ -1,0 +1,10 @@
+.Article{
+    padding: 0 4%;
+}
+.Article .article-title{
+    font-size:20px;
+    color: #333;
+}
+.Article img{
+    max-width: 100% !important;
+}

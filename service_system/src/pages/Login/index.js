@@ -42,11 +42,11 @@ class Login extends Component {
 
         req.post('登陆变啦',qs.stringify(params),(result) =>{
             this.setState({requesting:false,disabled:''});
-            if(result.code == 1){
+            if(result.code === 1){
                 this.setState({errorTs:''})
-                localStorage.setItem('deviceArray',JSON.stringify(result.data.deviceArray));
-                localStorage.setItem('deviceId',result.data.deviceArray[0].deviceId);
-                localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
+                // localStorage.setItem('deviceArray',JSON.stringify(result.data.deviceArray));
+                // localStorage.setItem('deviceId',result.data.deviceArray[0].deviceId);
+                // localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
                 localStorage.setItem('bianlaId',result.data.bianlaId);
                 localStorage.setItem('phoneNumber',this.state.bianlaId);
                 //TODO: 登陆成功 去首页
@@ -66,7 +66,7 @@ class Login extends Component {
         var target = event.target;
         if(!this.state.resquesting){
             // 账号11位并且输了密码
-            if(target.value.length == 11 && this.state.password){
+            if(target.value.length === 11 && this.state.password){
                 this.disabled = '';
                 this.setState({disabled:''})
             }
@@ -81,7 +81,7 @@ class Login extends Component {
         var target = event.target;
         if(!this.state.resquesting){
             // 密码有值，并且帐号是11位
-            if(target.value && this.state.bianlaId.length == 11){
+            if(target.value && this.state.bianlaId.length === 11){
                 this.setState({disabled:''})
             }
             else{

@@ -1,0 +1,84 @@
+/* 运营指南样式 */
+.yyzn{
+    width: 100%;
+}
+.yyzn .yyzn-item{
+    width: 42.9%;
+    margin-top: 5.7%;
+}
+.yyzn .yyzn-item:nth-child(2n-1){
+    float: left;
+    margin-left: 4.66%;
+}
+.yyzn .yyzn-item:nth-child(2n){
+    float: right;
+    margin-right: 4.66%;
+}
+
+.yyzn .yyzn-item .coverUrl{
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+}
+.yyzn .yyzn-item .coverUrl .inner{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background: #ddd;
+    border-radius: 0.4em;
+    overflow: hidden;
+}
+.yyzn .yyzn-item .classifyName{
+    font-size:16px;
+    color:#333;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    line-height: 2;
+    margin-top: 5px;
+}
+/* 使用教程样式 */
+.syjc{
+    width: 100%;
+}
+.syjc .syjc-inner{
+    width: 100%;
+    padding: 0 4%;
+    box-sizing: border-box;
+}
+.syjc .syjc-inner .childType{
+    margin: 0;
+    margin-top:8px;
+    font-size: 17px;
+    line-height: 2.5;
+    font-weight: 400;
+}
+.syjc .syjc-inner .ArticleList .article-list-item{
+    width: 100%;
+    border-radius: 0.4em;
+    box-shadow:0px 0px 6px rgba(69,69,69,0.1);
+    margin-bottom: 4%;
+}
+.syjc .syjc-inner .ArticleList .article-list-item .coverPicture{
+    height: 0;
+    background: #ddd;
+    width: 13.6%;
+    padding-bottom: 13.6%;
+    margin: 7% 5% 7% 10%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.syjc .syjc-inner .ArticleList .article-list-item .flex1{
+    padding-right: 5%;
+}
+.syjc .syjc-inner .ArticleList .article-list-item .flex1 p{
+    font-size:15px;
+    color: #424242;
+}
+@media screen and (max-width:320px){
+    .syjc .syjc-inner .ArticleList .article-list-item .flex1 p{
+        font-size:13px;
+    }
+}

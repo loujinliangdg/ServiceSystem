@@ -7,3 +7,12 @@
 .flex1{
     flex: 1;
 }
+.text-right{
+    text-align: right;
+}
+.text-left{
+    text-align: left;
+}
+.text-center{
+    text-align: center;
+}
