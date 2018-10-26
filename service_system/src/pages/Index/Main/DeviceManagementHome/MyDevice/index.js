@@ -68,33 +68,40 @@ class DeviceManagement extends Component {
                     this.state.requested ? (
                         <ul className="list">
                             {
-                                this.state.dataList.map((item) =>{
+                                this.state.dataList.map((item,index) =>{
                                     return (
                                         <li className="list-item" key={item.deviceNo}>
-                                            <div className="inner">
-                                                <div className="flex align-items-center">
-                                                    <div className="flex1">设备编号：</div>
-                                                    <div className="text-right">
-                                                        <span className="text">{item.deviceNo}</span>
+                                            <div className="order-number">
+                                                <div className="inner">
+                                                    <div className="flex align-items-center">
+                                                        <div className="flex1">
+                                                            设备{index+1}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex align-items-center">
-                                                    <div className="flex1">在线状态：</div>
-                                                    <div className="text-right">
-                                                        <span className="text">{item.isOnline ? '在线' : '离线'}</span>
-                                                    </div>
+                                            </div>
+                                            <div className="flex align-items-center">
+                                                <div className="flex1">设备编号：</div>
+                                                <div className="text-right">
+                                                    <span className="text">{item.deviceNo}</span>
                                                 </div>
-                                                <div className="flex align-items-center">
-                                                    <div className="flex1">信号量</div>
-                                                    <div className="text-right">
-                                                        <span className="text">{this.signalPercent(item.signal)}</span>
-                                                    </div>
+                                            </div>
+                                            <div className="flex align-items-center">
+                                                <div className="flex1">在线状态：</div>
+                                                <div className="text-right">
+                                                    <span className="text">{item.isOnline ? '在线' : '离线'}</span>
                                                 </div>
-                                                <div className="flex align-items-center">
-                                                    <div className="flex1">异常状态提醒</div>
-                                                    <div className="text-right">
-                                                        <span className="text">{this.signalPercentToZh(this.signalPercent(item.signal))}</span>
-                                                    </div>
+                                            </div>
+                                            <div className="flex align-items-center">
+                                                <div className="flex1">信号量</div>
+                                                <div className="text-right">
+                                                    <span className="text">{this.signalPercent(item.signal)}</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex align-items-center">
+                                                <div className="flex1">异常状态提醒</div>
+                                                <div className="text-right">
+                                                    <span className="text">{this.signalPercentToZh(this.signalPercent(item.signal))}</span>
                                                 </div>
                                             </div>
                                         </li>

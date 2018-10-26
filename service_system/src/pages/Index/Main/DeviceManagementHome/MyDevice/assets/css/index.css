@@ -16,7 +16,9 @@
     background: #fff;
     margin-top: 4%;
     border-radius: 0.4em;
+    padding: 3.7% 0;
 }
+
 .myDevice .list .flex{
     font-size: 15px;
     padding: 0.5em 0.8em 0.5em 0.8em;
@@ -26,4 +28,32 @@
 }
 .myDevice .list .flex > div:last-child{
     color:#333333;
+}
+/* 序号 */
+.myDevice .list .list-item .order-number{
+    width:19.5%;
+    padding-bottom: 7.2%;
+    position: relative;
+    background: #40CC45;
+    border-top-right-radius: 15% 50%;
+    border-bottom-right-radius: 15% 50%;
+    margin-top: 0.5em;
+}
+.myDevice .list .list-item .order-number .inner{
+    position: absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+}
+.myDevice .list .list-item .order-number .inner .flex{
+    padding: 0;
+    height: 100%;
+    
+}
+.myDevice .list .list-item .order-number .inner .flex .flex1{
+    font-size: 12px;
+    color: #fff;
+    line-height: 1;
+    text-indent: 1em;
 }
