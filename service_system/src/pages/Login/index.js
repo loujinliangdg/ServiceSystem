@@ -44,9 +44,9 @@ class Login extends Component {
             this.setState({requesting:false,disabled:''});
             if(result.code === 1){
                 this.setState({errorTs:''})
-                // localStorage.setItem('deviceArray',JSON.stringify(result.data.deviceArray));
-                // localStorage.setItem('deviceId',result.data.deviceArray[0].deviceId);
-                // localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
+                localStorage.setItem('deviceArray',JSON.stringify(result.data.deviceArray));
+                localStorage.setItem('deviceId',result.data.deviceArray[0].deviceId);
+                localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
                 localStorage.setItem('bianlaId',result.data.bianlaId);
                 localStorage.setItem('phoneNumber',this.state.bianlaId);
                 //TODO: 登陆成功 去首页

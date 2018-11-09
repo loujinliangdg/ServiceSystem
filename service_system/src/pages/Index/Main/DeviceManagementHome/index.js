@@ -65,7 +65,7 @@ class DeviceManagement extends Component {
                                 </Link>
                             </li>
                             <li className="list-item">
-                                <Link className="inner" to={`/index/deviceManagementHome/myDevice`}>
+                                <Link className="inner" to={`/index/deviceManagementHome/deviceManagement`}>
                                     <div className="flex align-items-center">
                                         <div className="flex1">设备管理</div>
                                         <div className="text-right">
@@ -76,7 +76,7 @@ class DeviceManagement extends Component {
                                 </Link>
                             </li>
                             <li className="list-item">
-                                <Link className="inner" to={`/index/deviceManagementHome/myDevice`}>
+                                <Link className="inner" to={`/index/deviceManagementHome/memberManagement`}>
                                     <div className="flex align-items-center">
                                         <div className="flex1">成员管理</div>
                                         <div className="text-right">

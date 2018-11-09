@@ -41,6 +41,48 @@ class Req{
          * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1716
          */
         this['设备运行状态'] = '/api/customerService/myDeviceRunningState'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1717
+         */
+        this['获取设备的信息'] = '/api/customerService/getDeviceSetInfo'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1718
+         */
+        this['切换体脂秤'] = '/api/customerService/switchFatScale'
+        /**
+         * 文档地址：
+         */
+        this['获取模式列表'] = '/api/customerService/getAllMode'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1719
+         */
+        this['切换模式'] = '/api/customerService/changeAioDeviceMode'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1719
+         */
+        this['获取所有的使用场景'] = '/api/customerService/useScenariosList'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1721
+         */
+        this['切换使用场景'] = '/api/customerService/changeUseScenarios'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1730
+         */
+        this['数据查询'] = '/api/customerService/getDatas'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1734
+         */
+        this['获取上秤玩家'] = '/api/customerService/getPlayerNumber'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1733
+         */
+        this['获取新增粉丝'] = '/api/customerService/addPowderDetails'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1724
+         */
+        this['获取成员列表'] = '/api/customerService/memberList'
+
+        this['你大爷'] = '/api/deviceSetInfo/runningState'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');

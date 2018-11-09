@@ -20,10 +20,10 @@ class Main extends Component{
                             <div><img className="m-icon" src={yyzn_png} alt=""/></div>
                             <p>运营指南</p>
                         </Link>
-                        <div className="m-item">
+                        <Link className="m-item" to="/index/dataSearch">
                             <div><img className="m-icon" src={sjcx_png} alt=""/></div>
                             <p>数据查询</p>
-                        </div>
+                        </Link>
                         <Link className="m-item" to="/index/childType?postType=syjc">
                             <div><img className="m-icon" src={syjc_png} alt=""/></div>
                             <p>使用教程</p>

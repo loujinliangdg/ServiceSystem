@@ -1,0 +1,45 @@
+.wechatAddNumber-container{
+    background: #F6F6F6;
+}
+.wechatAddNumber-container .list-title{
+    width: 100%;
+    padding-bottom: 14.66%;
+    position: relative;
+    background: #fff;
+    color: #9E9E9E;
+}
+.wechatAddNumber-container .list-title > .flex{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom:0;
+}
+
+.wechatAddNumber-container .list-content{
+    width: 100%;
+    height: auto;
+    padding-bottom: 1px;
+}
+.wechatAddNumber-container .list-content .list-item{
+    margin: 4%; 
+    background: #fff;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.wechatAddNumber-container .list-content .list-item > .flex{
+    padding: 1em 0;
+    position: relative;
+    color: #333333;
+}
+.wechatAddNumber-container .list-content .list-item > .flex:after{
+    content: "";
+    position: absolute;
+    bottom:0;
+    left:4%;
+    right:4%;
+    height: 1px;
+    background:rgba(159,159,159,1);
+    opacity:0.24;   
+}
+.wechatAddNumber-container .list-content .list-item > .flex:last-of-type:after{height: 0;}

@@ -1,0 +1,99 @@
+.memberManagement-container{
+    font-size: 15px;
+    padding-bottom: 82px;
+    user-select: none;
+}
+.memberManagement-container .one-device .device{
+    background: #f8f8f8;
+    padding: 6% 4% 4%;
+}
+.memberManagement-container .one-device .device h5{
+    margin: auto;
+    font-size: 15px;
+    color: #1f1f1f;
+    font-weight: 500;
+}
+.memberManagement-container .one-device .device .flex1 + div{
+    font-size: 12px;
+    color: #C0C0C0;
+}
+
+.memberManagement-container .user-item{
+    width: 100%;
+    padding-bottom: 16%;
+    position: relative;
+}
+.memberManagement-container .user-item .user-item-inner{
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    padding-left: 4%;
+    z-index: 2;
+    transform-style: preserve-3d;
+    transform: translate3d(0,0,0);
+}
+
+.memberManagement-container .user-item .user-item-inner .flex{
+    padding-right: 4.34%;
+    height: 100%;
+    position: relative;
+}
+.memberManagement-container .user-item .user-item-inner .flex:after{
+    content: "";
+    width: 100%;
+    position: absolute;
+    bottom:0;
+    left:0;
+    height: 1px;
+    background:rgba(159,159,159,1);
+    opacity:0.24;
+}
+.memberManagement-container .one-device .user-item:last-child .flex:after{
+    height: 0;
+}
+
+
+.memberManagement-container .delete-user{
+    position: absolute;
+    box-sizing: border-box;
+    padding: 0;
+    top:0;
+    left:100%;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    width: 22%;
+    height: 100%;
+    border-bottom:1px solid transparent;
+    background: #FF473B;
+    background-clip: content-box;
+    color: #fff;
+    font-size: 15px;
+}
+
+
+/* 添加成员按钮 */
+.MemberManagement .bottom{
+    position: fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    padding-bottom: 20px;
+    background: rgba(255,255,255,0.85);
+}
+.MemberManagement .bottom .enter{
+    width: 80%;
+    height: 42px;
+    line-height: 42px;
+    background: #40CC45;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 21px;
+    display: block;
+    margin: auto;
+    text-align: center;
+}

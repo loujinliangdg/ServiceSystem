@@ -25,9 +25,9 @@ class AutoLogin extends Component {
             clearInterval(this.timer);
             this.setState({autoLoginText:result.alertMsg})
             if(result.code === 1){
-                // localStorage.setItem('deviceArray',JSON.stringify(result.data.deviceArray));
-                // localStorage.setItem('deviceId',result.data.deviceArray[0].deviceId);
-                // localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
+                localStorage.setItem('deviceArray',JSON.stringify(result.data.deviceArray));
+                localStorage.setItem('deviceId',result.data.deviceArray[0].deviceId);
+                localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
                 localStorage.setItem('bianlaId',result.data.bianlaId);
                 this.props.history.replace('/index');
             }

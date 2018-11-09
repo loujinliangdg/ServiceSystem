@@ -1,0 +1,92 @@
+.SwitchUseScenarios .switchUseScenarios-container{
+    font-size: 15px;
+    background: #F8F8F8;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.SwitchUseScenarios .switchUseScenarios-container .other-device,
+.SwitchUseScenarios .switchUseScenarios-container .current-device{
+    padding:0 4%;
+    font-size: 15px;
+    margin: 4% 0;
+    color: #9E9E9E;
+    font-weight: 100;
+}
+
+.SwitchUseScenarios .switchUseScenarios-container .row-block .row{
+    background: #fff;
+    padding: 0 4%;
+}
+.SwitchUseScenarios .switchUseScenarios-container .row-block .row .flex{
+    padding: 4.1% 0;
+}
+
+.SwitchUseScenarios .switchUseScenarios-container .row-block .flex1{
+    color: #9E9E9E;
+}
+.SwitchUseScenarios .switchUseScenarios-container .row-block .flex1 span{
+    color: #282828;
+}
+.SwitchUseScenarios .switchUseScenarios-container .row-block:nth-of-type(2) .row .flex{
+    border-bottom: 1px solid rgba(159,159,159,.12);
+}
+
+.SwitchUseScenarios .switchUseScenarios-container .row-block > .row > .flex > label:last-child{
+    position: relative;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+}
+.SwitchUseScenarios .switchUseScenarios-container .row-block > .row > .flex > label:last-child:before{
+    content: "";
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(153, 153, 153, 1);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.SwitchUseScenarios .switchUseScenarios-container .row-block > .row > .flex > label.on:last-child:before{
+    border-color: rgba(64,204,69,1);
+}
+.SwitchUseScenarios .switchUseScenarios-container .row-block > .row > .flex > label.on:last-child:after{
+    content: "";
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(64,204,69,1);
+    border-radius: 50%;
+    box-sizing: border-box;
+    transform: scale(0.7);
+}
+
+
+
+.SwitchUseScenarios .switchUseScenarios-container .row-block > .row > .flex > label:last-child input[type="radio"]{
+    visibility: hidden;
+}
+
+.row-block.flex1{
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.SwitchUseScenarios .switchUseScenarios-container .enter{
+    border: 0;
+    display: block;
+    margin: 5% 10% 6%;
+
+    width: 80%;
+    height: 38px;
+    background: #40CC45;
+    color: #fff;
+    text-align: center;
+    border-radius: 19px;
+    font-size: 16px;
+}

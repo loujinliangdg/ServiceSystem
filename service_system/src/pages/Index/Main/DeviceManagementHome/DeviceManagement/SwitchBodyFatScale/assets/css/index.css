@@ -1,0 +1,86 @@
+.SwitchBodyFatScale .switchBodyFatScale-container{
+    font-size: 15px;
+}
+
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row{
+    background: #fff;
+    padding: 0 4%;
+}
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row > .flex{
+    padding: 4.1% 0;
+    border-bottom: 1px solid rgba(159,159,159,.12);
+}
+
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row > .flex .flex1{
+    color: #9E9E9E;
+}
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row > .flex .flex1 span{
+    color: #282828;
+}
+
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row > .flex > label:last-child{
+    position: relative;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+}
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row > .flex > label:last-child:before{
+    content: "";
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(153, 153, 153, 1);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row > .flex > label.on:last-child:before{
+    border-color: rgba(64,204,69,1);
+}
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row > .flex > label.on:last-child:after{
+    content: "";
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(64,204,69,1);
+    border-radius: 50%;
+    box-sizing: border-box;
+    transform: scale(0.7);
+}
+
+
+
+.SwitchBodyFatScale .switchBodyFatScale-container .row-block > .row > .flex > label:last-child input[type="radio"]{
+    visibility: hidden;
+}
+
+
+.SwitchBodyFatScale .switchBodyFatScale-container .body-fat-scale-big-img{
+    width: 40%;
+    overflow: hidden;
+    margin: 16.2% auto 14.4%;
+}
+.SwitchBodyFatScale .switchBodyFatScale-container .body-fat-scale-big-img img{
+    width: 100%;
+}
+.SwitchBodyFatScale .switchBodyFatScale-container .text-ts{
+    font-size: 12px;
+    color: #9E9E9E;
+    padding: 0 4%;
+    line-height: 1.5;
+}
+.SwitchBodyFatScale .switchBodyFatScale-container .enter{
+    border: 0;
+    display: block;
+    width: 80%;
+    height: 38px;
+    background: #40CC45;
+    color: #fff;
+    text-align: center;
+    margin: auto;
+    border-radius: 19px;
+    font-size: 16px;
+}

@@ -10,29 +10,26 @@ class DeviceManagement extends Component {
     constructor(props){
         super();
         this.state = {
-            dataList:[], //分类列表
+            data:{bodyFatScaleList:[]},
             requested:false,
-            deviceCount:0,
-            memberCount:0,
         }
         this.bianlaId = window.localStorage.getItem('bianlaId');
+        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
+        this.deviceId = this.deviceArray[0].deviceId;
+        this.deviceNo = this.deviceArray[0].deviceNo;
     }
     componentDidMount() {
-        this.getList();
+        this.getDeviceData();
     }
     /**
-     * 获取子分类列表
+     * 获取设备信息
      */
-    getList(){
-        req.get('设备管理首页的信息',{bianlaId:this.bianlaId},(result) =>{
+    getDeviceData(){
+        req.get('获取设备的信息',{bianlaId:this.bianlaId,deviceId:this.deviceId},(result) =>{
             if(result.code === 1){
-                var data = result.data || {
-                    deviceCount:0,
-                    memberCount:0,
-                }
+                var data = result.data || {bodyFatScaleList:[]}
                 this.setState({
-                    deviceCount:data.deviceCount,
-                    memberCount:data.memberCount,
+                    data,
                     requested:true,
                 })
             }
@@ -47,49 +44,86 @@ class DeviceManagement extends Component {
             })
         })
     }
+    // 开始时间选择
+    startTimeChange(event){
+        this.state.data.beginTime = event.target.value;
+        this.setState({
+            data:this.state.data
+        })
+    }
+    // 结束时间选择
+    endTimeChange(event){
+        this.state.data.endTime = event.target.value;
+        this.setState({
+            data:this.state.data
+        })
+    }
     render(){
         return (
             <div className="App DeviceManagement">
                 {
                     this.state.requested ? (
-                        <ul className="list">
-                            <li className="list-item">
-                                <div className="inner">
+                        <div className="deviceManagement-container">
+                            <h5 className="current-device">当前设备：</h5>
+                            <div className="row-block">
+                                <div className="row">
                                     <div className="flex align-items-center">
-                                        <div className="flex1">我的设备</div>
-                                        <div className="text-right">
-                                            <span className="text">{this.state.deviceCount}台</span>
-                                            <img className="arrow-right" src={you_jian_tou_png} alt=""/>
+                                        <div className="flex1">
+                                            设备号：<span>{this.deviceNo}</span>
+                                        </div>
+                                        <div>
+                                            <Link className="switch-device-btn" to="/index/deviceManagementHome/deviceManagement/switchDevice">切换</Link>
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                            <li className="list-item">
-                                <div className="inner">
+                            </div>
+                            <div className="row-block">
+                                <Link className="row" to={`/index/deviceManagementHome/deviceManagement/switchBodyFatScale/${JSON.stringify(this.state.data.bodyFatScaleList)}`}>
+                                    <div className="flex align-items-center ">
+                                        <div className="flex1">
+                                            选择体脂秤
+                                        </div>
+                                        <div>
+                                            <img className="you-jian-tou" src={you_jian_tou_png} alt=""/>
+                                        </div>
+                                    </div>
+                                </Link>
+                                <Link className="row" to={`/index/deviceManagementHome/deviceManagement/switchMode/${this.state.data.currentMode}`}>
                                     <div className="flex align-items-center">
-                                        <div className="flex1">设备管理</div>
-                                        <div className="text-right">
-                                            <span className="text"></span>
-                                            <img className="arrow-right" src={you_jian_tou_png} alt=""/>
+                                        <div className="flex1">
+                                            选择机器模式
+                                        </div>
+                                        <div>
+                                            <img className="you-jian-tou" src={you_jian_tou_png} alt=""/>
+                                        </div>
+                                    </div>
+                                </Link>
+                                <Link className="row" to={`/index/deviceManagementHome/deviceManagement/switchUseScenarios?useScenariosEn=${this.state.data.useScenariosEn}&useScenariosZh=${this.state.data.useScenariosZh}&otherRemark=${this.state.data.otherRemark}`}>
+                                    <div className="flex align-items-center" style={{border:'none'}}>
+                                        <div className="flex1">
+                                            使用场景
+                                        </div>
+                                        <div>
+                                            <img className="you-jian-tou" src={you_jian_tou_png} alt=""/>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="row-block">
+                                <div className="row">
+                                    <div className="flex align-items-center">
+                                        <div className="flex1">
+                                            待机时间
+                                        </div>
+                                        <div>
+                                            <span className="start-time">{this.state.data.beginTime}<input type="time" onChange={this.startTimeChange.bind(this)} /></span>至<span className="end-time">{this.state.data.endTime}<input type="time" onChange={this.endTimeChange.bind(this)} /></span>
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                            <li className="list-item">
-                                <div className="inner">
-                                    <div className="flex align-items-center">
-                                        <div className="flex1">成员管理</div>
-                                        <div className="text-right">
-                                            <span className="text">{this.state.memberCount}人</span>
-                                            <img className="arrow-right" src={you_jian_tou_png} alt=""/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    ) : <Loading />
+                            </div>
+                        </div>
+                    ) : <Loading />                      
                 }
-                
             </div>
         )
     }

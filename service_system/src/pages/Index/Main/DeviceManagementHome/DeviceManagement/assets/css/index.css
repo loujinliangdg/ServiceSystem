@@ -1,0 +1,99 @@
+.DeviceManagement .deviceManagement-container{
+    background: #F8F8F8;
+    overflow: hidden;
+    font-size: 15px;
+}
+.DeviceManagement .deviceManagement-container .current-device{
+    padding:0 4%;
+    font-size: 15px;
+    margin: 4% 0;
+    color: #9E9E9E;
+    font-weight: 100;
+}
+.DeviceManagement .deviceManagement-container .row-block{
+    margin-bottom: 2.6%;
+}
+.DeviceManagement .deviceManagement-container .row-block .row{
+    display: block;
+    background: #fff;
+    padding: 0 4%;
+}
+.DeviceManagement .deviceManagement-container .row-block .row .flex{
+    padding: 4.1% 0;
+}
+
+/* 第一块 */
+.DeviceManagement .deviceManagement-container .row-block:nth-of-type(1) .row .flex{
+    padding-top:4.5%;
+    padding-bottom:4.5%;
+}
+.DeviceManagement .deviceManagement-container .row-block:nth-of-type(1) .flex1{
+    color: #9E9E9E;
+}
+.DeviceManagement .deviceManagement-container .row-block:nth-of-type(1) .flex1 span{
+    color: #282828;
+}
+.DeviceManagement .deviceManagement-container .row-block:nth-of-type(1) .switch-device-btn{
+    background: #40CC45;
+    font-size: 12px;
+    display: block;
+    width: 45px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    color: #fff;
+    border-radius: 13px;
+}
+@media screen and (max-width:320px){
+    .DeviceManagement .deviceManagement-container .row-block:nth-of-type(1) .switch-device-btn{
+        zoom: 0.9;
+    }
+}
+
+/* 第二块 */
+.DeviceManagement .deviceManagement-container .row-block:nth-of-type(2) .row{
+    padding-right: 0;
+}
+.DeviceManagement .deviceManagement-container .row-block:nth-of-type(2) .row .flex{
+    padding-right: 4.1%;
+    padding-top:4.8%;
+    padding-bottom:4.8%;
+}
+.DeviceManagement .deviceManagement-container .row-block:nth-of-type(2) .row .flex{
+    border-bottom: 1px solid rgba(159,159,159,.12);
+}
+.DeviceManagement .deviceManagement-container .row-block:nth-of-type(2) .you-jian-tou{
+    width: 6px;
+}
+/* 第三块 */
+.DeviceManagement .deviceManagement-container .start-time,
+.DeviceManagement .deviceManagement-container .end-time{
+    width:80px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 30px;
+    background: rgba(247,247,247,1);
+    color:rgba(153,153,153,1);
+    border-radius: 4px;
+    position: relative;
+    /* overflow: hidden; */
+}
+.DeviceManagement .deviceManagement-container .start-time{
+    margin-right: 10px;
+}
+.DeviceManagement .deviceManagement-container .end-time{
+    margin-left: 10px;
+}
+
+.DeviceManagement .deviceManagement-container .start-time input,
+.DeviceManagement .deviceManagement-container .end-time input{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    left:0;
+    top:0;
+    opacity: 0.01;
+    /* visibility: hidden; */
+}

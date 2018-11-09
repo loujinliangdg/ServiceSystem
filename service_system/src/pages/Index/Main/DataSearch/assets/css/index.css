@@ -1,0 +1,170 @@
+.dataSearch-container{
+    font-size: 15px;
+    height: auto;
+}
+.dataSearch-container .green-block{
+    width: 100%;
+    padding-bottom: 23.33%;
+    position: relative;
+    background: #40CC45;
+    overflow: visible;
+}
+/* 选项卡 */
+.dataSearch-container  .current-device-block{
+    position: absolute;
+    background: #fff;
+    left:4%;
+    right:4%;
+    top:6.1%;
+    padding: 7.8% 14.3%;
+    z-index: 2;
+    box-shadow:0 0 14px rgba(69,69,69,0.1);
+    border-radius:5px;
+}
+.dataSearch-container .tabs-block .tabs ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 15%;
+    margin-bottom: 7.5%;
+    text-align: center;
+}
+.dataSearch-container .tabs-block .tabs ul li{
+    display: inline-block;
+    margin: 0 7.5%;
+    position: relative;
+    line-height: 2;
+}
+.dataSearch-container .tabs-block .tabs ul li.active:after{
+    content: "";
+    position: absolute;
+    left:2px;
+    right:2px;
+    bottom:0;
+    height: 4px;
+    background: #40CC45;
+    border-radius: 2px;
+}
+
+/* 上秤人数 肥胖人数 新增粉丝 */
+.dataSearch-container .peoples-block{
+    text-align: center;
+    padding: 0 4%;
+    overflow: block;
+}
+.dataSearch-container .peoples-block > .flex{
+    padding-bottom: 14px;
+}
+.dataSearch-container .peoples-block > .flex > .flex1{
+    border-radius:3px;
+    box-shadow:0 0 14px rgba(69,69,69,0.1);
+}
+.dataSearch-container .peoples-block > .flex > .flex1:nth-child(2){
+    margin: 0 2.9%;
+}
+.dataSearch-container .peoples-block > .flex > .flex1 p{
+    color: #313131;
+    font-size: 14px;
+    margin-top: 1.8em;
+    margin-bottom: 0;
+}
+.dataSearch-container .peoples-block > .flex > .flex1 h2{
+    margin-top: 0.8em;
+    margin-bottom: 0.5em;
+    line-height: 1;
+    font-size: 30px;
+}
+@media screen and (max-width:320px){
+    .dataSearch-container .peoples-block > .flex > .flex1 p{
+        margin-top: 1.5em;
+    }
+    .dataSearch-container .peoples-block > .flex > .flex1 h2{
+        margin-top: 0.6em;
+        margin-bottom: 0.4em;
+        font-size: 26px;
+    }
+}
+/* 折线图 */
+.dataSearch-container .fold-line-block{
+    overflow: hidden;
+}
+.dataSearch-container .fold-line-block .date-block{
+    width: 73.33%;
+    height: 20px;
+    border-radius: 10px;
+    background:rgba(230,230,230,1);
+    opacity:0.41;
+    margin: 10% auto 5%;
+    text-align: center;
+    color: #A5A5A5;
+    font-size: 12px;
+    line-height: 20px;
+}
+.dataSearch-container .fold-line-block .date-block table{
+    height: 100%;
+}
+.dataSearch-container .fold-line-block .date-block table,
+.dataSearch-container .fold-line-block .date-block tr,
+.dataSearch-container .fold-line-block .date-block td{
+    border:0;
+    padding: 0;
+}
+.dataSearch-container .fold-line-block .date-block img{
+    width: 6px;
+}
+.dataSearch-container .fold-line-block .date-block td.text-right img{
+    margin-right: 5px;
+    transform: rotate(180deg);
+}
+.dataSearch-container .fold-line-block .date-block td.text-left img{
+    margin-left: 5px;
+}
+
+
+.dataSearch-container .peoples-block > .flex > .flex1:nth-child(1) h2{color: #40CC45}
+.dataSearch-container .peoples-block > .flex > .flex1:nth-child(2) h2{color: #FFB755}
+.dataSearch-container .peoples-block > .flex > .flex1:nth-child(3) h2{color: #5EA6FF}
+
+.dataSearch-container .peoples-block > .flex > .flex1 > .flex{
+    width: 15px;
+    height: 15px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+.dataSearch-container .peoples-block > .flex > .flex1 > .flex img{
+    max-width: 100%;
+}
+
+.dataSearch-container .chart-block .flex{
+    margin-bottom: 20px;
+    padding: 0 24%;
+}
+.dataSearch-container .chart-block .line{
+    display: inline-block;
+    width: 25px;
+    height: 5px;
+    border-radius: 2.5px;
+}
+.dataSearch-container .chart-block .line.green{
+    background: #40CC45;
+}
+.dataSearch-container .chart-block .line.blue{
+    background: #5EA6FF;
+}
+
+.dataSearch-container .switch-device-btn{
+    background: #40CC45;
+    font-size: 12px;
+    display: block;
+    width: 45px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    color: #fff;
+    border-radius: 13px;
+}
+@media screen and (max-width:320px){
+    .dataSearch-container .switch-device-btn{
+        zoom: 0.9;
+    }
+}

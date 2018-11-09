@@ -1,0 +1,32 @@
+.SwitchDevice .switchDevice-container{
+    background: #F8F8F8;
+    overflow: hidden;
+    font-size: 15px;
+}
+.SwitchDevice .switchDevice-container .other-device,
+.SwitchDevice .switchDevice-container .current-device{
+    padding:0 4%;
+    font-size: 15px;
+    margin: 4% 0;
+    color: #9E9E9E;
+    font-weight: 100;
+}
+
+.SwitchDevice .switchDevice-container .row-block .row{
+    background: #fff;
+    padding: 0 4%;
+}
+.SwitchDevice .switchDevice-container .row-block .row .flex{
+    padding: 4.1% 0;
+}
+
+.SwitchDevice .switchDevice-container .row-block .flex1{
+    color: #9E9E9E;
+}
+.SwitchDevice .switchDevice-container .row-block .flex1 span{
+    color: #282828;
+}
+.SwitchDevice .switchDevice-container .row-block:nth-of-type(2) .row .flex{
+    border-bottom: 1px solid rgba(159,159,159,.12);
+}
+
