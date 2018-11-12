@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-
+import DocumentTitle from '../../../../../../components/DocumentTitle'
 import './assets/css/index.css'
 import req from '../../../../../../assets/js/req'
 import Utils from '../../../../../../components/Util'
@@ -185,6 +185,7 @@ class SwitchUseScenarios extends Component {
     render(){
         return (
             <div className="App SwitchUseScenarios">
+                <DocumentTitle title="切换使用场景"></DocumentTitle>
                 {this.computedRenderContent(this.state.requested,this.state.dataList)}
             </div>
         )

@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-
+import DocumentTitle from '../../../../../../components/DocumentTitle'
 import './assets/css/index.css'
 import req from '../../../../../../assets/js/req'
 import Utils from '../../../../../../components/Util'
@@ -111,6 +111,7 @@ class SwitchMode extends Component {
     render(){
         return (
             <div className="App SwitchMode">
+                <DocumentTitle title="切换机器模式"></DocumentTitle>
                 {this.computedRenderContent(this.state.requested,this.state.modes)}
             </div>
         )

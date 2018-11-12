@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
+import DocumentTitle from '../../../../components/DocumentTitle'
 import './assets/css/index.css'
 import req from '../../../../assets/js/req'
 import Loading from '../../../../components/Loading'
 import NoHaveMessage from '../../../../components/NoHaveMessage'
+
 const qs = require('querystring')
 
 /**
@@ -187,6 +189,7 @@ class ChildType extends Component{
     render(){
         return (
             <div className="ChildType">
+                <DocumentTitle title={this.postType === 'yyzn' ? '运营指南' : '使用教程'}></DocumentTitle>
                 {this.computedRenderContent(this.state.requested,this.state.dataList)}
             </div>
         )

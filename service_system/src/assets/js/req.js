@@ -82,7 +82,15 @@ class Req{
          */
         this['获取成员列表'] = '/api/customerService/memberList'
 
-        this['你大爷'] = '/api/deviceSetInfo/runningState'
+        this['你大爷'] = '/api/deviceSetInfo/runningState' // 测试的一个接口，没鸟用
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1723
+         */
+        this['删除成员'] = '/api/customerService/delMember'
+        /**
+         * 文档地址：
+         */
+        this['标记用户已读提示语'] = '/api/customerService/signIsRead'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');

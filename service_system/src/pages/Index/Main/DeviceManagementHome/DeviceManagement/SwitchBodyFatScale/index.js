@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-
+import DocumentTitle from '../../../../../../components/DocumentTitle'
 import req from '../../../../../../assets/js/req'
 import Utils from '../../../../../../components/Util'
 import './assets/css/index.css'
@@ -77,6 +77,7 @@ class SwitchBodyFatScale extends Component {
     render(){
         return (
             <div className="App SwitchBodyFatScale">
+                <DocumentTitle title="切换体脂秤"></DocumentTitle>
                 <div className="switchBodyFatScale-container">
                     <div className="row-block">
                         {

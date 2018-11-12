@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-
+import DocumentTitle from '../../../../../components/DocumentTitle'
 import './assets/css/index.css'
 import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
@@ -63,6 +63,7 @@ class DeviceManagement extends Component {
     render(){
         return (
             <div className="App myDevice">
+                <DocumentTitle title="我的设备"></DocumentTitle>
                 {
                     this.state.requested ? (
                         <ul className="list">

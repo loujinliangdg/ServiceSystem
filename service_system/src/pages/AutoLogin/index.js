@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import req from '../../assets/js/req'
+import DocumentTitle from '../../components/DocumentTitle'
+
 const qs = require('querystring')
 
 class AutoLogin extends Component {
@@ -29,6 +31,7 @@ class AutoLogin extends Component {
                 localStorage.setItem('deviceId',result.data.deviceArray[0].deviceId);
                 localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
                 localStorage.setItem('bianlaId',result.data.bianlaId);
+                localStorage.setItem('isRead',result.data.isRead);
                 this.props.history.replace('/index');
             }
             // 仅code=4时去登变啦
@@ -57,6 +60,7 @@ class AutoLogin extends Component {
     render() {
         return (
             <div className="App">
+                <DocumentTitle title="自动登陆"></DocumentTitle>
                 <p style={{textAlign:'center'}}>{this.state.autoLoginText}</p>
             </div>
         );

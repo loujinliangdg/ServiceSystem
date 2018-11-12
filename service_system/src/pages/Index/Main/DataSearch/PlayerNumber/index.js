@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-
+import DocumentTitle from '../../../../../components/DocumentTitle'
 import './assets/css/index.css'
 import req from '../../../../../assets/js/req'
 import Util from '../../../../../components/Util'
@@ -99,6 +99,7 @@ class PlayerNumber extends Component{
     render(){
         return (
             <div className="App PlayerNumber">
+                <DocumentTitle title="上秤人数"></DocumentTitle>
                 {
                     this.computedRenderContent(this.state.requested,this.state.dataList)
                 }

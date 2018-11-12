@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-
+import DocumentTitle from '../../../../../../components/DocumentTitle'
 import './assets/css/index.css'
 
 class SwitchDevice extends Component {
@@ -33,6 +33,7 @@ class SwitchDevice extends Component {
     render(){
         return (
             <div className="App SwitchDevice">
+                <DocumentTitle title="切换设备"></DocumentTitle>
                 <div className="switchDevice-container">
                     <h5 className="current-device">当前设备：</h5>
                     <div className="row-block">

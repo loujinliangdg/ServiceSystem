@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
 import req from '../../../../../../assets/js/req'
+
+import DocumentTitle from '../../../../../../components/DocumentTitle'
 import Loading from '../../../../../../components/Loading'
 import NoHaveMessage from '../../../../../../components/NoHaveMessage'
 import './assets/css/index.css'
@@ -65,6 +67,7 @@ class Article extends Component{
     render(){
         return (
             <div className="Article">
+                <DocumentTitle title="文章详情"></DocumentTitle>
                 {this.computedRenderContent(this.state.requested,this.state.article)}
             </div>
         )

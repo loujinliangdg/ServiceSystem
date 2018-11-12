@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
+import DocumentTitle from '../../../../../components/DocumentTitle'
+
 import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
 import NoHaveMessage from '../../../../../components/NoHaveMessage'
@@ -17,7 +19,6 @@ class Article extends Component{
     }
     componentWillMount() {
         this.query = qs.parse(this.props.location.search.slice(1));
-        
     }
     componentDidMount() {
         this.getList(this.query);
@@ -69,6 +70,7 @@ class Article extends Component{
     render(){
         return (
             <div className="Article2">
+                <DocumentTitle title={this.query.childType ? this.query.childType : '成功案例'}></DocumentTitle>
                 {this.computedRenderContent(this.state.requested,this.state.dataList)}
             </div>
         )

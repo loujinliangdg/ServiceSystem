@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-
+import DocumentTitle from '../../../../../components/DocumentTitle'
 import './assets/css/index.css'
 import req from '../../../../../assets/js/req'
 import Util from '../../../../../components/Util'
@@ -108,6 +108,7 @@ class WechatAddNumber extends Component{
     render(){
         return (
             <div className="App wechatAddNumber">
+                <DocumentTitle title="新增粉丝"></DocumentTitle>
                 {
                     this.computedRenderContent(this.state.requested,this.state.dataList)
                 }

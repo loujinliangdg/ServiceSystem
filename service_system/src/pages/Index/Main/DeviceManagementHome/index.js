@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {Link} from 'react-router-dom'
-
+import DocumentTitle from '../../../../components/DocumentTitle'
 import './assets/css/index.css'
 import req from '../../../../assets/js/req'
 import Loading from '../../../../components/Loading'
@@ -50,6 +50,7 @@ class DeviceManagement extends Component {
     render(){
         return (
             <div className="App DeviceManagement">
+                <DocumentTitle title="设备管理"></DocumentTitle>
                 {
                     this.state.requested ? (
                         <ul className="list">

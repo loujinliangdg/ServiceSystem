@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import './assets/css/index.css'
-
+import DocumentTitle from '../../components/DocumentTitle'
 import logo_png from './assets/img/logo.png'
 import shouji_png from './assets/img/shouji.png'
 import shuo_png from './assets/img/shuo.png'
@@ -49,7 +49,8 @@ class Login extends Component {
                 localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
                 localStorage.setItem('bianlaId',result.data.bianlaId);
                 localStorage.setItem('phoneNumber',this.state.bianlaId);
-                //TODO: 登陆成功 去首页
+                localStorage.setItem('isRead',result.data.isRead);
+                //登陆成功 去首页
                 this.props.history.replace('/index');
             }
             //否则当前页面显示由后台返回的提示信息
@@ -93,6 +94,7 @@ class Login extends Component {
     render() {
         return (
             <div className="App login-app">
+                <DocumentTitle title="登陆"></DocumentTitle>
                 <div className="logo"><img src={logo_png} alt="" /></div>
                 <div className="login-bianla-form">
                     <div className="form-group flex align-items-center">

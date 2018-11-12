@@ -1,5 +1,7 @@
 import React ,{Component} from 'react'
 import {Link} from 'react-router-dom'
+import DocumentTitle from '../../../../components/DocumentTitle'
+
 import './assets/css/index.css'
 import you_jian_tou from './assets/img/you-jian-tou02.png'
 import req from '../../../../assets/js/req'
@@ -252,6 +254,7 @@ class DataSearch extends Component{
     render(){
         return (
             <div className="App DataSearch">
+                <DocumentTitle title="数据查询"></DocumentTitle>
                 <div className="dataSearch-container">
                     <div className="green-block"></div>
                     <div className="current-device-block">
