@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{Component,PureComponent} from 'react'
 import req from '../../../../../../assets/js/req'
 
 import DocumentTitle from '../../../../../../components/DocumentTitle'
@@ -7,7 +7,7 @@ import NoHaveMessage from '../../../../../../components/NoHaveMessage'
 import './assets/css/index.css'
 const qs = require('querystring')
 
-class Article extends Component{
+class Article extends PureComponent{
     constructor(props){
         super();
         this.query = {}
@@ -15,9 +15,11 @@ class Article extends Component{
             article:null,//文章
             requested:false,
         }
+        this.bianlaId = window.localStorage.getItem('bianlaId');
     }
     componentWillMount(){
         this.query = qs.parse(this.props.location.search.slice(1));
+        this.query.bianlaId = this.bianlaId;
     }
     componentDidMount() {
         this.getList(this.query);

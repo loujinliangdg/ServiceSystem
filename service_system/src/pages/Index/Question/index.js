@@ -44,7 +44,6 @@ class Question extends Component{
                 )
             })
         }
-        return <div></div>
     }
     /**
      * 获取子分类列表

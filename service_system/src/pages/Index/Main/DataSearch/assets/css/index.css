@@ -90,15 +90,15 @@
 }
 .dataSearch-container .fold-line-block .date-block{
     width: 73.33%;
-    height: 20px;
-    border-radius: 10px;
+    height: 25px;
+    border-radius: 12.5px;
     background:rgba(230,230,230,1);
     opacity:0.41;
     margin: 10% auto 5%;
     text-align: center;
-    color: #A5A5A5;
+    color: #000;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 25px;
 }
 .dataSearch-container .fold-line-block .date-block table{
     height: 100%;
@@ -133,6 +133,18 @@
 }
 .dataSearch-container .peoples-block > .flex > .flex1 > .flex img{
     max-width: 100%;
+}
+.dataSearch-container .chart-block{
+    position: relative;
+}
+.dataSearch-container .chart-block .loading-yayer{
+    position: absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    z-index: 100;
+    background: rgba(255,255,255,.9);
 }
 
 .dataSearch-container .chart-block .flex{

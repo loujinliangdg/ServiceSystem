@@ -18,6 +18,7 @@ class ArticleList extends Component{
             dataList:[], //分类列表
             requested:false,
         }
+        this.bianlaId = window.localStorage.getItem('bianlaId');
     }
     componentDidMount() {
         this.getList();
@@ -44,13 +45,12 @@ class ArticleList extends Component{
                 )
             })
         }
-        return <div></div>
     }
     /**
      * 获取子分类列表
      */
     getList(){
-        req.get('根据子分类获取文章列表',{type:this.props.postType,childType:this.props.childType},(result) =>{
+        req.get('根据子分类获取文章列表',{type:this.props.postType,childType:this.props.childType,bianlaId:this.bianlaId},(result) =>{
             if(result.code === 1){
                 var dataList = result.data.articleList || []
                 this.setState({
@@ -89,7 +89,7 @@ class YYZN extends Component {
             {
                 this.props.dataList.map((item) =>{
                     return (
-                        <Link className="yyzn-item" key={item.id} to={`/index/childType/articleList?type=${this.props.postType}&childType=${item.classifyName}`}>
+                        <Link className="yyzn-item" key={item.id} to={`/index/childType/articleList?type=${this.props.postType}&childType=${window.encodeURIComponent(item.classifyName)}`}>
                             <div className="coverUrl">
                                 <div className="inner" style={{background:`url(${item.coverUrl}) no-repeat center center`,backgroundSize:'cover'}}></div>
                             </div>
@@ -134,6 +134,7 @@ class ChildType extends Component{
             requested:false,
         }
         this.postType = ''; //上级菜单名字
+        this.bianlaId = window.localStorage.getItem('bianlaId');
     }
     componentWillMount() {
         var query = qs.parse(this.props.location.search.slice(1));
@@ -160,13 +161,12 @@ class ChildType extends Component{
                 return <SYJC dataList={this.state.dataList} postType={this.postType}/>
             }
         }
-        return <div></div>
     }
     /**
      * 获取子分类列表
      */
     getList(){
-        req.get('根据文章类型获取子分类',{type:this.postType},(result) =>{
+        req.get('根据文章类型获取子分类',{type:this.postType,bianlaId:this.bianlaId},(result) =>{
             if(result.code === 1){
                 var dataList = result.data.customerServiceClassifyList || []
                 this.setState({

@@ -91,6 +91,8 @@ class Req{
          * 文档地址：
          */
         this['标记用户已读提示语'] = '/api/customerService/signIsRead'
+
+        this['根据文章类型查询是否有未读文章'] = '/api/customerService/getIsReadByPostType'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');

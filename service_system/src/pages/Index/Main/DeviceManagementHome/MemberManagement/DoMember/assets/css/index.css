@@ -1,0 +1,174 @@
+.DoMember{
+    font-size: 15px;
+    background: #f8f8f8;
+}
+.DoMember .block .flex{
+    background: #fff;
+    padding-left:4%;
+    box-sizing: border-box;
+}
+.DoMember .block .flex .label{
+    width: 22%;
+    color: #1F1F1F;
+}
+.DoMember .block .flex .label + .flex1 input{
+    width: 100%;
+    border: 0;
+    padding: 1% 0;
+    font-size: 15px;
+}
+.DoMember .block .flex .label + .flex1{
+    padding:4% 4.16% 4% 0;
+}
+.DoMember .block:first-child .flex:first-child .label + .flex1{
+    border-bottom: 1px solid rgba(159,159,159,.24);
+}
+
+.DoMember .block-title .flex{
+    background: #F8F8F8;
+    padding: 6% 4% 3% 4%;
+    color: #1F1F1F;
+}
+
+
+/* 单选钮 */
+.DoMember .block .flex {
+    position: relative;
+}
+.DoMember .block .flex label{
+    position: relative;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    margin-right: 4%;
+}
+.DoMember .block .flex label:before{
+    content: "";
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(153, 153, 153, 1);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.DoMember .block .flex label.on:before{
+    border-color: rgba(64,204,69,1);
+}
+.DoMember .block .flex label.on:after{
+    content: "";
+    position: absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(64,204,69,1);
+    border-radius: 50%;
+    box-sizing: border-box;
+    transform: scale(0.7);
+}
+
+.DoMember .block .flex label input[type="radio"]{
+    visibility: hidden;
+}
+.DoMember .block .flex .warning{
+    position: absolute;
+    line-height: 1;
+    /* display: none; */
+}
+.DoMember .block .flex .warning img{
+    width: 12px;
+    vertical-align: middle;
+}
+.DoMember .block .flex .warning span{
+    vertical-align: middle;
+    font-size: 12px;
+    color: #FFB755;
+}
+
+.DoMember .block.device-list .flex{
+    padding: 4% 4%;
+    position: relative;
+}
+.DoMember .block.device-list .flex:after{
+    content: "";
+    position: absolute;
+    left:4%;
+    bottom:0;
+    right:0;
+    height: 1px;
+    background:rgba(159,159,159,1);
+    opacity:0.24;
+}
+.DoMember .block.device-list .flex:last-child:after{height: 0;}
+
+.DoMember .block.device-list .switch{
+    width: 50px;
+    height: 25px;
+    color: #EDEDED;
+    border:2px solid currentColor;
+    border-radius: 25px;
+    position: relative;
+}
+.DoMember .block.device-list .switch .green-circle{
+    position: absolute;
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 1px currentColor;
+}
+.DoMember .block.device-list .switch.on{
+    color: #40CC45;
+}
+.DoMember .block.device-list .switch.on .green-circle{
+    left:50%;
+}
+
+/* 上传微信二维码 */
+.DoMember .block.upload-qrCode{
+    margin-top: 3%;
+    padding: 4%;
+    background: #fff;
+    overflow: hidden;
+}
+.DoMember .block.upload-qrCode .qrCode{
+    width: 38.5%;
+    padding-bottom: 38.5%;
+    margin: auto;
+    margin-bottom: -38.5%;
+}
+.DoMember .block.upload-qrCode .qrCode img{
+    width: 100%;
+}
+
+.DoMember .block.upload-qrCode p:first-child{
+    color: #3C3C3C;
+    margin-top: 0;
+    margin-bottom: 8.32%;
+}
+.DoMember .block.upload-qrCode p:nth-of-type(2){
+    font-size: 12px;
+    color: #C0C0C0;
+    margin-top: 8.32%;
+    margin-bottom: 4.16%;
+}
+.DoMember .block.upload-qrCode button{
+    display: block;
+    width: 80%;
+    height: 36px;
+    color: #fff;
+    background: #40CC45;
+    border-radius: 18px;
+    border:0;
+    margin: auto;
+    font-size: 16px;
+}
+@media screen and(min-width:360px){
+    .DoMember .block.upload-qrCode button{
+        height: 40px;
+        border-radius: 20px;
+    }
+}

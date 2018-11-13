@@ -9,6 +9,7 @@ import App from './App';
 import Login from './pages/Login'
 import ForgetPassword from './pages/ForgetPassword'
 import AutoLogin from './pages/AutoLogin'
+
 import Index from './pages/Index'
 import ChildType from './pages/Index/Main/ChildType'
 import ArticleList from './pages/Index/Main/ChildType/ArticleList'
@@ -17,6 +18,7 @@ import Article from './pages/Index/Main/ChildType/ArticleList/Article'
 import DeviceManagementHome from './pages/Index/Main/DeviceManagementHome'
 import DeviceManagement from './pages/Index/Main/DeviceManagementHome/DeviceManagement'
 import MemberManagement from './pages/Index/Main/DeviceManagementHome/MemberManagement'
+import DoMember from './pages/Index/Main/DeviceManagementHome/MemberManagement/DoMember'
 import MyDevice from './pages/Index/Main/DeviceManagementHome/MyDevice'
 import SwitchDevice from './pages/Index/Main/DeviceManagementHome/DeviceManagement/SwitchDevice'
 import SwitchBodyFatScale from './pages/Index/Main/DeviceManagementHome/DeviceManagement/SwitchBodyFatScale'
@@ -51,6 +53,7 @@ ReactDOM.render(
         <Route path="/index/deviceManagementHome/deviceManagement/switchUseScenarios"  component={SwitchUseScenarios} chineseName="切换使用场景"></Route>
 
         <Route path="/index/deviceManagementHome/memberManagement" exact={true}  component={MemberManagement} chineseName="成员管理"></Route>
+        <Route path="/index/deviceManagementHome/memberManagement/doMember"  component={DoMember} chineseName="添加成员"></Route>
         <Route path="/index/deviceManagementHome/myDevice" exact={true}  component={MyDevice} chineseName="我的设备"></Route>
     </Switch>
 </HashRouter> , document.getElementById('root'));

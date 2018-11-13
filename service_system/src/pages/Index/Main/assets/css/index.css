@@ -38,7 +38,18 @@
     line-height: 1;
     margin: auto;
 }
+/* 红点 */
+.Main .main-inner .m-item .red-circle-dot{
+    position: absolute;
+    right:2px;
+    top:2px;
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+}
 
+/* 新手引导 */
 .Main .main-inner .m-item .guide{
     position: absolute;
     left:0;

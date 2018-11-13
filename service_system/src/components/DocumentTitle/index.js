@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
+import React,{Component,PureComponent} from 'react';
 
-class DocumentTitle extends Component{
+class DocumentTitle extends PureComponent{
     componentWillMount(){
         document.title = this.props.title;
     }

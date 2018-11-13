@@ -11,6 +11,10 @@ import Loading from '../../../../components/Loading'
 import NoHaveMessage from '../../../../components/NoHaveMessage'
 import you_jian_tou_png from '../../Question/assets/img/you_jian_tou_2x.png'
 
+// recharts 中有用到recharts，但是像iso 8.3不支持，所以在这写个Polyfill
+Number.isFinite = Number.isFinite || function(value) {
+    return typeof value === "number" && isFinite(value);
+}
 
 function addDate(date, days) {
     if (days == undefined || days == '') {
@@ -81,9 +85,9 @@ class DataSearch extends Component{
         this.getDatas(this.state.beginDate,this.state.endDate);
     }
     componentWillUnmount(){
-        this.setState = (state,callback)=>{
-            return;
-        };
+        // this.setState = (state,callback)=>{
+        //     return;
+        // };
     }
     // 选项卡点击
     tabClick(tabIndex){
@@ -237,7 +241,10 @@ class DataSearch extends Component{
             // TODO:这里为了方便调试，加了假数据，回头得去掉
             // item.wechatAddNumber = parseInt(Math.random() * 20);
             // item.playerNumber = parseInt(Math.random() * 30);
-
+            var oldCountData = item.countDate;
+            oldCountData = oldCountData.split('-');
+            oldCountData = oldCountData[1]+'/'+oldCountData[2]
+            item.showCountDate = oldCountData;
             item.wechatAddNumber = 0;
 
             wechataddNumberList.forEach((item2,index) =>{
@@ -247,6 +254,7 @@ class DataSearch extends Component{
             })
             tempData.push(item);
         })
+        // alert(JSON.stringify(tempData))
         this.setState({
             data:tempData
         })
@@ -319,24 +327,22 @@ class DataSearch extends Component{
                                 </tbody>
                             </table>
                         </div>
-                        {
-                            this.state.requested ? (
-                                <div className="chart-block">
-                                    <LineChart width={window.innerWidth} height={window.innerWidth * 0.64} data={this.state.data} margin={{ top: 10, right: 20, left: -20, bottom: 5 }}>
-                                        <Line type="monotone" dataKey="playerNumber" stroke="#40CC45" />
-                                        <Line type="monotone" dataKey="wechatAddNumber" stroke="#5EA6FF" />
-                                        <XAxis dataKey="countDate" fontSize='12px' />
-                                        <YAxis />
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                    </LineChart>
-                                    <div className="flex align-items-center text-center">
-                                        <div className="flex1"><span style={{verticalAlign:'middle',marginRight:'5px',fontSize:'12px',color:'#313131'}}>上秤</span><span className="line green" style={{verticalAlign:'middle'}}></span></div>
-                                        <div className="flex1"><span style={{verticalAlign:'middle',marginRight:'5px',fontSize:'12px',color:'#313131'}}>加粉</span><span className="line blue" style={{verticalAlign:'middle'}}></span></div>
-                                    </div>
-                                </div>
-                            ) : <Loading />
-                        }
-                        
+                        <div className="chart-block">
+                            <div className="loading-yayer" style={{display:this.state.requested ? 'none' : 'block'}}>
+                                <Loading />
+                            </div>
+                            <LineChart width={window.innerWidth} height={window.innerWidth * 0.64} data={this.state.data} margin={{ top: 10, right: 20, left: -20, bottom: 5 }}>
+                                <Line type="monotone" dataKey="playerNumber" stroke="#40CC45" />
+                                <Line type="monotone" dataKey="wechatAddNumber" stroke="#5EA6FF" />
+                                <XAxis dataKey="showCountDate" fontSize='12px' />
+                                <YAxis />
+                                <CartesianGrid strokeDasharray="3 3" />
+                            </LineChart>
+                            <div className="flex align-items-center text-center">
+                                <div className="flex1"><span style={{verticalAlign:'middle',marginRight:'5px',fontSize:'12px',color:'#313131'}}>上秤</span><span className="line green" style={{verticalAlign:'middle'}}></span></div>
+                                <div className="flex1"><span style={{verticalAlign:'middle',marginRight:'5px',fontSize:'12px',color:'#313131'}}>加粉</span><span className="line blue" style={{verticalAlign:'middle'}}></span></div>
+                            </div>
+                        </div>   
                     </div>
                 </div>
             </div>

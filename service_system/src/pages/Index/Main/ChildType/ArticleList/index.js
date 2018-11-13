@@ -16,9 +16,11 @@ class Article extends Component{
             dataList:[], //分类列表
             requested:false,
         }
+        this.bianlaId = window.localStorage.getItem('bianlaId');
     }
     componentWillMount() {
         this.query = qs.parse(this.props.location.search.slice(1));
+        this.query.bianlaId = this.bianlaId;
     }
     componentDidMount() {
         this.getList(this.query);
@@ -65,7 +67,6 @@ class Article extends Component{
                 )
             })
         }
-        return <div></div>
     }
     render(){
         return (

@@ -23,9 +23,15 @@ class Main extends Component{
         this.state = {
             maskIndex:0,
             zIndex:102,
-            isRead:window.localStorage.getItem('isRead')
+            isRead:window.localStorage.getItem('isRead'),
+            yyzn_isRead:true,
+            syjc_isRead:true,
+            cgal_isRead:true,
         }
         this.bianlaId = window.localStorage.getItem('bianlaId');
+    }
+    componentDidMount(){
+        this.getPostTypeIsRead();
     }
     maskTouchMove(event){
         event.preventDefault();
@@ -40,7 +46,6 @@ class Main extends Component{
         }
         // 完成
         else{
-            // getTODO: 请求接口
             req.get('标记用户已读提示语',{bianlaId:this.bianlaId},(result) =>{
                 if(result.code == 1){
                     this.setState({
@@ -54,6 +59,19 @@ class Main extends Component{
             })
         }
     }
+    getPostTypeIsRead(){
+        ['yyzn','syjc','cgal'].forEach((item,index) =>{
+            req.get('根据文章类型查询是否有未读文章',{postType:item,bianlaId:this.bianlaId},(result) =>{
+                if(result.code === 1){
+                    var obj = {};
+                    obj[item+'_isRead'] = result.data.isRead;
+                    this.setState(obj)
+                }
+            },(error) =>{
+                Util.Toast(error.toString())
+            })
+        })
+    }
     render(){
         return (
             <div className="Main">
@@ -62,13 +80,16 @@ class Main extends Component{
                         <Link className="m-item" to="/index/childType?postType=yyzn">
                             <div>
                                 <img className="m-icon" src={yyzn_png} alt=""/>
+                                <div className="red-circle-dot" style={{display:!this.state.yyzn_isRead ? 'block' : 'none'}}>
+                                    {/* 未读显示，已读隐藏 */}
+                                </div>
                                 {/* 新手引导 */}
                                 <div className="guide" onTouchMove={this.maskTouchMove.bind(this)} onClick={this.nextClick.bind(this)} style={{zIndex:(this.state.maskIndex === 0 && this.state.isRead !== 'true') ? this.state.zIndex : -1}}>
                                     <img className="m-icon" src={yyzn_png} alt=""/>
                                     <img className="circle-line" src={circle_line_png} alt=""/>
                                     <img className="jiantou zuojiantou" src={zuo_jian_tou_png} alt=""/>
                                     <div className="text-box" style={{width:window.innerWidth + 'px'}}>
-                                        <p>这位引航员引导我们通过了危险的暗礁区</p>
+                                        <p>学习小卫运营技巧，尽在运营指南</p>
                                         <div className="next">
                                             <a href="javascript:;">下一步</a>
                                         </div>
@@ -84,13 +105,16 @@ class Main extends Component{
                         <Link className="m-item" to="/index/childType?postType=syjc">
                             <div>
                                 <img className="m-icon" src={syjc_png} alt=""/>
+                                <div className="red-circle-dot" style={{display:!this.state.syjc_isRead ? 'block' : 'none'}}>
+                                    {/* 未读显示，已读隐藏 */}
+                                </div>
                                 {/* 新手引导 */}
                                 <div className="guide" onTouchMove={this.maskTouchMove.bind(this)} onClick={this.nextClick.bind(this)} style={{zIndex:(this.state.maskIndex === 1 && this.state.isRead !== 'true') ? this.state.zIndex : -1}}>
                                     <img className="m-icon" src={syjc_png} alt=""/>
                                     <img className="circle-line" src={circle_line_png} alt=""/>
                                     <img className="jiantou youjiantou" src={zuo_jian_tou_png} alt=""/>
                                     <div className="text-box" style={{width:window.innerWidth + 'px'}}>
-                                        <p>这位引航员引导我们通过了危险的暗礁区</p>
+                                        <p>快速了解小卫功能介绍，查看使用教程</p>
                                         <div className="next">
                                             <a href="javascript:;">下一步</a>
                                         </div>
@@ -108,7 +132,7 @@ class Main extends Component{
                                     <img className="circle-line" src={circle_line_png} alt=""/>
                                     <img className="jiantou zuojiantou" src={zuo_jian_tou_png} alt=""/>
                                     <div className="text-box" style={{width:window.innerWidth + 'px'}}>
-                                        <p>这位引航员引导我们通过了危险的暗礁区</p>
+                                        <p>设备管理移到这里了，快去试试吧</p>
                                         <div className="next">
                                             <a href="javascript:;">完成</a>
                                         </div>
@@ -118,7 +142,12 @@ class Main extends Component{
                             <p>设备管理</p>
                         </Link>
                         <Link className="m-item" to="/index/childType/articleList?type=cgal">
-                            <div><img className="m-icon" src={cgal_png} alt=""/></div>
+                            <div>
+                                <img className="m-icon" src={cgal_png} alt=""/>
+                                <div className="red-circle-dot" style={{display:!this.state.cgal_isRead ? 'block' : 'none'}}>
+                                    {/* 未读显示，已读隐藏 */}
+                                </div>
+                            </div>
                             <p>成功案例</p>
                         </Link>
                         <a className="m-item" href="https://weidian.com/?userid=1374903480&p=iphone&wfr=wxBuyerShare">

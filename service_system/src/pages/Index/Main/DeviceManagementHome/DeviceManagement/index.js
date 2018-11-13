@@ -56,7 +56,7 @@ class DeviceManagement extends Component {
         this.state.data.endTime = event.target.value;
         this.setState({
             data:this.state.data
-        })
+        }) 
     }
     render(){
         return (

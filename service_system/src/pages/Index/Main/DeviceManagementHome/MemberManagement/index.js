@@ -64,7 +64,6 @@ class DeviceManagement extends Component {
                 }
 
                 this.state.dataList.push(oneDevice);
-                
                 this.setState({
                     dataList:this.state.dataList,
                     requested:true,
@@ -80,6 +79,12 @@ class DeviceManagement extends Component {
                 requested:true,
             })
         })
+    }
+    userClick(event){
+        if(event.target.className === 'delete-user'){
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
     pageTouchStart(event){
         if(event.target.className === 'delete-user'){
@@ -237,11 +242,16 @@ class DeviceManagement extends Component {
                                                         user.deviceId = device.deviceId;
                                                         user.deviceNo = device.deviceNo;
                                                         return (
+                                                            // 成员
                                                             <div className="user-item" key={user.phoneNumber}>
-                                                                <div className="user-item-inner" 
+                                                                <Link 
+                                                                    className="user-item-inner" 
+                                                                    to={`/index/deviceManagementHome/memberManagement/doMember?deviceId=${user.deviceId}&deviceNo=${user.deviceNo}`}
                                                                     onTouchStart={this.userItemTouchStart.bind(this)} 
                                                                     onTouchMove={this.userItemTouchMove.bind(this)} 
-                                                                    onTouchEnd={this.userItemTouchEnd.bind(this)}>
+                                                                    onTouchEnd={this.userItemTouchEnd.bind(this)}
+                                                                    onClick={this.userClick.bind(this)}
+                                                                    >
                                                                     <div className="flex align-items-center">
                                                                         <div className="flex1">
                                                                             {user.username}（{user.phoneNumber}）{user.isMain ? <span style={{fontSize:'12px',color:'#fff',background:'orange',padding:'1px 4px',borderRadius:'2px'}}>机主</span> : ''}
@@ -255,7 +265,7 @@ class DeviceManagement extends Component {
                                                                         </div>
                                                                     </div>
                                                                     <button className="delete-user" onClick={this.deleteUser.bind(this,user)}>删除</button>
-                                                                </div>
+                                                                </Link>
                                                             </div>
                                                         )
                                                     })
@@ -266,7 +276,7 @@ class DeviceManagement extends Component {
                                 })
                             }
                             <div className="bottom">
-                                <Link className="enter" to="javascript:;">添加成员</Link>
+                                <Link className="enter" to="/index/deviceManagementHome/memberManagement/doMember">添加成员</Link>
                             </div>
                         </div>
                     ) : <Loading />
