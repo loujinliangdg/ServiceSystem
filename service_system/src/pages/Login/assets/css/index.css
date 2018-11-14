@@ -31,6 +31,11 @@
     font-size:13px; /*px*/
     color: #40CC45;
 }
+.login-app{
+    background: #fff;
+    min-height: 100vh;
+    overflow: hidden;
+}
 .login-app .disabled{background:#d2f3d4;}
 
 .login-app .tishi{

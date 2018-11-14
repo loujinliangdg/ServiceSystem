@@ -17,6 +17,9 @@
     padding: 1% 0;
     font-size: 15px;
 }
+.DoMember .block .flex .label + .flex1 input:disabled{
+    background: transparent;
+}
 .DoMember .block .flex .label + .flex1{
     padding:4% 4.16% 4% 0;
 }
@@ -135,10 +138,11 @@
     overflow: hidden;
 }
 .DoMember .block.upload-qrCode .qrCode{
-    width: 38.5%;
-    padding-bottom: 38.5%;
+    width: 175px;
+    height: 175px;
+    background: #f5f5f5;
+    overflow: hidden;
     margin: auto;
-    margin-bottom: -38.5%;
 }
 .DoMember .block.upload-qrCode .qrCode img{
     width: 100%;
@@ -165,6 +169,7 @@
     border:0;
     margin: auto;
     font-size: 16px;
+    user-select: none;
 }
 @media screen and(min-width:360px){
     .DoMember .block.upload-qrCode button{

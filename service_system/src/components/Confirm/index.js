@@ -45,7 +45,6 @@ class Confirm extends Component{
         }
     }
     componentDidMount(){
-        console.log(this.props)
     }
     pageTouchMove(event){
         event.preventDefault();

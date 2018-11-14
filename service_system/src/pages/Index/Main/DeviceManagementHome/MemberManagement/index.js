@@ -68,6 +68,7 @@ class DeviceManagement extends Component {
                     dataList:this.state.dataList,
                     requested:true,
                 })
+                window.localStorage.setItem('memberList',JSON.stringify(this.state.dataList));
             }
             else{
                 this.setState({
@@ -246,7 +247,7 @@ class DeviceManagement extends Component {
                                                             <div className="user-item" key={user.phoneNumber}>
                                                                 <Link 
                                                                     className="user-item-inner" 
-                                                                    to={`/index/deviceManagementHome/memberManagement/doMember?deviceId=${user.deviceId}&deviceNo=${user.deviceNo}`}
+                                                                    to={`/index/deviceManagementHome/memberManagement/doMember?deviceId=${user.deviceId}&deviceNo=${user.deviceNo}&id=${user.id}`}
                                                                     onTouchStart={this.userItemTouchStart.bind(this)} 
                                                                     onTouchMove={this.userItemTouchMove.bind(this)} 
                                                                     onTouchEnd={this.userItemTouchEnd.bind(this)}

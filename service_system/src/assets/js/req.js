@@ -93,6 +93,16 @@ class Req{
         this['标记用户已读提示语'] = '/api/customerService/signIsRead'
 
         this['根据文章类型查询是否有未读文章'] = '/api/customerService/getIsReadByPostType'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1722
+         */
+        this['添加成员'] = this['新增成员'] = '/api/customerService/addMember'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1725
+         */
+        this['编辑成员'] = this['更新成员'] = '/api/customerService/updateMember'
+
+        this['获取七牛云token'] = '/api/deviceSetInfo/getNewUpToken'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');
