@@ -17,6 +17,10 @@ body {
   width: 100%;
   overflow-x: hidden;
 }
+.App{
+  min-height: 100vh;
+  background: #fff;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

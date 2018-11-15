@@ -10,7 +10,7 @@ import upQiNiu from '../../../../../../assets/js/up_qiniu';
 const qs = require('querystring');
 
 
-const MAX_MEMBER = 2; //最大接单数
+const MAX_MEMBER = 12; //最大接单数
 /**
  * 
  * @param {Array} deviceUserList 单台设备的成员列表
@@ -193,8 +193,7 @@ class DoMember extends Component{
     // 设备选择变动 只有添加成员时才有这个事件
     checkeDevice(event){
         var checkeDeviceNo = event.currentTarget.getAttribute('data-device-no');
-        // TODO:这里会好像会有几台设备响应多少次，回头得查查什么原因
-        console.log(checkeDeviceNo)
+
         if(checkeDeviceNo){
             this.setState({
                 memberList:this.state.memberList.map((item) =>{

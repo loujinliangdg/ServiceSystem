@@ -188,7 +188,7 @@ class ChildType extends Component{
     
     render(){
         return (
-            <div className="ChildType">
+            <div className="App ChildType" style={{paddingTop:'1px'}}>
                 <DocumentTitle title={this.postType === 'yyzn' ? '运营指南' : '使用教程'}></DocumentTitle>
                 {this.computedRenderContent(this.state.requested,this.state.dataList)}
             </div>

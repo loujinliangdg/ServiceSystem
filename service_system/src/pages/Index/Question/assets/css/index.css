@@ -25,7 +25,19 @@
     font-size:15px;
     color:#424242;
     margin: 0;
+    position: relative;
+    text-indent: 0.6em;
 }
+.Question .q-list .head h3::before{
+    content: "";
+    position: absolute;
+    left:0;
+    top:1px;
+    bottom:1px;
+    width:3px;
+    background: #40CC45;
+}
+
 .Question .q-list .head a{
     font-size:14px;
     color:#B5B5B5;

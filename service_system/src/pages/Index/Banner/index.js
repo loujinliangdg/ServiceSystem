@@ -64,7 +64,7 @@ class Banner extends Component{
                                 <div className='swiper-wrapper'>
                                     {
                                         this.state.dataList.map((item) =>{
-                                            return <div className='swiper-slide' key={item.id} style={{maxWidth:'100%'}}><img style={{maxWidth:'100%'}} src={item.bannerPicture} alt=""/></div>
+                                            return <div className='swiper-slide' key={item.id} style={{maxWidth:'100%'}}><a href={item.bannerUrl}><img style={{maxWidth:'100%'}} src={item.bannerPicture} alt=""/></a></div>
                                         })
                                     }
                                 </div>

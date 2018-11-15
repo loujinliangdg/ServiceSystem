@@ -8,3 +8,34 @@
 .Article img{
     max-width: 100% !important;
 }
+.Article .useful-and-useless{
+    text-align: center;
+    border-top:1px solid rgba(0,0,0,0.03);
+    padding-top: 20px;
+}
+.Article .useful-and-useless .flex{
+    display: inline-flex;
+    width: 60px;
+    height: 30px;
+    border-radius: 30px;
+    border:1px solid rgba(204, 204, 204, 1);
+    background: transparent;
+    color:#CCCCCC;
+    font-size: 0;
+}
+.Article .useful-and-useless .flex span{
+    font-size: 12px;
+}
+.Article .useful-and-useless .flex svg path{
+    fill: currentColor;
+}
+.Article .useful-and-useless .flex:first-child{
+    margin-right: 10px;
+}
+.Article .useful-and-useless .flex:last-child{
+    margin-left: 10px;
+}
+.Article .useful-and-useless .flex.on{
+    color:#40CC45;
+    border-color: currentColor;
+}

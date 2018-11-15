@@ -103,6 +103,14 @@ class Req{
         this['编辑成员'] = this['更新成员'] = '/api/customerService/updateMember'
 
         this['获取七牛云token'] = '/api/deviceSetInfo/getNewUpToken'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1706
+         */
+        this['有用数量统计'] = '/api/customerService/usefulStatistical'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1707
+         */
+        this['无用数量统计'] = '/api/customerService/uselessStatistical'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');

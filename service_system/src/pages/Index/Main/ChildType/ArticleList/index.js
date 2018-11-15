@@ -70,7 +70,7 @@ class Article extends Component{
     }
     render(){
         return (
-            <div className="Article2">
+            <div className="App Article2" style={{paddingTop:'1px'}}>
                 <DocumentTitle title={this.query.childType ? this.query.childType : '成功案例'}></DocumentTitle>
                 {this.computedRenderContent(this.state.requested,this.state.dataList)}
             </div>
