@@ -118,11 +118,22 @@ class DoMember extends Component{
     }
     // 手机号变动
     phoneNumberChange(event){
-        this.setRealValue('phoneNumber',event.target.value);
+        var value = event.target.value;
+        if(value.length == 1 && value != 1){
+            value = 1;
+        }
+        if(value.length > 11){
+            value = value.slice(0,11);
+        }
+        this.setRealValue('phoneNumber',value);
     }
     // 备注变动
     usernameChange(event){
-        this.setRealValue('userName',event.target.value);
+        var value = event.target.value;
+        if(value.length > 5){
+            value = value.slice(0,5);
+        }
+        this.setRealValue('userName',value);
     }
     // 接单状态变动
     switchClick(event){
@@ -158,11 +169,11 @@ class DoMember extends Component{
                             // 是否未选中该设备
                             var isNotChecked = !item.isChecked;
                             if(isNotChecked){
-                                Util.Toast('开启接单前请先选中该设备')
+                                Util.Toast('开启接单前请先选中该设备',900)
                             }
                             // 如果编辑成员时，这台设备接单人员已达上限，但此时这个人处于未接单状态 则不能让他开启
                             else if(this.getOneDeviceOrderTakingCount(deviceUserList) >= MAX_MEMBER && willAddMember.orderTakingSwitch == 0) { //eslint-disable-line
-                                
+                                Util.Toast('该设备接单人数已达上限',900)
                             }
                             else{
                                 willAddMember.orderTakingSwitch = Number(!parseInt(willAddMember.orderTakingSwitch));
@@ -317,15 +328,28 @@ class DoMember extends Component{
             params = {
                 nickName:this.state.add.nickName,
                 phoneNumber:this.state.add.phoneNumber,
+                switcherStatus:this.state.add.switcherStatus,
                 userId:this.bianlaId,
                 originQrCode:this.state.add.originQrCode === default_qrCode_png ? null : this.state.add.originQrCode
             }
-            this.state.memberList.forEach((item) =>{
-                if(item.isChecked){
-                    params.deviceId = item.deviceId;
-                    params.switcherStatus = item.switcherStatus;
+            // 获取选中的设备id
+            this.memberList.forEach((device) =>{
+                if(device.isChecked){
+                    params.deviceId = device.deviceId;
                 }
             })
+
+            if(params.phoneNumber.length < 1){
+                Util.Toast('请输入手机号码',900);
+                return;
+            }
+            else if(params.phoneNumber.length < 11){
+                Util.Toast('请输入完整的手机号码',900);
+                return;
+            } else if(!params.deviceId){
+                Util.Toast('请绑定设备号',900);
+                return;
+            }
             api_name = '新增成员';
         }
         if(api_name && params){
@@ -384,13 +408,13 @@ class DoMember extends Component{
                     <div className="flex align-items-center">
                         <div className="label">手机号：</div>
                         <div className="flex1">
-                            <input className="phoneNumber" onChange={this.phoneNumberChange.bind(this)} type="text" placeholder="请输入手机号码" value={this.getRealValue('phoneNumber')} disabled={this.isAddMember ? false : true}/>
+                            <input className="phoneNumber" onChange={this.phoneNumberChange.bind(this)} type="tel" placeholder="请输入手机号码" value={this.getRealValue('phoneNumber')} disabled={this.isAddMember ? false : true}/>
                         </div>
                     </div>
                     <div className="flex align-items-center">
                         <div className="label">备注：</div>
                         <div className="flex1">
-                            <input className="username" onChange={this.usernameChange.bind(this)} type="text" placeholder="备注姓名信息" value={this.getRealValue('userName')} disabled={this.isAddMember ? false : true} />
+                            <input className="username" onChange={this.usernameChange.bind(this)} type="text" placeholder="备注姓名信息(最长5位)" value={this.getRealValue('userName')} disabled={this.isAddMember ? false : true} />
                         </div>
                     </div>
                 </div>
