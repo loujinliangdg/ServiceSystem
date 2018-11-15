@@ -39,15 +39,17 @@ class OneDevice extends Component{
     componentDidUpdate(){
         
     }
+    checkeDevice(event){
+        event.stopPropagation();
+        console.log(event.target)
+    }
     // 获取一台设备的接单人数
     render(){
         return (
             <div className="flex align-items-center">
                 <label 
-                    className={this.props.device.isChecked ? 'on' : ''} 
-                    data-device-no={this.props.device.deviceNo} 
-                    onClick={this.props.checkeDevice}>
-                    <input name="allMode" type="radio" />
+                    className={this.props.device.isChecked ? 'on' : ''} >
+                    <input data-device-no={this.props.device.deviceNo} onClick={this.props.checkeDevice} name="allMode" type="radio" style={{position:'absolute',left:'-100px',zIndex:'-1'}} />
                 </label>
                 <div className="flex1">
                     <span>{this.props.device.deviceNo}</span>
@@ -59,7 +61,7 @@ class OneDevice extends Component{
                 </div>
                 <div 
                     className={`switch ${
-                                    (this.props.device.user ? this.props.device.user.orderTakingSwitch : this.props.device.orderTakingSwitch) == 1
+                                    (this.props.device.user ? this.props.device.user.orderTakingSwitch : (this.props.device.deviceUserList[this.props.device.deviceUserList.length -1 ].orderTakingSwitch)) == 1 //eslint-disable-line
                                     ? 'on' 
                                     : ''}`
                                 }
@@ -88,13 +90,13 @@ class DoMember extends Component{
             originQrCode:default_qrCode_png,
         }
         this.state = {
-            memberList:this.memberList.map((item) =>{item.isChecked = false;item.orderTakingSwitch = add.orderTakingSwitch;return item}),
+            memberList:this.memberList.map((item) =>{item.isChecked = false;item.deviceUserList.push(JSON.parse(JSON.stringify(add)));return item}),
             device:{deviceUserList:[],user:{}},
             add:add
         }
         this.isAddMember = true;
         this.bianlaId = window.localStorage.getItem('bianlaId');
-
+        console.log(this.state.memberList)
         this.getOneDeviceOrderTakingCount = getOneDeviceOrderTakingCount
     }
     componentWillMount(){
@@ -105,8 +107,8 @@ class DoMember extends Component{
     componentDidMount(){
         // 编辑成员
         if(!this.isAddMember){
-            var device = this.state.memberList.filter((device) => device.deviceId == this.query.deviceId )[0];
-            device.user = device.deviceUserList.filter((item) => item.id == this.query.id)[0]
+            var device = this.state.memberList.filter((device) => device.deviceId == this.query.deviceId )[0]; //eslint-disable-line
+            device.user = device.deviceUserList.filter((item) => item.id == this.query.id)[0]                   //eslint-disable-line
             device.isChecked = true;
 
             this.setState({
@@ -126,17 +128,17 @@ class DoMember extends Component{
     switchClick(event){
         var target = event.target;
         var currentTarget = event.currentTarget;
-
-        if(target == currentTarget){
+        // console.log(currentTarget)
+        if(target === currentTarget){
             // 编辑成员时 切换接单状态
             if(!this.isAddMember){
                 // 如果编辑成员时，这台设备接单人员已达上限，但此时这个人处于未接单状态 则不能让他开启
-                if(this.getOneDeviceOrderTakingCount(this.state.device.deviceUserList) >= MAX_MEMBER && this.state.device.user.orderTakingSwitch == 0){
+                if(this.getOneDeviceOrderTakingCount(this.state.device.deviceUserList) >= MAX_MEMBER && this.state.device.user.orderTakingSwitch == 0){ //eslint-disable-line
 
                 }
                 // 不达最大上限，或已达最大上限但进来时是接单状态 则可以改变接单状态，此时不会超出最大接单人数
                 else{
-                    this.state.device.user.orderTakingSwitch = Number(!parseInt(this.state.device.user.orderTakingSwitch))
+                    this.state.device.user.orderTakingSwitch = Number(!parseInt(this.state.device.user.orderTakingSwitch)) //eslint-disable-line
                     this.setState({
                         device:this.state.device
                     })
@@ -147,32 +149,26 @@ class DoMember extends Component{
 
                 this.setState({
                     memberList:this.state.memberList.map((item) =>{
-                        if(item.deviceNo == checkeDeviceNo){
+                        var deviceUserList = item.deviceUserList;       //这台设备的成员列表，包含将要添加的这个人
+                        var willAddMember = deviceUserList[deviceUserList.length - 1]   //将要添加的这个人
+                        if(item.deviceNo == checkeDeviceNo){ //eslint-disable-line
                             // 此台设备接单人数
                             var orderTakingCount = this.getOneDeviceOrderTakingCount(item.deviceUserList);
                             var isNotChecked = !item.isChecked;
-                                console.log(item)
-                                // this.setState({add:this.state.add})
-                            
-                            // console.log(orderTakingCount)
                             // 是否未选中该设备
                             var isNotChecked = !item.isChecked;
                             if(isNotChecked){
                                 Util.Toast('开启接单前请先选中该设备')
                             }
-                            else {
-                                item.orderTakingSwitch = Number(!parseInt(item.orderTakingSwitch));
-                                this.state.add.switcherStatus = item.orderTakingSwitch;
-                                this.setState({add:this.state.add})
+                            // 如果编辑成员时，这台设备接单人员已达上限，但此时这个人处于未接单状态 则不能让他开启
+                            else if(this.getOneDeviceOrderTakingCount(deviceUserList) >= MAX_MEMBER && willAddMember.orderTakingSwitch == 0) { //eslint-disable-line
+                                
                             }
-
-                            // if(isMax || isNotChecked){
-                            //     // 不让变动
-                            // }
-                            // else{
-                            //     // 开/关 接单
-                            //     item.switcherStatus = Number(!parseInt(item.switcherStatus));
-                            // }
+                            else{
+                                willAddMember.orderTakingSwitch = Number(!parseInt(willAddMember.orderTakingSwitch));
+                                // 同步到 新增成员 预提交的参数对象中
+                                this.state.add.switcherStatus = willAddMember.orderTakingSwitch;
+                            }
                         }
                         else{
                             // item.switcherStatus = 0;
@@ -183,32 +179,41 @@ class DoMember extends Component{
             }
         }
     }
-    // 设备选择变动
+    // 设备选择变动 只有添加成员时才有这个事件
     checkeDevice(event){
         var checkeDeviceNo = event.currentTarget.getAttribute('data-device-no');
         // TODO:这里会好像会有几台设备响应多少次，回头得查查什么原因
+        console.log(checkeDeviceNo)
         if(checkeDeviceNo){
             this.setState({
                 memberList:this.state.memberList.map((item) =>{
+                    var deviceUserList = item.deviceUserList;       //这台设备的成员列表，包含将要添加的这个人
+                    var willAddMember = deviceUserList[deviceUserList.length - 1]   //将要添加的这个人
                     // 当前选中的设备
-                    if(item.deviceNo == checkeDeviceNo){
+                    if(item.deviceNo == checkeDeviceNo){//eslint-disable-line
                         item.isChecked = true;
+                        
                         // 如果选中当前设备，当前设备接单成员数没有达到最大接单量
                         if(this.getOneDeviceOrderTakingCount(item.deviceUserList) < MAX_MEMBER){
                             // 自动开始接单
-                            item.orderTakingSwitch = 1;
+                            willAddMember.orderTakingSwitch = 1;
+
+                            console.log(item.deviceUserList)
+                            // console.log(item)
                         }
                         else{
                             // 否则不自动开始接单
-                            item.orderTakingSwitch = 0;
+                            // item.orderTakingSwitch = 0;
+                            willAddMember.orderTakingSwitch = 0;
                         }
                         // 同步到 新增成员 预提交的参数对象中
-                        this.state.add.switcherStatus = item.orderTakingSwitch;
+                        this.state.add.switcherStatus = willAddMember.orderTakingSwitch;
                     }
                     // 其它设备
                     else{
                         item.isChecked = false;
-                        item.orderTakingSwitch = 0;
+                        willAddMember.orderTakingSwitch = 0;
+                        // item.orderTakingSwitch = 0;
                     }
                     return item;
                 })
@@ -323,7 +328,6 @@ class DoMember extends Component{
             })
             api_name = '新增成员';
         }
-        return;
         if(api_name && params){
             req.get(api_name,params,(result) =>{
                 if(result.code === 1){
@@ -347,7 +351,7 @@ class DoMember extends Component{
         let file = event.target.files[0];
         if(!file) return;
         // 限制文件格式
-        if('image/png|image/jpeg'.indexOf(file.type) == -1){
+        if('image/png|image/jpeg'.indexOf(file.type) === -1){
             event.target.value = '';
             return ;
         }
@@ -401,7 +405,7 @@ class DoMember extends Component{
                         !this.isAddMember 
                         ? (<OneDevice isAddMember={this.isAddMember} switchClick={this.switchClick.bind(this)} device={this.state.device}/>) 
                         : this.state.memberList.map((item) => (
-                            <OneDevice isAddMember={this.isAddMember} checkeDevice={this.checkeDevice.bind(this)} switchClick={this.switchClick.bind(this)} key={item.id} device={item} />
+                            <OneDevice isAddMember={this.isAddMember} checkeDevice={this.checkeDevice.bind(this)} switchClick={this.switchClick.bind(this)} key={item.deviceId} device={item} />
                         ))
                     }
                 </div>

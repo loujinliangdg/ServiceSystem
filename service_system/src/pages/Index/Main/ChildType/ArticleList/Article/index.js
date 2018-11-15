@@ -1,4 +1,4 @@
-import React,{Component,PureComponent} from 'react'
+import React,{PureComponent} from 'react'
 import req from '../../../../../../assets/js/req'
 
 import DocumentTitle from '../../../../../../components/DocumentTitle'
@@ -64,7 +64,6 @@ class Article extends PureComponent{
                 </div>
             )
         }
-        return <div></div>
     }
     render(){
         return (

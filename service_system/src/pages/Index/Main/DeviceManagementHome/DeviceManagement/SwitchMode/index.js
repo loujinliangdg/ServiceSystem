@@ -97,7 +97,7 @@ class SwitchMode extends Component {
                             })
                         }
                     </div>
-                    <a href="javascript:;" style={{display:'block',padding:'16px 0 0 4%',fontSize:'13px',color:'#40CC45',textDecoration:'underline',background:'#fff'}}>如何正确的选择机器模式？</a>
+                    <a href="javascript:void(0)" style={{display:'block',padding:'16px 0 0 4%',fontSize:'13px',color:'#40CC45',textDecoration:'underline',background:'#fff'}}>如何正确的选择机器模式？</a>
                     <button className="enter" onClick={this.enterSwitchMode.bind(this)}>提交</button>
                 </div>
             )

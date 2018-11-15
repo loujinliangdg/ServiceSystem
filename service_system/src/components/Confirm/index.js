@@ -58,8 +58,8 @@ class Confirm extends Component{
                         {this.props.Confirm.content || '您想干什么呢？'}
                     </div>
                     <div className="buttons flex text-center" style={{borderTop:'1px solid rgba(159,159,159,.2)',lineHeight:'2.5'}}>
-                        <a className="flex1" onClick={this.props.Confirm.success || function(){console.log('您点击了确定按钮')}}>确定</a>
-                        <a className="flex1" onClick={this.props.Confirm.cancel || function(){console.log('您点击了取消按钮')}} style={{borderLeft:'1px solid rgba(159,159,159,.2)'}}>取消</a>
+                        <a href="javascript:void(0)" className="flex1" onClick={this.props.Confirm.success || function(){console.log('您点击了确定按钮')}}>确定</a>
+                        <a href="javascript:void(0)" className="flex1" onClick={this.props.Confirm.cancel || function(){console.log('您点击了取消按钮')}} style={{borderLeft:'1px solid rgba(159,159,159,.2)'}}>取消</a>
                     </div>
                 </div>
             </div>
