@@ -59,7 +59,7 @@ class AutoLogin extends Component {
     }
     render() {
         return (
-            <div className="App">
+            <div className="App" style={{paddingTop:'1px'}}>
                 <DocumentTitle title="自动登陆"></DocumentTitle>
                 <p style={{textAlign:'center'}}>{this.state.autoLoginText}</p>
             </div>

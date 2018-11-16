@@ -25,6 +25,18 @@ class Article extends Component{
     componentDidMount() {
         this.getList(this.query);
     }
+    getTitleName(query){
+        if(query.childType){
+            return query.childType;
+        }
+        else{
+            let titles = {
+                cjwt:'常见问题',
+                cgal:'成功案例'
+            }
+            return titles[query.type];
+        }
+    }
     getList(query){
         req.get(query.childType ? '根据子分类获取文章列表' : '根据类型获取文章列表',query,(result) =>{
             if(result.code === 1){
@@ -71,7 +83,7 @@ class Article extends Component{
     render(){
         return (
             <div className="App Article2" style={{paddingTop:'1px'}}>
-                <DocumentTitle title={this.query.childType ? this.query.childType : '成功案例'}></DocumentTitle>
+                <DocumentTitle title={this.getTitleName(this.query)}></DocumentTitle>
                 {this.computedRenderContent(this.state.requested,this.state.dataList)}
             </div>
         )

@@ -3,6 +3,7 @@ import DocumentTitle from '../../../../../components/DocumentTitle'
 import './assets/css/index.css'
 import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
+import Util from '../../../../../components/Util'
 
 class DeviceManagement extends Component {
     constructor(props){
@@ -34,6 +35,7 @@ class DeviceManagement extends Component {
                 })
             }
         },(error) =>{
+            Util.Toast(error.toString())
             this.setState({
                 requested:true,
             })

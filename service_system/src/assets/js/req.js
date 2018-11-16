@@ -111,6 +111,10 @@ class Req{
          * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1707
          */
         this['无用数量统计'] = '/api/customerService/uselessStatistical'
+        /**
+         * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1789
+         */
+        this['设置待机时间'] = '/api/customerService/setAioSetInfo'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');
