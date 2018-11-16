@@ -17,28 +17,7 @@ class SwitchBodyFatScale extends Component {
         this.deviceNo = window.localStorage.getItem('deviceNo');
     }
     componentDidMount() {
-        var bodyFatScaleList = !JSON.parse(this.props.match.params.bodyFatScaleList).length ? [
-            {
-                id: 486,
-                deviceId: 129,
-                scaleCode: "04:AC:44:80:01:15",
-                isUse: false,
-                isDelete: false,
-                scalePic: null,
-                created: "2018-10-23 15:02:01",
-                modified: "2018-10-23 15:02:01"
-            },
-            {
-                id: 487,
-                deviceId: 129,
-                scaleCode: "04:AC:44:80:01:15",
-                isUse: true,
-                isDelete: false,
-                scalePic: null,
-                created: "2018-10-23 15:02:01",
-                modified: "2018-10-23 15:02:01"
-            }
-        ] : JSON.parse(this.props.match.params.bodyFatScaleList);
+        var bodyFatScaleList = JSON.parse(this.props.match.params.bodyFatScaleList) || [];
         this.setState({
             bodyFatScaleList:bodyFatScaleList
         })         
