@@ -432,6 +432,7 @@ class DoMember extends Component{
                         ))
                     }
                 </div>
+                <div className="line"></div>
                 <div className="block upload-qrCode">
                     <p>提交该成员微信二维码</p>
                     <div className="qrCode" onClick={this.originClick.bind(this)}>

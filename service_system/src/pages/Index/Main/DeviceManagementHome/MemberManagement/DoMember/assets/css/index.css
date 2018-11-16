@@ -1,6 +1,5 @@
 .DoMember{
     font-size: 15px;
-    background: #f8f8f8;
 }
 .DoMember .block .flex{
     background: #fff;
@@ -129,10 +128,14 @@
 .DoMember .block.device-list .switch.on .green-circle{
     left:50%;
 }
+.DoMember .line{
+    width: 100%;
+    padding-bottom: 3%;
+    background: #f8f8f8;
+}
 
 /* 上传微信二维码 */
 .DoMember .block.upload-qrCode{
-    margin-top: 3%;
     padding: 4%;
     background: #fff;
     overflow: hidden;
@@ -140,7 +143,7 @@
 .DoMember .block.upload-qrCode .qrCode{
     width: 175px;
     height: 175px;
-    background: #f5f5f5;
+    background: #f8f8f8;
     overflow: hidden;
     margin: auto;
 }
