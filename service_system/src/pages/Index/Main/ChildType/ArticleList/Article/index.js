@@ -4,11 +4,29 @@ import req from '../../../../../../assets/js/req'
 import DocumentTitle from '../../../../../../components/DocumentTitle'
 import Loading from '../../../../../../components/Loading'
 import NoHaveMessage from '../../../../../../components/NoHaveMessage'
+import Util from '../../../../../../components/Util'
 import './assets/css/index.css'
 import face_sad_png from './assets/img/face_sad.svg';
 import face_smile_png from './assets/img/face_smile.svg';
 
 const qs = require('querystring')
+
+// 获取当前年月日，代码网上拷的
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
 
 class Article extends PureComponent{
     constructor(props){
@@ -29,13 +47,15 @@ class Article extends PureComponent{
         this.getList(this.query);
     }
     getList(query){
-        req.get('根据文章id获取文章',query,(result) =>{
+        req.get(this.query.timesTamp ? '预览文章' : '根据文章id获取文章',query,(result) =>{
             if(result.code === 1){
-                var article = result.data.article || null
+                var article = result.data.article || {};
+                article.created = article.created || '2018-08-08';
                 this.setState({
                     article,
                     requested:true,
                 })
+                
             }
             else{
                 this.setState({
@@ -46,10 +66,15 @@ class Article extends PureComponent{
             this.setState({
                 requested:true,
             })
+            alert(JSON.stringify(error.toString()))
         })
     }
     Click(name,event){
         var api_name = `${name}数量统计`;
+        if(this.query.timesTamp){
+            Util.Toast('预览模式此功能不可用')
+            return;
+        }
         // 点了一次不准再点了
         if(this.state.isClick){
             return;
@@ -75,6 +100,9 @@ class Article extends PureComponent{
             return (
                 <div className="article">
                     <h1 className="article-title">{this.state.article.articleTitle}</h1>
+                    {
+                        !this.query.timesTamp ? <p className="created">发布日期：<span>{this.state.article.created.split(' ')[0]}</span></p> : <p className="created">预览日期：<span>{getNowFormatDate()}</span></p>
+                    }
                     <div className="content" dangerouslySetInnerHTML={{__html:this.state.article.articleContent}}>
 
                     </div>

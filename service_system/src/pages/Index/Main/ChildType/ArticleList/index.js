@@ -73,7 +73,8 @@ class Article extends Component{
                     <Link className="article-list-item flex align-items-center" key={item.id} to={`/index/childType/articleList/article?id=${item.id}`}>
                         <div className="coverPicture" style={{background:`url(${item.coverPicture}) no-repeat center center`,backgroundSize:'cover'}}></div>
                         <div className="flex1">
-                            <p>{item.articleTitle}</p>
+                            <p className="article-title">{item.articleTitle}</p>
+                            <p className="desc">{item.description}</p>
                         </div>
                     </Link>
                 )

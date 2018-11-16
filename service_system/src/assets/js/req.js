@@ -115,6 +115,10 @@ class Req{
          * 文档地址：http://app.bianla.cn/showdoc/web/#/1?page_id=1789
          */
         this['设置待机时间'] = '/api/customerService/setAioSetInfo'
+        /**
+         * 文档地址：
+         */
+        this['预览文章'] = '/api/customerService/getPreviewArticle'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');

@@ -1,6 +1,9 @@
 .Article{
     padding: 0 4%;
 }
+.Article .created{
+    color: #999;
+}
 .Article .article-title{
     font-size:20px;
     color: #333;
@@ -11,7 +14,7 @@
 .Article .useful-and-useless{
     text-align: center;
     border-top:1px solid rgba(0,0,0,0.03);
-    padding-top: 20px;
+    padding: 20px 0;
 }
 .Article .useful-and-useless .flex{
     display: inline-flex;
