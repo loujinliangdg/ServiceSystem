@@ -9,7 +9,33 @@ import './assets/css/index.css'
 import face_sad_png from './assets/img/face_sad.svg';
 import face_smile_png from './assets/img/face_smile.svg';
 import authorize_url from '../../../../../../assets/js/authorize_url'
+import Wechat from '../../../../../../assets/js/wx-chat'
 const qs = require('querystring')
+
+
+/**
+ * 获取微信jssdk配置参数
+ */
+function getWx(share) {
+    req.get('获取微信配置信息',{},(result) =>{
+        let wechat = new Wechat({
+            debug: false,
+            appId: result.data.appId,
+            timestamp: result.data.timestamp,
+            nonceStr: result.data.noncestr,
+            signature: result.data.signature,
+            jsApiList: ["onMenuShareAppMessage", "onMenuShareTimeline"]
+        }).share({
+            title: share.articleTitle, // 分享标题
+            link: window.location.href, // 分享链接
+            imgUrl:share.coverPicture, // 分享图标
+            desc: share.description, // 分享描述
+        })
+    },(error) =>{
+
+    })
+}
+
 
 // 获取当前年月日，代码网上拷的
 function getNowFormatDate() {
@@ -71,6 +97,7 @@ class Article extends PureComponent{
                     article,
                     requested:true,
                 })
+                getWx(article);
             }
             else{
                 this.setState({

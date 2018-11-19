@@ -31,6 +31,7 @@
   "proxy": "https://aidev.bianla.cn",
   "devDependencies": {
     "postcss-px2rem": "^0.3.0",
-    "qiniu-js": "^2.5.3"
+    "qiniu-js": "^2.5.3",
+    "wechat-jssdk": "^3.1.5"
   }
 }

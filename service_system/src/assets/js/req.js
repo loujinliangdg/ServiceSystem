@@ -119,6 +119,8 @@ class Req{
          * 文档地址：
          */
         this['预览文章'] = '/api/customerService/getPreviewArticle'
+
+        this['获取微信配置信息'] = '/api/wechat/config'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');
