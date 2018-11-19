@@ -5,6 +5,7 @@ import './assets/css/index.css'
 import req from '../../../../assets/js/req'
 import Loading from '../../../../components/Loading'
 import you_jian_tou_png from '../../../Index/Question/assets/img/you_jian_tou_2x.png';
+import authorize_url from '../../../../assets/js/authorize_url'
 
 class DeviceManagement extends Component {
     constructor(props){
@@ -16,15 +17,30 @@ class DeviceManagement extends Component {
             memberCount:0,
         }
         this.bianlaId = window.localStorage.getItem('bianlaId');
+        this.wxAuthorize = null;
+        this.localURL = window.location.href;
+    }
+    componentWillMount(){
+        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount() {
-        this.getList();
+        if(!this.bianlaId){
+            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+            window.location.href = this.wxAuthorize;
+        }
+        else{
+            this.getList();
+        }
     }
     /**
      * 获取子分类列表
      */
     getList(){
         req.get('设备管理首页的信息',{bianlaId:this.bianlaId},(result) =>{
+            if(Math.abs(result.code === 401)){
+                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                window.location.href = this.wxAuthorize;
+            }
             if(result.code === 1){
                 var data = result.data || {
                     deviceCount:0,

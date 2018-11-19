@@ -35,7 +35,7 @@ ReactDOM.render(
         <Route path="/" exact={true} component={App} chineseName="入口"></Route>
         <Route path="/login" exact={true} component={Login} chineseName="登陆变啦"></Route>
         <Route path="/login/forgetPassword" component={ForgetPassword} chineseName="忘记密码"></Route>
-        <Route path="/autoLogin" component={AutoLogin} chineseName="自动登陆"></Route>
+        <Route path="/autoLogin" component={AutoLogin} exact={true} chineseName="自动登陆"></Route>
         
         <Route path="/index" exact={true} component={Index} chineseName="首页"></Route>
         <Route path="/index/dataSearch" exact={true}  component={DataSearch} chineseName="数据查询"></Route>

@@ -4,6 +4,8 @@ import './assets/css/index.css'
 import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
 import NoHaveMessage from '../../../../../components/NoHaveMessage'
+import authorize_url from '../../../../../assets/js/authorize_url'
+
 const qs = require('querystring')
 
 class WechatAddNumber extends Component{
@@ -16,7 +18,10 @@ class WechatAddNumber extends Component{
         this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
         this.deviceId = this.deviceArray[0].deviceId;
         this.deviceNo = this.deviceArray[0].deviceNo;
-        
+        this.bianlaId = window.localStorage.getItem('bianlaId');
+        this.wxAuthorize = null;
+        this.localURL = window.location.href;
+
         this.beginDate = '';
         this.endDate = '';
     }
@@ -24,9 +29,16 @@ class WechatAddNumber extends Component{
         var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
         this.beginDate = query.beginDate;
         this.endDate = query.endDate;
+        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount(){
-        this.getList();
+        if(!this.bianlaId){
+            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+            window.location.href = this.wxAuthorize;
+        }
+        else{
+            this.getList();
+        }
     }
     componentWillUnmount(){
         this.setState = (state,callback)=>{
@@ -38,6 +50,10 @@ class WechatAddNumber extends Component{
      */
     getList(){
         req.get('获取新增粉丝',{deviceId:this.deviceId,beginDate:this.beginDate,endDate:this.endDate},(result) =>{
+            if(Math.abs(result.code === 401)){
+                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                window.location.href = this.wxAuthorize;
+            }
             if(result.code === 1){
                 var dataList = result.data.resultDatas || []
                 this.setState({

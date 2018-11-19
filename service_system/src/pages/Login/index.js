@@ -20,6 +20,9 @@ class Login extends Component {
             disabled:'disabled',    //是否可点击 '' || disabled
         }
     }
+    componentWillMount(){
+        
+    }
     login(){
         // 如果请求中 或者 不能提交状态 则直接返回
         if(this.state.resquesting || this.state.disabled) return;
@@ -51,7 +54,8 @@ class Login extends Component {
                 localStorage.setItem('phoneNumber',this.state.bianlaId);
                 localStorage.setItem('isRead',result.data.isRead);
                 //登陆成功 去首页
-                this.props.history.replace('/index');
+                var login_after_redirect_uri = sessionStorage.getItem('login_after_redirect_uri');
+                this.props.history.replace(login_after_redirect_uri ? login_after_redirect_uri : '/index');
             }
             //否则当前页面显示由后台返回的提示信息
             else{

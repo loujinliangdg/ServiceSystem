@@ -5,7 +5,7 @@ import './assets/css/index.css'
 import req from '../../../../assets/js/req'
 import Loading from '../../../../components/Loading'
 import NoHaveMessage from '../../../../components/NoHaveMessage'
-
+import authorize_url from '../../../../assets/js/authorize_url'
 const qs = require('querystring')
 
 /**
@@ -135,13 +135,22 @@ class ChildType extends Component{
         }
         this.postType = ''; //上级菜单名字
         this.bianlaId = window.localStorage.getItem('bianlaId');
+        this.wxAuthorize = null;
+        this.localURL = window.location.href;
     }
     componentWillMount() {
-        var query = qs.parse(this.props.location.search.slice(1));
+        var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
         this.postType = query.postType;
+        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount() {
-        this.getList();
+        if(!this.bianlaId){
+            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+            window.location.href = this.wxAuthorize;
+        }
+        else{
+            this.getList();
+        }
     }
     computedRenderContent(requested,dataList){
         // 未请求完成
@@ -166,7 +175,12 @@ class ChildType extends Component{
      * 获取子分类列表
      */
     getList(){
+
         req.get('根据文章类型获取子分类',{type:this.postType,bianlaId:this.bianlaId},(result) =>{
+            if(Math.abs(result.code) === 401){
+                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                window.location.href = this.wxAuthorize;
+            }
             if(result.code === 1){
                 var dataList = result.data.customerServiceClassifyList || []
                 this.setState({

@@ -6,6 +6,8 @@ import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
 import Confirm from '../../../../../components/Confirm'
 import Util from '../../../../../components/Util'
+import authorize_url from '../../../../../assets/js/authorize_url'
+
 class DeviceManagement extends Component {
     constructor(props){
         super();
@@ -34,8 +36,18 @@ class DeviceManagement extends Component {
         this.endY = 0;
 
         this.userItemTransTime = 600;
+
+        this.wxAuthorize = null;
+        this.localURL = window.location.href;
+    }
+    componentWillMount(){
+        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount() {
+        if(!this.bianlaId){
+            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+            window.location.href = this.wxAuthorize;
+        }
         // 如果没有设备
         if(!this.deviceArray.length){
             this.setState({
@@ -55,6 +67,10 @@ class DeviceManagement extends Component {
      */
     getList(deviceId,deviceNo){
         req.get('获取成员列表',{bianlaId:this.bianlaId,deviceId:deviceId},(result) =>{
+            if(Math.abs(result.code) === 401){
+                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                window.location.href = this.wxAuthorize;
+            }
             if(result.code === 1){
                 var deviceUserList = result.data.deviceUserList || [];
                 var oneDevice = {
@@ -172,6 +188,10 @@ class DeviceManagement extends Component {
         // 调起对话框，以确认删除
         this.showConfirm(() =>{
             req.get('删除成员',{deviceId:user.deviceId,phoneNumber:user.phoneNumber,userId:this.bianlaId},(result) =>{
+                if(Math.abs(result.code) === 401){
+                    sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                    window.location.href = this.wxAuthorize;
+                }
                 if(result.code === 1){
                     // 获取所有设备
                     let dataList = this.state.dataList;

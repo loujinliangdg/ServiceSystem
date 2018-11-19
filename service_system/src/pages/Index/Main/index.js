@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import './assets/css/index.css'
 import Util from '../../../components/Util'
 import req from '../../../assets/js/req'
+import authorize_url from '../../../assets/js/authorize_url'
 
 
 import yyzn_png from './assets/img/yyzn_2x.png'     //运营指南图标
@@ -14,7 +15,6 @@ import xwsc_png from './assets/img/xwsc_2x.png'     //小卫商城图标
 
 import circle_line_png from './assets/img/circle_line.png' //圆线
 import zuo_jian_tou_png from './assets/img/zuojiantou_png@2x.png' //引导层箭头
-
 
 
 class Main extends Component{
@@ -29,9 +29,20 @@ class Main extends Component{
             cgal_isRead:true,
         }
         this.bianlaId = window.localStorage.getItem('bianlaId');
+        this.wxAuthorize = null;
+        this.localURL = window.location.href;
+    }
+    componentWillMount(){
+        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount(){
-        this.getPostTypeIsRead();
+        if(!this.bianlaId){
+            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+            window.location.href = this.wxAuthorize;
+        }
+        else {
+            this.getPostTypeIsRead();
+        }
     }
     maskTouchMove(event){
         event.preventDefault();
@@ -47,6 +58,10 @@ class Main extends Component{
         // 完成
         else{
             req.get('标记用户已读提示语',{bianlaId:this.bianlaId},(result) =>{
+                if(Math.abs(result.code === 401)){
+                    sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                    window.location.href = this.wxAuthorize;
+                }
                 if(result.code == 1){
                     this.setState({
                         isRead:'true',

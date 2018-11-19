@@ -10,6 +10,7 @@ import { Line,XAxis,CartesianGrid,LineChart,YAxis } from 'recharts';
 import Loading from '../../../../components/Loading'
 import NoHaveMessage from '../../../../components/NoHaveMessage'
 import you_jian_tou_png from '../../Question/assets/img/you_jian_tou_2x.png'
+import authorize_url from '../../../../assets/js/authorize_url'
 
 // recharts 中有用到recharts，但是像iso 8.3不支持，所以在这写个Polyfill
 Number.isFinite = Number.isFinite || function(value) {
@@ -80,9 +81,21 @@ class DataSearch extends Component{
         this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
         this.deviceId = this.deviceArray[0].deviceId;
         this.deviceNo = this.deviceArray[0].deviceNo;
+        this.bianlaId = window.localStorage.getItem('bianlaId');
+        this.wxAuthorize = null;
+        this.localURL = window.location.href;
+    }
+    componentWillMount(){
+        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount(){
-        this.getDatas(this.state.beginDate,this.state.endDate);
+        if(!this.bianlaId){
+            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+            window.location.href = this.wxAuthorize;
+        }
+        else{
+            this.getDatas(this.state.beginDate,this.state.endDate);
+        }
     }
     componentWillUnmount(){
         // this.setState = (state,callback)=>{
@@ -210,6 +223,10 @@ class DataSearch extends Component{
             requested:false,
         })
         req.get('数据查询',{deviceId:this.deviceId,beginDate:dateStringToRequest(beginDate),endDate:dateStringToRequest(endDate)},(result) =>{
+            if(Math.abs(result.code === 401)){
+                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                window.location.href = this.wxAuthorize;
+            }
             if(result.code === 1){
                 this.setState({
                     totalPlayerNumber:result.data.totalPlayerNumber,

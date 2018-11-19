@@ -6,6 +6,7 @@ import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
 import Util from '../../../../../components/Util'
 import you_jian_tou_png from '../../../../Index/Question/assets/img/you_jian_tou_2x.png';
+import authorize_url from '../../../../../assets/js/authorize_url'
 
 class DeviceManagement extends Component {
     constructor(){
@@ -22,16 +23,31 @@ class DeviceManagement extends Component {
         this.deviceNo = this.deviceArray[0].deviceNo;
         this.isAndroid = /(Android)/i.test(window.navigator.userAgent);
         this.isIos = /(iPhone|iPad|iPod|iOS)/i.test(window.navigator.userAgent);
+        this.wxAuthorize = null;
+        this.localURL = window.location.href;
+    }
+    componentWillMount(){
+        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount() {
-        this.getDeviceData();
+        if(!this.bianlaId){
+            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+            window.location.href = this.wxAuthorize;
+        }
+        else {
+            this.getDeviceData();
+        }
     }
     /**
      * 获取设备信息
      */
     getDeviceData(){
         req.get('获取设备的信息',{bianlaId:this.bianlaId,deviceId:this.deviceId},(result) =>{
-            if(result.code === 1){
+            if(Math.abs(result.code) === 401){
+                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                window.location.href = this.wxAuthorize;
+            }
+            else if(result.code === 1){
                 var data = result.data || {bodyFatScaleList:[]}
                 this.setState({
                     data,
@@ -60,6 +76,10 @@ class DeviceManagement extends Component {
         // timeName = beginTime || endTime
         params[timeName] = time;
         req.get('设置待机时间',params,(result) =>{
+            if(Math.abs(result.code) === 401){
+                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
+                window.location.href = this.wxAuthorize;
+            }
             if(result.code === 1){
                 this.state.data[timeName] = time;
                 this.setState({data:this.state.data});
