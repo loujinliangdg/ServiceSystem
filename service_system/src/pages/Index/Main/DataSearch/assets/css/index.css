@@ -88,13 +88,19 @@
 .dataSearch-container .fold-line-block{
     overflow: hidden;
 }
+.dataSearch-container .fold-line-block h5{
+    font-size: 15px;
+    color: #313131;
+    margin: 3em auto 1em;
+    font-weight: 500;
+}
 .dataSearch-container .fold-line-block .date-block{
     width: 73.33%;
     height: 25px;
     border-radius: 12.5px;
     background:rgba(230,230,230,1);
     opacity:0.41;
-    margin: 10% auto 5%;
+    margin: 0 auto 7%;
     text-align: center;
     color: #000;
     font-size: 12px;

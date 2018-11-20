@@ -6,7 +6,7 @@ import './assets/css/index.css'
 import you_jian_tou from './assets/img/you-jian-tou02.png'
 import req from '../../../../assets/js/req'
 import Util from '../../../../components/Util'
-import { Line,XAxis,CartesianGrid,LineChart,YAxis } from 'recharts';
+import { Line,XAxis,CartesianGrid,LineChart,YAxis,Tooltip } from 'recharts';
 import Loading from '../../../../components/Loading'
 import NoHaveMessage from '../../../../components/NoHaveMessage'
 import you_jian_tou_png from '../../Question/assets/img/you_jian_tou_2x.png'
@@ -263,10 +263,12 @@ class DataSearch extends Component{
             oldCountData = oldCountData[1]+'/'+oldCountData[2]
             item.showCountDate = oldCountData;
             item.wechatAddNumber = 0;
-
+            item['上秤人数'] = item.playerNumber;
+            item['加粉人数'] = item.wechatAddNumber;
             wechataddNumberList.forEach((item2,index) =>{
                 if(item2.countDate === item.countDate){
-                    item.wechatAddNumber = item2.wechatAddNumber
+                    item.wechatAddNumber = item2.wechatAddNumber;
+                    item['加粉人数'] = item.wechatAddNumber;
                 }
             })
             tempData.push(item);
@@ -333,6 +335,7 @@ class DataSearch extends Component{
                         </div>
                     </div>
                     <div className="fold-line-block">
+                        <h5 className="text-center">上秤人数和加粉人数折线图</h5>
                         <div className="date-block">
                             <table style={{width:'100%',borderSpacing:'0'}}>
                                 <tbody>
@@ -348,11 +351,12 @@ class DataSearch extends Component{
                             <div className="loading-yayer" style={{display:this.state.requested ? 'none' : 'block'}}>
                                 <Loading />
                             </div>
-                            <LineChart width={window.innerWidth} height={window.innerWidth * 0.64} data={this.state.data} margin={{ top: 10, right: 20, left: -20, bottom: 5 }}>
-                                <Line type="monotone" dataKey="playerNumber" stroke="#40CC45" />
-                                <Line type="monotone" dataKey="wechatAddNumber" stroke="#5EA6FF" />
+                            <LineChart width={window.innerWidth} height={window.innerWidth * 0.64} data={this.state.data} margin={{ top: 10, right: 20, left: -25, bottom: 5 }}>
+                                <Line type="monotone" dataKey="上秤人数" stroke="#40CC45" />
+                                <Line type="monotone" dataKey="加粉人数" stroke="#5EA6FF" />
                                 <XAxis dataKey="showCountDate" fontSize='12px' />
                                 <YAxis />
+                                <Tooltip cursor={{ stroke: '#666', strokeWidth: 1 }}/>
                                 <CartesianGrid strokeDasharray="3 3" />
                             </LineChart>
                             <div className="flex align-items-center text-center">
