@@ -21,6 +21,12 @@
     box-shadow:0 0 14px rgba(69,69,69,0.1);
     border-radius:5px;
 }
+.dataSearch-container .current-device{
+    color: #939393;
+}
+.dataSearch-container .current-device span{
+    color: #504F4F;
+}
 .dataSearch-container .tabs-block .tabs ul{
     list-style: none;
     padding: 0;
@@ -34,6 +40,11 @@
     margin: 0 7.5%;
     position: relative;
     line-height: 2;
+    color: #939393;
+    transition: color 0.5s;
+}
+.dataSearch-container .tabs-block .tabs ul li.active{
+    color:#313131;
 }
 .dataSearch-container .tabs-block .tabs ul li.active:after{
     content: "";

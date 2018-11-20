@@ -286,7 +286,7 @@ class DataSearch extends Component{
                     <div className="green-block"></div>
                     <div className="current-device-block">
                         <div className="flex align-items-center">
-                            <div className="flex1">
+                            <div className="flex1 current-device">
                                 当前设备：<span>{this.deviceNo}</span>
                             </div>
                             <div>
