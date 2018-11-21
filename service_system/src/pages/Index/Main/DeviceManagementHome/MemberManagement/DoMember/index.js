@@ -120,8 +120,10 @@ class DoMember extends Component{
         if(!this.isAddMember){
             var device = this.state.memberList.filter((device) => device.deviceId == this.query.deviceId )[0]; //eslint-disable-line
             device.user = device.deviceUserList.filter((item) => item.id == this.query.id)[0]                   //eslint-disable-line
+            // 把编辑的当前设备设为选中
             device.isChecked = true;
-
+            // 获取当前用户的微信二维码 或者 默认的二维码（+号）
+            device.user.originQrCode = device.user.originQrCode || this.state.add.originQrCode;
             this.setState({
                 device:device
             })
