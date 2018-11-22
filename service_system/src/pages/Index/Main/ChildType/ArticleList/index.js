@@ -42,7 +42,7 @@ class Article extends Component{
         else{
             let titles = {
                 cjwt:'常见问题',
-                cgal:'成功案例'
+                xwbg:'新闻报告'
             }
             return titles[query.type];
         }
