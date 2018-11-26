@@ -97,7 +97,7 @@ class SwitchMode extends Component {
                             })
                         }
                     </div>
-                    <a href="javascript:void(0)" style={{display:'block',padding:'16px 0 0 4%',fontSize:'13px',color:'#40CC45',textDecoration:'underline',background:'#fff'}}>如何正确的选择机器模式？</a>
+                    <a target="_blank" href="https://mp.weixin.qq.com/s?__biz=MzU0NDcyNDEwNg==&mid=2247483870&idx=2&sn=3774df5ab927fc0ae36234c71574f2a3&chksm=fb76843bcc010d2d1d308dc67a1c134808fa62f706c341bb6a342cfe9fb9ee4f08305d02c82d&token=36081075&lang=zh_CN#rd" style={{display:'block',padding:'16px 0 0 4%',fontSize:'13px',color:'#40CC45',textDecoration:'underline',background:'#fff'}}>如何正确的选择机器模式？</a>
                     <button className="enter" onClick={this.enterSwitchMode.bind(this)}>提交</button>
                 </div>
             )

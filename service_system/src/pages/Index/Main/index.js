@@ -17,6 +17,25 @@ import circle_line_png from './assets/img/circle_line.png' //圆线
 import zuo_jian_tou_png from './assets/img/zuojiantou_png@2x.png' //引导层箭头
 
 
+var getOffsetLeft = function(obj){
+    var tmp = obj.offsetLeft;
+    var val = obj.offsetParent;
+    while(val != null){
+    tmp += val.offsetLeft;
+      val = val.offsetParent;
+    }
+    return tmp;
+}
+var getOffsetTop =  function(obj){
+    var tmp = obj.offsetTop;
+    var val = obj.offsetParent;
+    while(val != null){
+     tmp += val.offsetTop;
+     val = val.offsetParent;
+    }
+    return tmp;
+}
+
 class Main extends Component{
     constructor(){
         super();
@@ -43,6 +62,8 @@ class Main extends Component{
         else {
             this.getPostTypeIsRead();
         }
+
+
     }
     maskTouchMove(event){
         event.preventDefault();
@@ -53,6 +74,16 @@ class Main extends Component{
         if(this.state.maskIndex < 2){
             this.setState({
                 maskIndex:this.state.maskIndex + 1
+            })
+            // 处理完成提醒时位置不对的问题
+            setTimeout(() =>{
+                if(this.state.maskIndex == 2){
+                    var textBox = this.refs.lastTextBox;
+                    var zuojiantou = this.refs.zuojiantou;
+                    var offsetTop = getOffsetTop(zuojiantou);
+                    var offsetHeight = zuojiantou.offsetHeight;
+                    textBox.style.top = offsetTop + offsetHeight + 'px';
+                }
             })
         }
         // 完成
@@ -145,8 +176,8 @@ class Main extends Component{
                                 <div className="guide" onTouchMove={this.maskTouchMove.bind(this)} onClick={this.nextClick.bind(this)} style={{zIndex:(this.state.maskIndex === 2 && this.state.isRead !== 'true') ? this.state.zIndex : -1}}>
                                     <img className="m-icon" src={sbgl_png} alt=""/>
                                     <img className="circle-line" src={circle_line_png} alt=""/>
-                                    <img className="jiantou zuojiantou" src={zuo_jian_tou_png} alt=""/>
-                                    <div className="text-box" style={{width:window.innerWidth + 'px'}}>
+                                    <img className="jiantou zuojiantou" ref="zuojiantou" src={zuo_jian_tou_png} alt=""/>
+                                    <div className="text-box" ref="lastTextBox" style={{width:window.innerWidth + 'px'}}>
                                         <p>设备管理移到这里了，快去试试吧</p>
                                         <div className="next">
                                             <a href="javascript:;">完成</a>
