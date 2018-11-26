@@ -19,8 +19,9 @@ class SwitchUseScenarios extends Component {
             useScenariosZh:null,
             otherRemark:null,
         }
+        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
         this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.deviceId = window.localStorage.getItem('deviceId');
+        this.deviceId = this.deviceArray[0].deviceId;
         
         this.wxAuthorize = null;
         this.localURL = window.location.href;

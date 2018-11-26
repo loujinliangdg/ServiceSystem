@@ -14,7 +14,8 @@ class SwitchMode extends Component {
             modes:[],
             currentModeId:null,
         }
-        this.deviceId = window.localStorage.getItem('deviceId');
+        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
+        this.deviceId = this.deviceArray[0].deviceId;
     }
     componentDidMount() {
         this.setState({

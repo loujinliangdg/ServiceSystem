@@ -11,8 +11,6 @@ class SwitchDevice extends Component {
             deviceArray:JSON.parse(window.localStorage.getItem('deviceArray')) || []
         }
         this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.deviceId = window.localStorage.getItem('deviceId');
-        this.deviceNo = window.localStorage.getItem('deviceNo');
         this.wxAuthorize = null;
         this.localURL = window.location.href;
     }
