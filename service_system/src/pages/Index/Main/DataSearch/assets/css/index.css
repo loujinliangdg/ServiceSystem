@@ -1,6 +1,7 @@
 .dataSearch-container{
     font-size: 15px;
     height: auto;
+    user-select: none;
 }
 .dataSearch-container .green-block{
     width: 100%;
@@ -38,6 +39,7 @@
 .dataSearch-container .tabs-block .tabs ul li{
     display: inline-block;
     margin: 0 7.5%;
+    padding: 0 0.25em;
     position: relative;
     line-height: 2;
     color: #939393;
@@ -57,6 +59,12 @@
     border-radius: 2px;
 }
 
+.dataSearch-container .t{
+    padding: 0 4%;
+    font-size:13px;
+    font-family:PingFang-SC-Medium;
+    color:rgba(147,147,147,1);
+}
 /* 上秤人数 肥胖人数 新增粉丝 */
 .dataSearch-container .peoples-block{
     text-align: center;
@@ -102,7 +110,7 @@
 .dataSearch-container .fold-line-block h5{
     font-size: 15px;
     color: #313131;
-    margin: 3em auto 1em;
+    margin: 1.5em auto 1em;
     font-weight: 500;
 }
 .dataSearch-container .fold-line-block .date-block{
@@ -196,4 +204,8 @@
     .dataSearch-container .switch-device-btn{
         zoom: 0.9;
     }
+}
+tspan{
+    font-size:10px;
+    color:rgba(153,153,153,1);
 }

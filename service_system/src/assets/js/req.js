@@ -121,6 +121,10 @@ class Req{
         this['预览文章'] = '/api/customerService/getPreviewArticle'
 
         this['获取微信配置信息'] = '/api/wechat/config'
+        /**
+         * 文档地址：http://showdoc.bianla.cn/web/#/1?page_id=1872
+         */
+        this['获取折线图数据'] = '/api/customerService/getDatasCurve'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');
