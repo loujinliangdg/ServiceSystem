@@ -38,9 +38,10 @@ ReactDOM.render(
         <Route path="/autoLogin" component={AutoLogin} exact={true} chineseName="自动登陆"></Route>
         
         <Route path="/index" exact={true} component={Index} chineseName="首页"></Route>
-        <Route path="/index/dataSearch" exact={true}  component={DataSearch} chineseName="数据查询"></Route>
+        <Route path="/index/dataSearch" exact={true} component={DataSearch} chineseName="数据查询"></Route>
         <Route path="/index/dataSearch/playerNumber" exact={true}  component={PlayerNumber} chineseName="上秤人数"></Route>
         <Route path="/index/dataSearch/wechatAddNumber" exact={true}  component={WechatAddNumber} chineseName="新增粉丝人数"></Route>
+        
 
         <Route path="/index/childType" exact={true}  component={ChildType} chineseName="文章子分类"></Route>
         <Route path="/index/childType/articleList" exact={true}  component={ArticleList} chineseName="文章列表"></Route>

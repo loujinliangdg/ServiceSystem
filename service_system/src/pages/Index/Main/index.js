@@ -144,7 +144,7 @@ class Main extends Component{
                             </div>
                             <p>运营指南</p>
                         </Link>
-                        <Link className="m-item" to="/index/dataSearch">
+                        <Link className="m-item" to="/index/dataSearch/?tabIndex=0">
                             <div><img className="m-icon" src={sjcx_png} alt=""/></div>
                             <p>数据查询</p>
                         </Link>

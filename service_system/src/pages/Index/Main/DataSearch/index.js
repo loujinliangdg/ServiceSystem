@@ -11,7 +11,7 @@ import Loading from '../../../../components/Loading'
 // import NoHaveMessage from '../../../../components/NoHaveMessage'
 import you_jian_tou_png from '../../Question/assets/img/you_jian_tou_2x.png'
 import authorize_url from '../../../../assets/js/authorize_url'
-
+const qs = require('querystring')
 // recharts 中有用到recharts，但是像iso 8.3不支持，所以在这写个Polyfill
 Number.isFinite = Number.isFinite || function(value) {
     return typeof value === "number" && isFinite(value);
@@ -154,7 +154,7 @@ class DataSearch extends Component{
 
         this.state = {
             requested:false,
-            tabIndex:0,
+            tabIndex:null,
             totalPlayerNumber:0,     //显示--上秤人数
             fatPeopleNumber:0,       //显示--肥胖人数
             totalWechataddNumber:0,  //显示--加粉人数
@@ -182,19 +182,35 @@ class DataSearch extends Component{
         this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount(){
+        // 重登录
         if(!this.bianlaId){
             sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
             window.location.href = this.wxAuthorize;
         }
         else{
-            this.getThisDayData(this.state.normalBeginDate,this.state.normalEndDate);
-            this.getDatas(this.state.chartBeginDate,this.state.chartEndDate,this.getCurveType());
+            // 设置tabIndex
+            var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
+            // 初始化组件更新tabIndex
+            this.setState({
+                tabIndex:parseInt(query.tabIndex)
+            })
+        }
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        // 当tabIndex发生改变时去请求数据
+        if(this.state.tabIndex !== nextState.tabIndex){
+            this.tabIndexChangeGetData(nextState.tabIndex);
+            // console.log(nextProps);
+            return true;
+        }
+        else{
+            return true
         }
     }
     componentWillUnmount(){
-        // this.setState = (state,callback)=>{
-        //     return;
-        // };
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
     getCurveType(){
         var arr = [
@@ -202,17 +218,11 @@ class DataSearch extends Component{
             'week',
             'month'
         ]
-        console.log(arr[this.state.tabIndex])
+        console.log(`获取： ${arr[this.state.tabIndex]} 数据...`);
         return arr[this.state.tabIndex];
     }
-    // 选项卡点击
-    tabClick(tabIndex){
-        // 重复点击同一个选项卡无效
-        if(tabIndex === this.state.tabIndex){
-            return;
-        }
-
-        this.setState({tabIndex:tabIndex})
+    // tabIndex变化，请求数据
+    tabIndexChangeGetData(tabIndex){
         var beginDate,endDate,date = new Date();
         switch (tabIndex) {
             // 日 /最近七天
@@ -256,6 +266,15 @@ class DataSearch extends Component{
         setTimeout(() =>{
             this.getDatas(beginDate,endDate,this.getCurveType());
         })
+    }
+    // 选项卡点击
+    tabClick(tabIndex){
+        // 重复点击同一个选项卡无效
+        if(tabIndex === this.state.tabIndex){
+            return;
+        }
+        this.props.history.replace(`/index/dataSearch/?tabIndex=${tabIndex}`);
+        this.setState({tabIndex:tabIndex})
     }
     // 左边箭头点击
     leftArrowClick(){
