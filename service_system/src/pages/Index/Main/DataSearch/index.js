@@ -447,7 +447,7 @@ class DataSearch extends Component{
                             </ul>
                         </div>
                     </div>
-                    <p className="t">今日</p>
+                    <p className="t">{this.state.tabIndex === 0 ? '今日' : (this.state.tabIndex === 1 ? '本周' : '本月')}</p>
                     <div className="peoples-block">
                         <div className="flex">
                             <Link className="flex1" to={`/index/dataSearch/playerNumber?beginDate=${dateStringToRequest(this.state.normalBeginDate)}&endDate=${dateStringToRequest(this.state.normalEndDate)}`}>
