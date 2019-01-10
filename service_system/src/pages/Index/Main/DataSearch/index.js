@@ -479,7 +479,7 @@ class DataSearch extends Component{
                             </Link>
                         </div>
                     </div>
-                    <p className="t">与往日对比</p>
+                    <p className="t">历史数据对比</p>
                     <div className="fold-line-block">
                         <h5 className="text-center">上秤人数和加粉人数折线图</h5>
                         <div className="date-block">
