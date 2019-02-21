@@ -1,18 +1,24 @@
 import React ,{Component} from 'react'
 import {Link} from 'react-router-dom'
 import DocumentTitle from '../../../../components/DocumentTitle'
+import Mask from '../../../../components/Mask'
+
+
 
 import './assets/css/index.css'
 import you_jian_tou from './assets/img/you-jian-tou02.png'
+import Xclose from './assets/img/x-close.png'
+import wenhao from './assets/img/wenhao.png'
 import req from '../../../../assets/js/req'
 import Util from '../../../../components/Util'
 import { Line,XAxis,CartesianGrid,LineChart,YAxis,Tooltip } from 'recharts';
 import Loading from '../../../../components/Loading'
 // import NoHaveMessage from '../../../../components/NoHaveMessage'
 import you_jian_tou_png from '../../Question/assets/img/you_jian_tou_2x.png'
+
 import authorize_url from '../../../../assets/js/authorize_url'
 const qs = require('querystring')
-// recharts 中有用到recharts，但是像iso 8.3不支持，所以在这写个Polyfill
+// recharts 中有用到Number，但是像iso 8.3不支持，所以在这写个Polyfill
 Number.isFinite = Number.isFinite || function(value) {
     return typeof value === "number" && isFinite(value);
 }
@@ -143,6 +149,42 @@ function buildDefaultGetFn(){
     }.bind(this);
 }
 
+class FatNumberModal extends Component{
+    render(){
+        return <div 
+                className="fat-number-modal" 
+                style={{
+                    width:'80%',
+                    position:'absolute',
+                    background:'#fff',
+                    border:'1px solid #EAEAEA',
+                    borderRadius:'0.4em',
+                    left:'50%',
+                    top:'50%',
+                    WebkitTransform:'translate(-50%,-50%)',
+                    transform:'translate(-50%,-50%)'
+                }}
+                >
+            <div className="modal-header" style={{width:'100%',position:'relative',borderBottom:'1px solid #EAEAEA',textAlign:'center',overflow:'hidden'}}>
+                <table style={{width:"100%",margin:'4% 0'}}>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h5 style={{fontSize:'16px',color:'#333333',margin:0}}>肥胖人数定义</h5>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+                <img style={{position:'absolute',width:'12px',height:'12px',right:'5%',top:'50%',WebkitTransform:'translate(0,-50%)',transform:'translate(0,-50%)'}} src={Xclose} onClick={this.props.onClick} alt=""/>
+            </div>
+            <div className="modal-content" style={{padding:'7%',color:'#333333'}}>
+                <p style={{margin:0}}>肥胖人数是指：一定时间范围内，上秤用户肥胖等级超过正常标准的用户总和。</p>
+            </div>
+        </div>
+    }
+}
+
 class DataSearch extends Component{
     constructor(){
         super()
@@ -153,6 +195,7 @@ class DataSearch extends Component{
         this.normalDefaultEndDate = addDate(getDateString(new Date));
 
         this.state = {
+            fatNumberMaskShow:false,
             requested:false,
             tabIndex:null,
             totalPlayerNumber:0,     //显示--上秤人数
@@ -422,10 +465,20 @@ class DataSearch extends Component{
             requested:true,
         })
     }
+    // 打开肥胖人数弹框
+    openFatNumberModal(){
+        this.setState({fatNumberMaskShow:true})
+    }
+    // 关闭肥胖人数弹框
+    closeFatNumberModal(){
+        this.setState({fatNumberMaskShow:false})
+    }
     render(){
         return (
             <div className="App DataSearch">
                 <DocumentTitle title="数据查询"></DocumentTitle>
+                {/* 点击肥胖人数显示这个庶照 */}
+                {this.state.fatNumberMaskShow ? <Mask onClick={this.closeFatNumberModal.bind(this)}><FatNumberModal onClick={this.closeFatNumberModal.bind(this)}></FatNumberModal></Mask> : ''}
                 <div className="dataSearch-container">
                     <div className="green-block"></div>
                     <div className="current-device-block">
@@ -459,12 +512,12 @@ class DataSearch extends Component{
                                     </div>
                                 </div>
                             </Link>
-                            <div className="flex1">
+                            <div className="flex1" onClick={this.openFatNumberModal.bind(this)}>
                                 <p>肥胖人数</p>
                                 <h2>{this.state.fatPeopleNumber}</h2>
-                                <div className="flex" style={{visibility:'hidden'}}>
+                                <div className="flex">
                                     <div className="flex1">
-                                        <img src={you_jian_tou} alt=""/>
+                                        <img src={wenhao} alt=""/>
                                     </div>
                                 </div>
                             </div>
