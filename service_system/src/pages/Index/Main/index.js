@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import './assets/css/index.css'
-import Util from '../../../components/Util'
-import req from '../../../assets/js/req'
-import authorize_url from '../../../assets/js/authorize_url'
+import Util from '@/components/Util'
+import req from '@/assets/js/req'
+import authorize_url from '@/assets/js/authorize_url'
 
 
 import yyzn_png from './assets/img/yyzn_2x.png'     //运营指南图标

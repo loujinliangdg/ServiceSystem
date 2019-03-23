@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {Link,Switch,Route} from 'react-router-dom'
 import './assets/css/index.css'
-import DocumentTitle from '../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import ForgetPassword from './ForgetPassword'
 import logo_png from './assets/img/logo.png'
 import shouji_png from './assets/img/shouji.png'
 import shuo_png from './assets/img/shuo.png'
 
-import req from '../../assets/js/req'
+import req from '@/assets/js/req'
 const qs = require('querystring')
 
 class Login extends Component {

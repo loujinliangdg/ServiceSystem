@@ -1,17 +1,17 @@
 import React,{Component} from 'react'
 import {Link,Switch,Route} from 'react-router-dom'
-import DocumentTitle from '../../../../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import SwitchDevice from './SwitchDevice'
 import SwitchBodyFatScale from './SwitchBodyFatScale'
 import SwitchMode from './SwitchMode'
 import SwitchUseScenarios from './SwitchUseScenarios'
 import './assets/css/index.css'
-import req from '../../../../../assets/js/req'
-import Loading from '../../../../../components/Loading'
-import Util from '../../../../../components/Util'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
+import Util from '@/components/Util'
 import you_jian_tou_png from '../../../../Index/Question/assets/img/you_jian_tou_2x.png';
-import authorize_url from '../../../../../assets/js/authorize_url'
-import ToSwitchDeviceItem from '../../../../../components/ToSwitchDeviceItem/index'
+import authorize_url from '@/assets/js/authorize_url'
+import ToSwitchDeviceItem from '@/components/ToSwitchDeviceItem/index'
 
 const ListItem = (props) =>{
     return (

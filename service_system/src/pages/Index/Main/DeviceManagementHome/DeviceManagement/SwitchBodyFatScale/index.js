@@ -1,10 +1,10 @@
 import React,{Component} from 'react'
-import DocumentTitle from '../../../../../../components/DocumentTitle'
-import req from '../../../../../../assets/js/req'
-import Utils from '../../../../../../components/Util'
+import DocumentTitle from '@/components/DocumentTitle'
+import req from '@/assets/js/req'
+import Utils from '@/components/Util'
 import './assets/css/index.css'
 import body_fat_scale_png from './assets/img/body-fat-scale-img.png'
-import authorize_url from '../../../../../../assets/js/authorize_url'
+import authorize_url from '@/assets/js/authorize_url'
 
 class SwitchBodyFatScale extends Component {
     constructor(props){

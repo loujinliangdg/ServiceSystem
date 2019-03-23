@@ -1,16 +1,16 @@
 import React,{Component} from 'react'
 import {Link,Route,Switch} from 'react-router-dom'
-import DocumentTitle from '../../../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import DeviceManagement from './DeviceManagement/index'
 import MemberManagement from './MemberManagement'
 import MyDevice from './MyDevice'
 import PrintAccountNumber from './PrintAccountNumberManageMent/index'
 
 import './assets/css/index.css'
-import req from '../../../../assets/js/req'
-import Loading from '../../../../components/Loading'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
 import you_jian_tou_png from '../../../Index/Question/assets/img/you_jian_tou_2x.png';
-import authorize_url from '../../../../assets/js/authorize_url'
+import authorize_url from '@/assets/js/authorize_url'
 
 class DeviceManagementHome extends Component {
     constructor(props){

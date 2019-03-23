@@ -1,15 +1,15 @@
 import React,{PureComponent} from 'react'
-import req from '../../../../../../assets/js/req'
+import req from '@/assets/js/req'
 
-import DocumentTitle from '../../../../../../components/DocumentTitle'
-import Loading from '../../../../../../components/Loading'
-import NoHaveMessage from '../../../../../../components/NoHaveMessage'
-import Util from '../../../../../../components/Util'
+import DocumentTitle from '@/components/DocumentTitle'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
+import Util from '@/components/Util'
 import './assets/css/index.css'
 import face_sad_png from './assets/img/face_sad.svg';
 import face_smile_png from './assets/img/face_smile.svg';
-import authorize_url from '../../../../../../assets/js/authorize_url'
-import Wechat from '../../../../../../assets/js/wx-chat'
+import authorize_url from '@/assets/js/authorize_url'
+import Wechat from '@/assets/js/wx-chat'
 const qs = require('querystring')
 
 

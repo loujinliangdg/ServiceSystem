@@ -1,7 +1,7 @@
 import React ,{Component} from 'react'
 import {Link,Switch,Route} from 'react-router-dom'
-import DocumentTitle from '../../../../components/DocumentTitle'
-import Mask from '../../../../components/Mask'
+import DocumentTitle from '@/components/DocumentTitle'
+import Mask from '@/components/Mask'
 import PlayerNumber from './PlayerNumber'
 import WechatAddNumber from './WechatAddNumber'
 
@@ -10,14 +10,14 @@ import './assets/css/index.css'
 import you_jian_tou from './assets/img/you-jian-tou02.png'
 import Xclose from './assets/img/x-close.png'
 import wenhao from './assets/img/wenhao.png'
-import req from '../../../../assets/js/req'
-import Util from '../../../../components/Util'
+import req from '@/assets/js/req'
+import Util from '@/components/Util'
 import { Line,XAxis,CartesianGrid,LineChart,YAxis,Tooltip } from 'recharts';
-import Loading from '../../../../components/Loading'
-// import NoHaveMessage from '../../../../components/NoHaveMessage'
+import Loading from '@/components/Loading'
+// import NoHaveMessage from '@/components/NoHaveMessage'
 import you_jian_tou_png from '../../Question/assets/img/you_jian_tou_2x.png'
 
-import authorize_url from '../../../../assets/js/authorize_url'
+import authorize_url from '@/assets/js/authorize_url'
 const qs = require('querystring')
 // recharts 中有用到Number，但是像iso 8.3不支持，所以在这写个Polyfill
 Number.isFinite = Number.isFinite || function(value) {

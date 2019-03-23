@@ -1,10 +1,10 @@
 import React,{Component} from 'react'
-import DocumentTitle from '../../../../../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
-import req from '../../../../../../assets/js/req'
-import Utils from '../../../../../../components/Util'
-import Loading from '../../../../../../components/Loading'
-import NoHaveMessage from '../../../../../../components/NoHaveMessage'
+import req from '@/assets/js/req'
+import Utils from '@/components/Util'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
 
 class SwitchMode extends Component {
     constructor(props){

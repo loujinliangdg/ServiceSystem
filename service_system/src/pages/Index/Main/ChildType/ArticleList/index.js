@@ -1,12 +1,12 @@
 import React,{Component} from 'react'
 import {Link,Switch,Route} from 'react-router-dom'
-import DocumentTitle from '../../../../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import ArticleDetail from './Article'
-import req from '../../../../../assets/js/req'
-import Loading from '../../../../../components/Loading'
-import NoHaveMessage from '../../../../../components/NoHaveMessage'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
 import './assets/css/index.css'
-import authorize_url from '../../../../../assets/js/authorize_url'
+import authorize_url from '@/assets/js/authorize_url'
 const qs = require('querystring');
 
 class ArticleList extends Component{

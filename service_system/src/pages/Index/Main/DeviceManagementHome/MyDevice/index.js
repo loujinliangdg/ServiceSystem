@@ -1,10 +1,10 @@
 import React,{Component} from 'react'
-import DocumentTitle from '../../../../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
-import req from '../../../../../assets/js/req'
-import Loading from '../../../../../components/Loading'
-import Util from '../../../../../components/Util'
-import authorize_url from '../../../../../assets/js/authorize_url'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
+import Util from '@/components/Util'
+import authorize_url from '@/assets/js/authorize_url'
 
 class DeviceManagement extends Component {
     constructor(props){

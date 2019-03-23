@@ -1,12 +1,12 @@
 import React,{Component} from 'react'
-import DocumentTitle from '../../../../../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
-import req from '../../../../../../assets/js/req'
-import Util from '../../../../../../components/Util'
+import req from '@/assets/js/req'
+import Util from '@/components/Util'
 import default_qrCode_png from './assets/img/default_qrCode.png'
 import gantan_png from './assets/img/gantan.png'
-import upQiNiu from '../../../../../../assets/js/up_qiniu';
-import authorize_url from '../../../../../../assets/js/authorize_url'
+import upQiNiu from '@/assets/js/up_qiniu';
+import authorize_url from '@/assets/js/authorize_url'
 const qs = require('querystring');
 
 

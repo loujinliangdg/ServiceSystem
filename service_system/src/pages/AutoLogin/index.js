@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import req from '../../assets/js/req'
-import DocumentTitle from '../../components/DocumentTitle'
+import req from '@/assets/js/req'
+import DocumentTitle from '@/components/DocumentTitle'
 
 const qs = require('querystring')
 

@@ -1,8 +1,8 @@
 import React,{Component} from 'react'
-import req from '../../../../../../assets/js/req'
+import req from '@/assets/js/req'
 import './assets/css/index.css'
-import DocumentTitle from '../../../../../../components/DocumentTitle'
-const Util = require('../../../../../../components/Util')
+import DocumentTitle from '@/components/DocumentTitle'
+const Util = require('@/components/Util')
 
 const qs = require('querystring')
 class AddChildAccount extends Component{

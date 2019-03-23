@@ -1,16 +1,16 @@
 import React,{Component,PureComponent} from 'react';
 import {Switch,Route,Link} from 'react-router-dom';
-import DocumentTitle from '../../../../../components/DocumentTitle'
-import ToSwitchDeviceItem from '../../../../../components/ToSwitchDeviceItem'
+import DocumentTitle from '@/components/DocumentTitle'
+import ToSwitchDeviceItem from '@/components/ToSwitchDeviceItem'
 import './assets/css/index.css'
-import SlideLeftDelete from '../../../../../components/SlideLeftDelete'
-import Mask from '../../../../../components/Mask'
-import Confirm from '../../../../../components/Confirm'
-import req from '../../../../../assets/js/req'
-import Loading from '../../../../../components/Loading'
-import NotHaveMessage from '../../../../../components/NoHaveMessage'
+import SlideLeftDelete from '@/components/SlideLeftDelete'
+import Mask from '@/components/Mask'
+import Confirm from '@/components/Confirm'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
+import NotHaveMessage from '@/components/NoHaveMessage'
 import AddChildAccount from './AddChildAccount/index'
-const Util = require('../../../../../components/Util')
+const Util = require('@/components/Util')
 const qs = require('querystring')
 
 /**

@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
-import DocumentTitle from '../../../../../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
-import authorize_url from '../../../../../../assets/js/authorize_url'
+import authorize_url from '@/assets/js/authorize_url'
 
 class SwitchDevice extends Component {
     constructor(props){
