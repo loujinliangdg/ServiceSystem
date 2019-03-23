@@ -1,65 +1,24 @@
 
 import React,{Component} from 'react'
-
+import Mask from '../Mask'
+import './assets/css/index.css'
 class Confirm extends Component{
-    constructor(){
-        super();
-        this.state = {
-            Confirm:{
-                style:{
-                    position:'fixed',
-                    left:0,
-                    bottom:0,
-                    right:0,
-                    top:0,
-                    zIndex:1000,
-                    background:'rgba(0,0,0,0.04)'
-                }
-            },
-            confirm:{
-                style:{
-                    width:'75%',
-                    border:'1px solid rgba(159,159,159,.2)',
-                    borderRadius:'5px',
-                    background:'#fff',
-                    position:'absolute',
-                    left:'50%',
-                    top:'50%',
-                    webKitTransform:'translate(-50%,-50%)',
-                    transform:'translate(-50%,-50%)'
-                }
-            },
-            title:{
-                style:{
-                    textAlign:'center',
-                    lineHeight:2.4,
-                    borderBottom:'1px solid rgba(159,159,159,.2)',
-                }
-            },
-            content:{
-                style:{
-                    padding:'20px',
-                    lineHeight:1.5,
-                }
-            }
-        }
-    }
-    componentDidMount(){
-    }
     pageTouchMove(event){
-        event.preventDefault();
+        if(event.cancelable){
+            event.preventDefault();
+        }
     }
     render(){
         return (
-            <div className="Confirm" style={this.props.Confirm_is_show ? this.state.Confirm.style : {display:'none'}} onTouchMove={this.pageTouchMove.bind(this)}>
-                <div className="confirm" style={this.state.confirm.style}>
-                    <div className="title" style={this.state.title.style}>提示</div>
-                    <div className="content" style={this.state.content.style}>
-                        {this.props.Confirm.content || '您想干什么呢？'}
+            <div className="Confirm" onTouchMove={this.pageTouchMove.bind(this)}>
+                <div className="confirm">
+                    <div className="title">{this.props.Confirm.title}</div>
+                    <div className="content" style={{textAlign:this.props.Confirm.align}}>
+                        {this.props.Confirm.content}
                     </div>
                     <div className="buttons flex text-center" style={{borderTop:'1px solid rgba(159,159,159,.2)',lineHeight:'2.5'}}>
-                        <a href="javascript:void(0)" className="flex1" onClick={this.props.Confirm.success || function(){console.log('您点击了确定按钮')}}>确定</a>
-                        <a href="javascript:void(0)" className="flex1" onClick={this.props.Confirm.cancel || function(){console.log('您点击了取消按钮')}} style={{borderLeft:'1px solid rgba(159,159,159,.2)'}}>取消</a>
+                        <a href="javascript:void(0)" className="flex1" onClick={this.props.Confirm.success.callback}>{this.props.Confirm.success.text}</a>
+                        <a href="javascript:void(0)" className="flex1" onClick={this.props.Confirm.cancel.callback}>{this.props.Confirm.cancel.text}</a>
                     </div>
                 </div>
             </div>
@@ -67,4 +26,55 @@ class Confirm extends Component{
     }
 }
 
-export default Confirm
+
+export default (props) =>{
+    const defaultProps = {
+        mask:true,
+        title:'提示',
+        content:'想干点什么呢',
+        align:'left',
+        success:{
+            text:'确定',
+            callback:function(){}
+        },
+        cancel:{
+            text:'取消',
+            callback:function(){}
+        }
+    }
+    if(typeof props.Confirm === 'object'){
+        for(let key in props.Confirm){
+            if(key === 'success' || key === 'cancel'){
+                if(typeof props.Confirm[key] === 'string') {
+                    defaultProps[key].text = props.Confirm[key];
+                    continue;
+                }
+                if(typeof props.Confirm[key] === 'function') {
+                    defaultProps[key].callback = props.Confirm[key];
+                    continue;
+                }
+                if(typeof props.Confirm[key] === 'object'){
+                    let c_success_or_cancel = props.Confirm[key];
+                    let d_success_or_cancel = defaultProps[key];
+                    for(let key in c_success_or_cancel){
+                        d_success_or_cancel[key] = c_success_or_cancel[key];
+                    }
+                    continue;
+                }
+            }
+            else if(key == 'mask'){
+                defaultProps[key] = !!props.Confirm[key]
+            }
+            else{
+                defaultProps[key] = props.Confirm[key]
+            }
+        }
+    }
+    return (
+        defaultProps.mask ?
+        <Mask>
+            <Confirm Confirm={defaultProps}></Confirm>
+        </Mask>
+        : <Confirm Confirm={defaultProps}></Confirm>
+    )
+}

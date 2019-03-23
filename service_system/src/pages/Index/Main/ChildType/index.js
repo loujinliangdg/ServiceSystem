@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
+import {Link,Switch,Route} from 'react-router-dom'
 import DocumentTitle from '../../../../components/DocumentTitle'
+import ArticleListRoute from './ArticleList'
 import './assets/css/index.css'
 import req from '../../../../assets/js/req'
 import Loading from '../../../../components/Loading'
@@ -210,4 +211,13 @@ class ChildType extends Component{
     }
 }
 
-export default ChildType
+const ChildTypeRoute = () =>{
+    return (
+        <Switch>
+            <Route path="/index/childType" exact={true}  component={ChildType} chineseName="文章子分类"></Route>
+            <Route path="/index/childType/articleList" component={ArticleListRoute} chineseName="文章列表"></Route>
+        </Switch>
+    )
+}
+
+export default ChildTypeRoute

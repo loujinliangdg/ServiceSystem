@@ -7,8 +7,6 @@ class Loading extends PureComponent {
 		return (
 			<div style={{fontSize:'14px',color:'#424242',lineHeight:'2',textAlign:'center'}}>
 				{this.props.content || '数据努力加载中...'}
-				{/* <br/>
-				<img style={{width:'30px'}} src={loading_png} alt="loading"/> */}
 			</div>
 		)
 	}

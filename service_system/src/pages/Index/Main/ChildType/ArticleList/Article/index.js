@@ -54,7 +54,7 @@ function getNowFormatDate() {
     return currentdate;
 }
 
-class Article extends PureComponent{
+class ArticleDetail extends PureComponent{
     constructor(props){
         super();
         this.query = {}
@@ -180,4 +180,4 @@ class Article extends PureComponent{
         )
     }
 }
-export default Article
+export default ArticleDetail

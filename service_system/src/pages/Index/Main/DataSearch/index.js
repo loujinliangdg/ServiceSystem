@@ -1,8 +1,9 @@
 import React ,{Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link,Switch,Route} from 'react-router-dom'
 import DocumentTitle from '../../../../components/DocumentTitle'
 import Mask from '../../../../components/Mask'
-
+import PlayerNumber from './PlayerNumber'
+import WechatAddNumber from './WechatAddNumber'
 
 
 import './assets/css/index.css'
@@ -570,4 +571,14 @@ class DataSearch extends Component{
     }
 }
 
-export default DataSearch
+const DataSearchRoute = () =>{
+    return (
+        <Switch>
+            <Route path="/index/dataSearch" exact={true} component={DataSearch} chineseName="数据查询"></Route>
+            <Route path="/index/dataSearch/playerNumber"  component={PlayerNumber} chineseName="上秤人数"></Route>
+            <Route path="/index/dataSearch/wechatAddNumber"  component={WechatAddNumber} chineseName="新增粉丝人数"></Route>
+        </Switch>
+    )
+}
+
+export default DataSearchRoute

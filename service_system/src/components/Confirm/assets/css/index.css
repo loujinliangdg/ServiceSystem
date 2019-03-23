@@ -1,0 +1,32 @@
+.Confirm{
+    position:fixed;
+    left:0;
+    bottom:0;
+    right:0;
+    top:0;
+    z-index:1000;
+    background:rgba(0,0,0,0.01);
+}
+.confirm{
+    width:75%;
+    border:1px solid rgba(159,159,159,.2);
+    border-radius:5px;
+    background:#fff;
+    background-clip: padding-box;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%)
+}
+.confirm .title{
+    text-align:center;
+    line-height:2.4;
+    border-bottom:1px solid rgba(159,159,159,.2);
+}
+.confirm .content{
+    padding:20px;
+    line-height:1.5;
+}
+.confirm .buttons a:last-child{
+    border-left:1px solid rgba(159,159,159,.2);
+}

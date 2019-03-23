@@ -125,6 +125,22 @@ class Req{
          * 文档地址：http://showdoc.bianla.cn/web/#/1?page_id=1872
          */
         this['获取折线图数据'] = '/api/customerService/getDatasCurve'
+        /**
+         * 获取打印流水系统账号列表
+         */
+        this['获取打印报告系统账号列表'] = '/api/customerService/getPrintAccountList'
+        /**
+         * 机主新增打印账号
+         */
+        this['机主新增打印账号'] = '/api/customerService/addPrintAccount'
+        /**
+         * 机主修改打印账号密码
+         */
+        this['机主修改打印账号密码'] = '/api/customerService/updatePrintAccount'
+        /**
+         * 机主删除打印账号
+         */
+        this['机主删除打印账号'] = '/api/customerService/deletePrintAccount'
     }
     get(name,data,successCallback,errorCallback){
         let authorization = window.sessionStorage.getItem('authorization');

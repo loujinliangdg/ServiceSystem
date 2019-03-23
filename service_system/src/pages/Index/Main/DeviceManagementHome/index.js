@@ -1,13 +1,18 @@
 import React,{Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link,Route,Switch} from 'react-router-dom'
 import DocumentTitle from '../../../../components/DocumentTitle'
+import DeviceManagement from './DeviceManagement/index'
+import MemberManagement from './MemberManagement'
+import MyDevice from './MyDevice'
+import PrintAccountNumber from './PrintAccountNumberManageMent/index'
+
 import './assets/css/index.css'
 import req from '../../../../assets/js/req'
 import Loading from '../../../../components/Loading'
 import you_jian_tou_png from '../../../Index/Question/assets/img/you_jian_tou_2x.png';
 import authorize_url from '../../../../assets/js/authorize_url'
 
-class DeviceManagement extends Component {
+class DeviceManagementHome extends Component {
     constructor(props){
         super();
         this.state = {
@@ -15,6 +20,7 @@ class DeviceManagement extends Component {
             requested:false,
             deviceCount:0,
             memberCount:0,
+            isHavePrintAccount:false,
         }
         this.bianlaId = window.localStorage.getItem('bianlaId');
         this.wxAuthorize = null;
@@ -49,6 +55,7 @@ class DeviceManagement extends Component {
                 this.setState({
                     deviceCount:data.deviceCount,
                     memberCount:data.memberCount,
+                    isHavePrintAccount:!!data.isHavePrintAccount,
                     requested:true,
                 })
             }
@@ -103,6 +110,20 @@ class DeviceManagement extends Component {
                                     </div>
                                 </Link>
                             </li>
+                            {
+                                this.state.isHavePrintAccount ? 
+                                <li className="list-item">
+                                    <Link className="inner" to={`/index/deviceManagementHome/printAccountNumber`}>
+                                        <div className="flex align-items-center">
+                                            <div className="flex1">报告系统账号管理</div>
+                                            <div className="text-right">
+                                                {/* <span className="text">{this.state.memberCount}人</span> */}
+                                                <img className="arrow-right" src={you_jian_tou_png} alt=""/>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </li> : ''
+                            }
                         </ul>
                     ) : <Loading />
                 }
@@ -112,4 +133,18 @@ class DeviceManagement extends Component {
     }
 }
 
-export default DeviceManagement
+
+const deviceManagementHomeRoute = () =>{
+    return (
+        <Switch>
+            <Route path="/index/deviceManagementHome" exact component={DeviceManagementHome} chineseName="设备管理主页"></Route>
+            <Route path="/index/deviceManagementHome/deviceManagement" component={DeviceManagement} chineseName="设备管理"></Route>
+            <Route path="/index/deviceManagementHome/memberManagement" component={MemberManagement} chineseName="成员管理"></Route>
+            <Route path="/index/deviceManagementHome/myDevice" component={MyDevice} chineseName="我的设备"></Route>
+            <Route path="/index/deviceManagementHome/printAccountNumber" component={PrintAccountNumber} chineseName="报告系统账号管理"></Route> 
+        </Switch>
+    )
+}
+
+
+export default deviceManagementHomeRoute

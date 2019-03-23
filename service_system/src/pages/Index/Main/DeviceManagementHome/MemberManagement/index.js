@@ -1,14 +1,16 @@
 import React,{Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link,Switch,Route} from 'react-router-dom'
 import DocumentTitle from '../../../../../components/DocumentTitle'
+import Domember from './DoMember'
 import './assets/css/index.css'
 import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
 import Confirm from '../../../../../components/Confirm'
 import Util from '../../../../../components/Util'
 import authorize_url from '../../../../../assets/js/authorize_url'
+import SlideLeftDelete from '../../../../../components/SlideLeftDelete'
 
-class DeviceManagement extends Component {
+class MemberManagement extends Component {
     constructor(props){
         super();
         this.state = {
@@ -97,87 +99,11 @@ class DeviceManagement extends Component {
             })
         })
     }
-    userClick(event){
-        if(event.target.className === 'delete-user'){
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    }
-    pageTouchStart(event){
-        if(event.target.className === 'delete-user'){
-            return;
-        }
-        var userItem = [].slice.call(document.querySelectorAll('.user-item-inner'));
-        userItem.forEach((item) =>{
-            var itemLeft = item.style.left ? parseFloat(item.style.left) : 0;
-            if(itemLeft !== 0){
-                item.style.webKitTransition = `all ${this.userItemTransTime}ms`;
-                item.style.transition = `all ${this.userItemTransTime}ms`;
-                item.style.left = 0 + 'px';
-            }
+    allSlideInit(){
+        var allSlide = document.querySelectorAll('.was-slide');
+        [].slice.call(allSlide).forEach((item) =>{
+            item.style.left=0;
         })
-    }
-    userItemTouchStart(event){
-        var target = event.targetTouches[0];
-        var currentTarget = event.currentTarget;
-        this.startX = target.clientX;
-        this.startY = target.clientY;
-        currentTarget.style.webKitTransition = `all 0ms`;
-        currentTarget.style.transition = `all 0ms`;
-    }
-    userItemTouchMove(event){
-        var target = event.targetTouches[0];
-        var currentTarget = event.currentTarget;
-        var deleteBtn = currentTarget.querySelector('.delete-user');
-        
-        this.moveX = target.clientX;
-        this.moveY = target.clientY;
-        
-        // 如果横向比纵向滑动的幅度大，则向应左滑删除的动作，并且阻止纵向滚动条的行为
-        if(Math.abs(this.moveX - this.startX) > Math.abs(this.moveY - this.startY)){
-            event.preventDefault();
-            if(this.prevMoveX === null){
-                this.prevMoveX = this.moveX;
-                this.prevMoveY = this.moveY;
-            }
-            else{
-                var willX = this.moveX - this.prevMoveX;
-                var itemLeft = currentTarget.style.left ? parseFloat(currentTarget.style.left) : 0;
-                currentTarget.style.left = ((itemLeft + willX) > 0 ? 0 : (itemLeft + willX) < -deleteBtn.offsetWidth ? -deleteBtn.offsetWidth : (itemLeft + willX)) + 'px';
-            }
-
-
-
-            this.prevMoveX = this.moveX;
-            this.prevMoveY = this.moveY;
-        }
-    }
-    userItemTouchEnd(event){
-        var target = event.changedTouches[0];
-        var currentTarget = event.currentTarget;
-        var deleteBtn = currentTarget.querySelector('.delete-user');
-        var itemLeft = currentTarget.style.left ? parseFloat(currentTarget.style.left) : 0;
-        var deleteBtnWidth = deleteBtn.offsetWidth
-        if(Math.abs(itemLeft) >=  deleteBtnWidth * 0.6){
-            let transTime = (deleteBtnWidth - Math.abs(itemLeft)) * (this.userItemTransTime / deleteBtnWidth);
-            currentTarget.style.webKitTransition = `all ${transTime}ms`;
-            currentTarget.style.transition = `all ${transTime}ms`;
-            currentTarget.style.left = -deleteBtnWidth + 'px';
-        }
-        else{
-            let transTime = Math.abs(itemLeft) * (this.userItemTransTime / deleteBtnWidth);
-            currentTarget.style.webKitTransition = `all ${transTime}ms`;
-            currentTarget.style.transition = `all ${transTime}ms`;
-            currentTarget.style.left = 0;
-        }
-        this.startX = 0;
-        this.startY = 0;
-
-        this.moveX = 0;
-        this.moveY = 0;
-        
-        this.prevMoveX = null;
-        this.prevMoveY = null;
     }
     // 点击删除成员
     deleteUser(user){
@@ -213,6 +139,7 @@ class DeviceManagement extends Component {
                         dataList:dataList,
                         Confirm_is_show:false,
                     })
+                    this.allSlideInit();
                 }
                 Util.Toast(result.alertMsg);
             },(error) =>{
@@ -231,9 +158,8 @@ class DeviceManagement extends Component {
         if(typeof cancelCallback !== 'function'){throw 'cancelCallback 不是函数'}
         this.state.Confirm.success = successCallback;
         this.state.Confirm.cancel = cancelCallback;
-        this.state.Confirm_is_show = true;
         this.setState({
-            Confirm_is_show:this.state.Confirm_is_show,
+            Confirm_is_show:true,
             Confirm:this.state.Confirm
         })
     }
@@ -243,7 +169,7 @@ class DeviceManagement extends Component {
                 <DocumentTitle title="成员管理"></DocumentTitle>
                 {
                     this.state.requested && this.state.dataList.length ? (
-                        <div className="memberManagement-container" onTouchStart={this.pageTouchStart.bind(this)}>
+                        <div className="memberManagement-container">
                             {
                                 this.state.dataList.map((device) =>{
                                     return (
@@ -265,28 +191,25 @@ class DeviceManagement extends Component {
                                                         return (
                                                             // 成员
                                                             <div className="user-item" key={user.phoneNumber}>
-                                                                <Link 
-                                                                    className="user-item-inner" 
-                                                                    to={`/index/deviceManagementHome/memberManagement/doMember?deviceId=${user.deviceId}&deviceNo=${user.deviceNo}&id=${user.id}`}
-                                                                    onTouchStart={this.userItemTouchStart.bind(this)} 
-                                                                    onTouchMove={this.userItemTouchMove.bind(this)} 
-                                                                    onTouchEnd={this.userItemTouchEnd.bind(this)}
-                                                                    onClick={this.userClick.bind(this)}
-                                                                    >
-                                                                    <div className="flex align-items-center">
-                                                                        <div className="flex1">
-                                                                            {user.username}（{user.phoneNumber}）{user.isMain ? <span style={{fontSize:'12px',color:'#fff',background:'orange',padding:'1px 4px',borderRadius:'2px'}}>机主</span> : ''}
+                                                                <SlideLeftDelete deleteHandle={this.deleteUser.bind(this,user)}>
+                                                                    <Link 
+                                                                        className="user-item-inner" 
+                                                                        to={`/index/deviceManagementHome/memberManagement/doMember?deviceId=${user.deviceId}&deviceNo=${user.deviceNo}&id=${user.id}`}
+                                                                        >
+                                                                        <div className="flex align-items-center">
+                                                                            <div className="flex1">
+                                                                                {user.username}（{user.phoneNumber}）{user.isMain ? <span style={{fontSize:'12px',color:'#fff',background:'orange',padding:'1px 4px',borderRadius:'2px'}}>机主</span> : ''}
+                                                                            </div>
+                                                                            <div className="text-right">
+                                                                                {
+                                                                                    user.orderTakingSwitch === 1 
+                                                                                    ? (<span style={{color:'#40CC45'}}>接单中</span>)
+                                                                                    : (<span style={{color:'#C0C0C0'}}>暂停接单</span>)
+                                                                                }
+                                                                            </div>
                                                                         </div>
-                                                                        <div className="text-right">
-                                                                            {
-                                                                                user.orderTakingSwitch === 1 
-                                                                                ? (<span style={{color:'#40CC45'}}>接单中</span>)
-                                                                                : (<span style={{color:'#C0C0C0'}}>暂停接单</span>)
-                                                                            }
-                                                                        </div>
-                                                                    </div>
-                                                                    <button className="delete-user" onClick={this.deleteUser.bind(this,user)}>删除</button>
-                                                                </Link>
+                                                                    </Link>
+                                                                </SlideLeftDelete>
                                                             </div>
                                                         )
                                                     })
@@ -302,10 +225,19 @@ class DeviceManagement extends Component {
                         </div>
                     ) : <Loading />
                 }
-                <Confirm Confirm_is_show={this.state.Confirm_is_show} Confirm={this.state.Confirm}></Confirm>
+                {this.state.Confirm_is_show ? <Confirm Confirm={this.state.Confirm} /> : ''}
             </div>
         )
     }
 }
 
-export default DeviceManagement
+const MemberManagementRoute = () =>{
+    return (
+        <Switch>
+            <Route path="/index/deviceManagementHome/memberManagement" exact={true} component={MemberManagement} chineseName="成员管理"></Route>
+            <Route path="/index/deviceManagementHome/memberManagement/doMember" component={Domember} chineseName="操作成员"></Route> 
+        </Switch>
+    )
+}
+
+export default MemberManagementRoute

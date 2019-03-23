@@ -1,0 +1,63 @@
+.AddChildAccount{
+    overflow: hidden;
+}
+.AddChildAccount h5{
+    font-size:15px;
+    font-family:PingFang-SC-Medium;
+    font-weight:500;
+    color: #9E9E9E;
+    padding-left: 4%;
+    background: #f8f8f8;
+    padding: 6% 0 2% 4%;
+    margin: 0;
+}
+.AddChildAccount .formItem{
+    padding: 0 4%;
+    position: relative;
+}
+.AddChildAccount .formItem .inner{
+    border-bottom: 1px solid rgba(159,159,159,0.24);
+}
+.AddChildAccount .formItem .inner label{
+    width: 100%;
+    padding: 8px 0;
+}
+.AddChildAccount .formItem .inner label span{
+    display: inline-block;
+    width: 20%;
+    color: #333333;
+}
+.AddChildAccount .formItem .inner label input{
+    padding: 5px;
+    border: 0;
+    outline: 0;
+    font-size: 15px;
+}
+.AddChildAccount .formItem .submit{
+    position: relative;
+    width: 87%;
+    height: 38px;
+    left: 6.5%;
+    margin-top: 16%;
+}
+.AddChildAccount .formItem .submit button{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #40CC45;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 38px;
+}
+
+@media screen and (min-width:375px){
+    .AddChildAccount .formItem .submit{
+        height: 40px;
+    }
+    .AddChildAccount .formItem .submit button{
+        border-radius: 20px;
+    }
+}

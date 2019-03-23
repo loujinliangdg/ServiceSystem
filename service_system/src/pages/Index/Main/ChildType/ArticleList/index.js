@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link,Switch,Route} from 'react-router-dom'
 import DocumentTitle from '../../../../../components/DocumentTitle'
-
+import ArticleDetail from './Article'
 import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
 import NoHaveMessage from '../../../../../components/NoHaveMessage'
@@ -9,7 +9,7 @@ import './assets/css/index.css'
 import authorize_url from '../../../../../assets/js/authorize_url'
 const qs = require('querystring');
 
-class Article extends Component{
+class ArticleList extends Component{
     constructor(props) {
         super(props);
         this.query = {};
@@ -105,4 +105,14 @@ class Article extends Component{
     }
 }
 
-export default Article
+const ArticleListRoute = () =>{
+    return (
+        <Switch>
+            <Route path="/index/childType/articleList" exact component={ArticleList} chineseName="文章列表"></Route>
+            <Route path="/index/childType/articleList/article" component={ArticleDetail} chineseName="文章列表"></Route>
+        </Switch>
+    )
+}
+
+
+export default ArticleListRoute

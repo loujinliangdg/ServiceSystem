@@ -1,0 +1,39 @@
+.ToSwitchDeviceItem .current-device{
+    padding:0 4%;
+    font-size: 15px;
+    margin: 4% 0;
+    color: #9E9E9E;
+    font-weight: 100;
+}
+.ToSwitchDeviceItem .row{
+    display: block;
+    background: #fff;
+    padding: 0 4%;
+}
+.ToSwitchDeviceItem .row .flex{
+    padding-top: 4.5%;
+    padding-bottom: 4.5%;
+}
+.ToSwitchDeviceItem .row .flex .flex1{
+    color: #9E9E9E;
+}
+.ToSwitchDeviceItem .row .flex .flex1 span{
+    color: #282828;
+}
+.ToSwitchDeviceItem .row .flex .switch-device-btn{
+    background: #40CC45;
+    font-size: 12px;
+    display: block;
+    width: 45px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    color: #fff;
+    -webkit-border-radius: 13px;
+    border-radius: 13px;
+}
+@media screen and (max-width: 320px){
+    .ToSwitchDeviceItem .row .flex .switch-device-btn {
+        zoom: 0.9;
+    }
+}

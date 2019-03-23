@@ -1,12 +1,32 @@
 import React,{Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link,Switch,Route} from 'react-router-dom'
 import DocumentTitle from '../../../../../components/DocumentTitle'
+import SwitchDevice from './SwitchDevice'
+import SwitchBodyFatScale from './SwitchBodyFatScale'
+import SwitchMode from './SwitchMode'
+import SwitchUseScenarios from './SwitchUseScenarios'
 import './assets/css/index.css'
 import req from '../../../../../assets/js/req'
 import Loading from '../../../../../components/Loading'
 import Util from '../../../../../components/Util'
 import you_jian_tou_png from '../../../../Index/Question/assets/img/you_jian_tou_2x.png';
 import authorize_url from '../../../../../assets/js/authorize_url'
+import ToSwitchDeviceItem from '../../../../../components/ToSwitchDeviceItem/index'
+
+const ListItem = (props) =>{
+    return (
+        <Link className="row" to={props.link}>
+            <div className="flex align-items-center ">
+                <div className="flex1">
+                    {props.text}
+                </div>
+                <div>
+                    <img className="you-jian-tou" src={you_jian_tou_png} alt=""/>
+                </div>
+            </div>
+        </Link>
+    )
+}
 
 class DeviceManagement extends Component {
     constructor(){
@@ -144,50 +164,11 @@ class DeviceManagement extends Component {
                 {
                     this.state.requested ? (
                         <div className="deviceManagement-container">
-                            <h5 className="current-device">当前设备：</h5>
+                            <ToSwitchDeviceItem deviceNo={this.deviceNo}></ToSwitchDeviceItem>
                             <div className="row-block">
-                                <div className="row">
-                                    <div className="flex align-items-center">
-                                        <div className="flex1">
-                                            设备号：<span>{this.deviceNo}</span>
-                                        </div>
-                                        <div>
-                                            <Link className="switch-device-btn" to="/index/deviceManagementHome/deviceManagement/switchDevice">切换</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row-block">
-                                <Link className="row" to={`/index/deviceManagementHome/deviceManagement/switchBodyFatScale/${JSON.stringify(this.state.data.bodyFatScaleList)}`}>
-                                    <div className="flex align-items-center ">
-                                        <div className="flex1">
-                                            选择体脂秤
-                                        </div>
-                                        <div>
-                                            <img className="you-jian-tou" src={you_jian_tou_png} alt=""/>
-                                        </div>
-                                    </div>
-                                </Link>
-                                <Link className="row" to={`/index/deviceManagementHome/deviceManagement/switchMode/${this.state.data.currentMode}`}>
-                                    <div className="flex align-items-center">
-                                        <div className="flex1">
-                                            选择机器模式
-                                        </div>
-                                        <div>
-                                            <img className="you-jian-tou" src={you_jian_tou_png} alt=""/>
-                                        </div>
-                                    </div>
-                                </Link>
-                                <Link className="row" to={`/index/deviceManagementHome/deviceManagement/switchUseScenarios?useScenariosEn=${this.state.data.useScenariosEn}&useScenariosZh=${this.state.data.useScenariosZh}&otherRemark=${this.state.data.otherRemark}`}>
-                                    <div className="flex align-items-center" style={{border:'none'}}>
-                                        <div className="flex1">
-                                            使用场景
-                                        </div>
-                                        <div>
-                                            <img className="you-jian-tou" src={you_jian_tou_png} alt=""/>
-                                        </div>
-                                    </div>
-                                </Link>
+                                <ListItem text="选择体脂秤" link={`/index/deviceManagementHome/deviceManagement/switchBodyFatScale/${JSON.stringify(this.state.data.bodyFatScaleList)}`}></ListItem>    
+                                <ListItem text="选择机器模式" link={`/index/deviceManagementHome/deviceManagement/switchMode/${this.state.data.currentMode}`}></ListItem>    
+                                <ListItem text="使用场景" link={`/index/deviceManagementHome/deviceManagement/switchUseScenarios?useScenariosEn=${this.state.data.useScenariosEn}&useScenariosZh=${this.state.data.useScenariosZh}&otherRemark=${this.state.data.otherRemark}`}></ListItem>    
                             </div>
                             <div className="row-block">
                                 <div className="row">
@@ -215,4 +196,17 @@ class DeviceManagement extends Component {
     }
 }
 
-export default DeviceManagement
+const DeviceManagementRoute = () =>{
+    return (
+        <Switch>
+            <Route path="/index/deviceManagementHome/deviceManagement" exact={true}  component={DeviceManagement} chineseName="切换设备"></Route>
+            <Route path="/index/deviceManagementHome/deviceManagement/switchDevice" component={SwitchDevice} chineseName="切换设备"></Route>
+            <Route path="/index/deviceManagementHome/deviceManagement/switchBodyFatScale/:bodyFatScaleList"  component={SwitchBodyFatScale} chineseName="切换体脂秤"></Route>
+            <Route path="/index/deviceManagementHome/deviceManagement/switchMode/:currentMode"  component={SwitchMode} chineseName="切换模式"></Route>
+            <Route path="/index/deviceManagementHome/deviceManagement/switchUseScenarios"  component={SwitchUseScenarios} chineseName="切换使用场景"></Route>
+        </Switch>
+    )
+}
+
+
+export default DeviceManagementRoute

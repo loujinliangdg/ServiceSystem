@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
+import {Link,Switch,Route} from 'react-router-dom'
 import './assets/css/index.css'
 import DocumentTitle from '../../components/DocumentTitle'
+import ForgetPassword from './ForgetPassword'
 import logo_png from './assets/img/logo.png'
 import shouji_png from './assets/img/shouji.png'
 import shuo_png from './assets/img/shuo.png'
@@ -21,7 +22,7 @@ class Login extends Component {
         }
     }
     componentWillMount(){
-        
+         
     }
     login(){
         // 如果请求中 或者 不能提交状态 则直接返回
@@ -118,5 +119,14 @@ class Login extends Component {
         );
     }
 }
-  
-export default Login;
+
+const LoginRoute = () =>{
+    return (
+        <Switch>
+            <Route path="/login" exact={true} component={Login} chineseName="登陆变啦"></Route>
+            <Route path="/login/forgetPassword" component={ForgetPassword} chineseName="忘记密码"></Route>
+        </Switch>
+    )
+}
+
+export default LoginRoute;
