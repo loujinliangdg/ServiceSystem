@@ -9,6 +9,12 @@ class Confirm extends Component{
         }
     }
     render(){
+        var btns = [
+            this.props.Confirm.success,
+            this.props.Confirm.cancel
+        ]
+        // 倒序 左边取消 右边确定
+        if(this.props.Confirm.btns_order === 'desc') btns = btns.reverse();
         return (
             <div className="Confirm" onTouchMove={this.pageTouchMove.bind(this)}>
                 <div className="confirm">
@@ -17,8 +23,7 @@ class Confirm extends Component{
                         {this.props.Confirm.content}
                     </div>
                     <div className="buttons flex text-center" style={{borderTop:'1px solid rgba(159,159,159,.2)',lineHeight:'2.5'}}>
-                        <a href="javascript:void(0)" className="flex1" onClick={this.props.Confirm.success.callback}>{this.props.Confirm.success.text}</a>
-                        <a href="javascript:void(0)" className="flex1" onClick={this.props.Confirm.cancel.callback}>{this.props.Confirm.cancel.text}</a>
+                        {btns.map((item) => <a key={item.text} style={item.style} href="javascript:void(0)" className="flex1" onClick={item.callback}>{item.text}</a>)}
                     </div>
                 </div>
             </div>
@@ -33,12 +38,15 @@ export default (props) =>{
         title:'提示',
         content:'想干点什么呢',
         align:'left',
+        btns_order:'asc', //倒序desc
         success:{
             text:'确定',
+            style:{},
             callback:function(){}
         },
         cancel:{
             text:'取消',
+            style:{},
             callback:function(){}
         }
     }

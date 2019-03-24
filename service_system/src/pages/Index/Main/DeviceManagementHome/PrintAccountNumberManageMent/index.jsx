@@ -151,8 +151,12 @@ class PrintAccountNumber extends Component {
                             title:'删除提醒',
                             content:`确定删除${this.state.willDeleteItem.loginName}账号？`,
                             align:'center',
+                            btns_order:'desc',
                             success:{
                                 text:'删除',
+                                style:{
+                                    color:'#40CC45',
+                                },
                                 callback:() =>{
                                     this.sureDelete(this.state.willDeleteItem.id);
                                 }
@@ -197,7 +201,7 @@ class PrintAccountNumber extends Component {
                     this.state.accountList.length ?
                     <div className="add-child-account" onClick={this.addChildAccountClick.bind(this)}>
                         <button>
-                            <i className="iconfont icon-plus" style={{marginLeft:'10px'}}></i><span>添加子账号</span>
+                            <i className="iconfont icon-plus" style={{marginRight:'2px'}}></i><span>添加子账号</span>
                         </button>
                     </div> :
                     ''
