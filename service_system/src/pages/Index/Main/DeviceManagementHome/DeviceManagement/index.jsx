@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {Link,Switch,Route} from 'react-router-dom'
+import {LocalComponent} from '@/HightComponent'
 import DocumentTitle from '@/components/DocumentTitle'
 import SwitchDevice from './SwitchDevice'
 import SwitchBodyFatScale from './SwitchBodyFatScale'
@@ -37,37 +38,18 @@ class DeviceManagement extends Component {
             timestamp:0,         //设置待机时间 ios专用参数
             resultTimeStamp:0,   //time控件失去蕉点时，离最近一次touchStart的总毫秒数，ios专用参数
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
-        this.deviceId = this.deviceArray[0].deviceId;
-        this.deviceNo = this.deviceArray[0].deviceNo;
         this.isAndroid = /(Android)/i.test(window.navigator.userAgent);
         this.isIos = /(iPhone|iPad|iPod|iOS)/i.test(window.navigator.userAgent);
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
     }
     componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount() {
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else {
-            this.getDeviceData();
-        }
+        this.getDeviceData();
     }
     /**
      * 获取设备信息
      */
     getDeviceData(){
-        req.get('获取设备的信息',{bianlaId:this.bianlaId,deviceId:this.deviceId},(result) =>{
-            if(Math.abs(result.code) === 401){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
-            else if(result.code === 1){
+        req.get('获取设备的信息',{bianlaId:this.props.bianlaId,deviceId:this.props.deviceId},(result) =>{
+            if(result.code === 1){
                 var data = result.data || {bodyFatScaleList:[]}
                 this.setState({
                     data,
@@ -91,7 +73,7 @@ class DeviceManagement extends Component {
         var params = {
             beginTime:this.state.data.beginTime,
             endTime:this.state.data.endTime,
-            deviceId:this.deviceId,
+            deviceId:this.props.deviceId,
         }
         // timeName = beginTime || endTime
         params[timeName] = time;
@@ -164,7 +146,7 @@ class DeviceManagement extends Component {
                 {
                     this.state.requested ? (
                         <div className="deviceManagement-container">
-                            <ToSwitchDeviceItem deviceNo={this.deviceNo}></ToSwitchDeviceItem>
+                            <ToSwitchDeviceItem deviceNo={this.props.deviceNo}></ToSwitchDeviceItem>
                             <div className="row-block">
                                 <ListItem text="选择体脂秤" link={`/index/deviceManagementHome/deviceManagement/switchBodyFatScale/${JSON.stringify(this.state.data.bodyFatScaleList)}`}></ListItem>    
                                 <ListItem text="选择机器模式" link={`/index/deviceManagementHome/deviceManagement/switchMode/${this.state.data.currentMode}`}></ListItem>    
@@ -199,7 +181,7 @@ class DeviceManagement extends Component {
 const DeviceManagementRoute = () =>{
     return (
         <Switch>
-            <Route path="/index/deviceManagementHome/deviceManagement" exact={true}  component={DeviceManagement} chineseName="切换设备"></Route>
+            <Route path="/index/deviceManagementHome/deviceManagement" exact={true}  component={LocalComponent(DeviceManagement)} chineseName="切换设备"></Route>
             <Route path="/index/deviceManagementHome/deviceManagement/switchDevice" component={SwitchDevice} chineseName="切换设备"></Route>
             <Route path="/index/deviceManagementHome/deviceManagement/switchBodyFatScale/:bodyFatScaleList"  component={SwitchBodyFatScale} chineseName="切换体脂秤"></Route>
             <Route path="/index/deviceManagementHome/deviceManagement/switchMode/:currentMode"  component={SwitchMode} chineseName="切换模式"></Route>

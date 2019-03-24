@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {Link,Switch,Route} from 'react-router-dom'
+import {LocalComponent} from '@/HightComponent'
 import DocumentTitle from '@/components/DocumentTitle'
 import Domember from './DoMember'
 import './assets/css/index.css'
@@ -7,7 +8,6 @@ import req from '@/assets/js/req'
 import Loading from '@/components/Loading'
 import Confirm from '@/components/Confirm'
 import Util from '@/components/Util'
-import authorize_url from '@/assets/js/authorize_url'
 import SlideLeftDelete from '@/components/SlideLeftDelete'
 
 class MemberManagement extends Component {
@@ -21,58 +21,25 @@ class MemberManagement extends Component {
                 content:'确认删除该成员吗？删除后该成员将不再接到该一体机的推送。',
             }
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
-        this.willUser = null;
-
-        this.startX = 0;
-        this.startY = 0;
-
-        this.moveX = 0;
-        this.moveY = 0;
-
-        this.prevMoveX = null;
-        this.prevMoveY = null;
-
-        this.endX = 0;
-        this.endY = 0;
-
-        this.userItemTransTime = 600;
-
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
-    }
-    componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount() {
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
         // 如果没有设备
-        if(!this.deviceArray.length){
+        if(!this.props.deviceArray.length){
             this.setState({
                 requested:true,
             })
         }
         else{
-            this.deviceArray.forEach((item) =>{
-                // req.get('你大爷',{deviceId:item.deviceId})
+            this.props.deviceArray.forEach((item) =>{
                 this.getList(item.deviceId,item.deviceNo);
             })
         }
-        // this.getList();
     }
     /**
      * 获取子分类列表
      */
     getList(deviceId,deviceNo){
-        req.get('获取成员列表',{bianlaId:this.bianlaId,deviceId:deviceId},(result) =>{
-            if(Math.abs(result.code) === 401){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
+        req.get('获取成员列表',{bianlaId:this.props.bianlaId,deviceId:deviceId},(result) =>{
             if(result.code === 1){
                 var deviceUserList = result.data.deviceUserList || [];
                 var oneDevice = {
@@ -113,11 +80,7 @@ class MemberManagement extends Component {
         }
         // 调起对话框，以确认删除
         this.showConfirm(() =>{
-            req.get('删除成员',{deviceId:user.deviceId,phoneNumber:user.phoneNumber,userId:this.bianlaId},(result) =>{
-                if(Math.abs(result.code) === 401){
-                    sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                    window.location.href = this.wxAuthorize;
-                }
+            req.get('删除成员',{deviceId:user.deviceId,phoneNumber:user.phoneNumber,userId:this.props.bianlaId},(result) =>{
                 if(result.code === 1){
                     // 获取所有设备
                     let dataList = this.state.dataList;
@@ -234,7 +197,7 @@ class MemberManagement extends Component {
 const MemberManagementRoute = () =>{
     return (
         <Switch>
-            <Route path="/index/deviceManagementHome/memberManagement" exact={true} component={MemberManagement} chineseName="成员管理"></Route>
+            <Route path="/index/deviceManagementHome/memberManagement" exact={true} component={LocalComponent(MemberManagement)} chineseName="成员管理"></Route>
             <Route path="/index/deviceManagementHome/memberManagement/doMember" component={Domember} chineseName="操作成员"></Route> 
         </Switch>
     )

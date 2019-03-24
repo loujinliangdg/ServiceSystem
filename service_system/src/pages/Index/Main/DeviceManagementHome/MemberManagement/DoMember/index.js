@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import {LocalComponent} from '@/HightComponent'
 import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
 import req from '@/assets/js/req'
@@ -32,12 +33,6 @@ class OneDevice extends Component{
     constructor(){
         super();
         this.getOneDeviceOrderTakingCount = getOneDeviceOrderTakingCount
-    }
-    componentDidMount(){
-        
-    }
-    componentDidUpdate(){
-        
     }
     checkeDevice(event){
         event.stopPropagation();
@@ -95,27 +90,14 @@ class DoMember extends Component{
             add:add
         }
         this.isAddMember = true;
-        this.bianlaId = window.localStorage.getItem('bianlaId');
         this.getOneDeviceOrderTakingCount = getOneDeviceOrderTakingCount;
-
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
-    }
-    componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentWillMount(){
         this.query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
         // 是否是添加成员 添加成员时会给当前页面传参过来 {} 等于没有传参
         this.isAddMember = JSON.stringify(this.query) === '{}' ? true : false;
-
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount(){
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
         // 编辑成员
         if(!this.isAddMember){
             var device = this.state.memberList.filter((device) => device.deviceId == this.query.deviceId )[0]; //eslint-disable-line
@@ -341,7 +323,7 @@ class DoMember extends Component{
                 nickName:this.state.add.nickName,
                 phoneNumber:this.state.add.phoneNumber,
                 switcherStatus:this.state.add.switcherStatus,
-                userId:this.bianlaId,
+                userId:this.props.bianlaId,
                 originQrCode:this.state.add.originQrCode === default_qrCode_png ? null : this.state.add.originQrCode
             }
             // 获取选中的设备id
@@ -366,10 +348,6 @@ class DoMember extends Component{
         }
         if(api_name && params){
             req.get(api_name,params,(result) =>{
-                if(Math.abs(result.code) === 401){
-                    sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                    window.location.href = this.wxAuthorize;
-                }
                 if(result.code === 1){
                     Util.Toast(result.alertMsg,() =>{
                         this.props.history.go(-1)
@@ -464,4 +442,4 @@ class DoMember extends Component{
     }
 }
 
-export default DoMember
+export default LocalComponent(DoMember)

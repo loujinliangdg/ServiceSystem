@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import {LocalComponent} from '@/HightComponent'
 import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
 import req from '@/assets/js/req'
 import Loading from '@/components/Loading'
 import NoHaveMessage from '@/components/NoHaveMessage'
-import authorize_url from '@/assets/js/authorize_url'
 
 const qs = require('querystring')
 
@@ -15,13 +15,6 @@ class WechatAddNumber extends Component{
             requested:false,
             dataList:[],
         }
-        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
-        this.deviceId = this.deviceArray[0].deviceId;
-        this.deviceNo = this.deviceArray[0].deviceNo;
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
-
         this.beginDate = '';
         this.endDate = '';
     }
@@ -29,16 +22,7 @@ class WechatAddNumber extends Component{
         var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
         this.beginDate = query.beginDate;
         this.endDate = query.endDate;
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount(){
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else{
-            this.getList();
-        }
+        this.getList();
     }
     componentWillUnmount(){
         this.setState = (state,callback)=>{
@@ -49,11 +33,7 @@ class WechatAddNumber extends Component{
      * 获取新增粉丝人数
      */
     getList(){
-        req.get('获取新增粉丝',{deviceId:this.deviceId,beginDate:this.beginDate,endDate:this.endDate},(result) =>{
-            if(Math.abs(result.code === 401)){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
+        req.get('获取新增粉丝',{deviceId:this.props.deviceId,beginDate:this.beginDate,endDate:this.endDate},(result) =>{
             if(result.code === 1){
                 var dataList = result.data.resultDatas || []
                 this.setState({
@@ -131,4 +111,4 @@ class WechatAddNumber extends Component{
     }
 }
 
-export default WechatAddNumber
+export default LocalComponent(WechatAddNumber)

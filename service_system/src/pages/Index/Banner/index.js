@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import {LocalComponent} from '@/HightComponent'
 import './assets/css/index.css'
 import '../../../assets/js/req'
 import banner_loading_png from './assets/img/banner_loading.png'
 import req from '../../../assets/js/req';
 import Swiper from 'swiper/dist/js/swiper.js'
 import 'swiper/dist/css/swiper.min.css'
-import authorize_url from '../../../assets/js/authorize_url'
-const qs = require('querystring');
 
 class Banner extends Component{
     constructor(props){
@@ -16,20 +15,9 @@ class Banner extends Component{
             requested:false,
         }
         this.swiper = null;
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
-        this.bianlaId = window.localStorage.getItem('bianlaId');
     }
     componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount(){
-        if(!this.bianlaId){
-            window.location.href = this.wxAuthorize;
-        }
-        else{
-            this.getBanner();
-        }
+        this.getBanner();
     }
     componentWillUnmount(){
         // 如果swiper初始化过，则销毁swiper预防内存泄露
@@ -37,9 +25,6 @@ class Banner extends Component{
     }
     getBanner(){
         req.get('获取轮播图',{},(result) =>{
-            if(Math.abs(result.code) === 401){
-                window.location.href = this.wxAuthorize;
-            }
             if(result.code == 1){
                 var dataList = result.data.bannerList || [];
                 this.setState({
@@ -93,4 +78,4 @@ class Banner extends Component{
     }
 }
 
-export default Banner
+export default LocalComponent(Banner)

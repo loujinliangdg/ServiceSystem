@@ -1,5 +1,6 @@
 import React,{Component,PureComponent} from 'react';
 import {Switch,Route,Link} from 'react-router-dom';
+import {LocalComponent} from '@/HightComponent'
 import DocumentTitle from '@/components/DocumentTitle'
 import ToSwitchDeviceItem from '@/components/ToSwitchDeviceItem'
 import './assets/css/index.css'
@@ -73,16 +74,12 @@ class PrintAccountNumber extends Component {
             willDeleteItem:{},              //准备删除的那条账号
             willEditPasswordItem:{},        //准备修改密码的那条账号
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
-        this.deviceId = this.deviceArray[0].deviceId;
-        this.deviceNo = this.deviceArray[0].deviceNo;
     }
     componentWillMount(){
         this.gerPrintAccountList();
     }
     gerPrintAccountList(){
-        req.get('获取打印报告系统账号列表',{deviceId:this.deviceId},(result) =>{
+        req.get('获取打印报告系统账号列表',{deviceId:this.props.deviceId},(result) =>{
             if(result.code == 1){
                 this.setState({
                     accountList:result.data.aioWaterSystemUserList || [],
@@ -146,7 +143,7 @@ class PrintAccountNumber extends Component {
         return (
             <div className="App PrintAccountNumber">
                 <DocumentTitle title="报告系统账号管理"></DocumentTitle>   
-                <ToSwitchDeviceItem deviceNo={this.deviceNo}></ToSwitchDeviceItem>
+                <ToSwitchDeviceItem deviceNo={this.props.deviceNo}></ToSwitchDeviceItem>
                 {/* 删除确认框 */}
                 {this.state.Confirm_is_show ? 
                     <Confirm Confirm={
@@ -213,7 +210,7 @@ class PrintAccountNumber extends Component {
 const PrintAccountNumberRoute = ()=>{
     return (
         <Switch>
-            <Route path="/index/deviceManagementHome/printAccountNumber" exact component={PrintAccountNumber} chineseName="打印报告流水账号管理"></Route>
+            <Route path="/index/deviceManagementHome/printAccountNumber" exact component={LocalComponent(PrintAccountNumber)} chineseName="打印报告流水账号管理"></Route>
             <Route path="/index/deviceManagementHome/printAccountNumber/addChildAccount" component={AddChildAccount} chineseName="添加子账号"></Route>
         </Switch>
     )

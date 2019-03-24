@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {Link,Route,Switch} from 'react-router-dom'
+import {LocalComponent} from '@/HightComponent'
 import DocumentTitle from '@/components/DocumentTitle'
 import DeviceManagement from './DeviceManagement/index'
 import MemberManagement from './MemberManagement'
@@ -22,31 +23,17 @@ class DeviceManagementHome extends Component {
             memberCount:0,
             isHavePrintAccount:false,
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
         this.wxAuthorize = null;
         this.localURL = window.location.href;
     }
     componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount() {
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else{
-            this.getList();
-        }
+        this.getList();
     }
     /**
      * 获取子分类列表
      */
     getList(){
-        req.get('设备管理首页的信息',{bianlaId:this.bianlaId},(result) =>{
-            if(Math.abs(result.code === 401)){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
+        req.get('设备管理首页的信息',{bianlaId:this.props.bianlaId},(result) =>{
             if(result.code === 1){
                 var data = result.data || {
                     deviceCount:0,
@@ -137,7 +124,7 @@ class DeviceManagementHome extends Component {
 const deviceManagementHomeRoute = () =>{
     return (
         <Switch>
-            <Route path="/index/deviceManagementHome" exact component={DeviceManagementHome} chineseName="设备管理主页"></Route>
+            <Route path="/index/deviceManagementHome" exact component={LocalComponent(DeviceManagementHome)} chineseName="设备管理主页"></Route>
             <Route path="/index/deviceManagementHome/deviceManagement" component={DeviceManagement} chineseName="设备管理"></Route>
             <Route path="/index/deviceManagementHome/memberManagement" component={MemberManagement} chineseName="成员管理"></Route>
             <Route path="/index/deviceManagementHome/myDevice" component={MyDevice} chineseName="我的设备"></Route>

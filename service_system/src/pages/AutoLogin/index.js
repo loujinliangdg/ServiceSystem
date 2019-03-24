@@ -30,7 +30,7 @@ class AutoLogin extends Component {
                 localStorage.setItem('deviceNo',result.data.deviceArray[0].deviceNo);
                 localStorage.setItem('bianlaId',result.data.bianlaId);
                 localStorage.setItem('isRead',result.data.isRead);
-
+                //登陆成功 去其它页 或者 首页
                 var login_after_redirect_uri = sessionStorage.getItem('login_after_redirect_uri');
                 this.props.history.replace(login_after_redirect_uri ? login_after_redirect_uri : '/index');
             }

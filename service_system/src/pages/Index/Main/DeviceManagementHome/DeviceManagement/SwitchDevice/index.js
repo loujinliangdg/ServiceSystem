@@ -1,26 +1,14 @@
 import React,{Component} from 'react'
+import {LocalComponent} from '@/HightComponent'
 import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
-import authorize_url from '@/assets/js/authorize_url'
 
 class SwitchDevice extends Component {
-    constructor(props){
+    constructor(){
         super();
         this.state = {
             requested:false,
             deviceArray:JSON.parse(window.localStorage.getItem('deviceArray')) || []
-        }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
-    }
-    componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount() {
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
         }
     }
     switchDevice(index){
@@ -74,4 +62,4 @@ class SwitchDevice extends Component {
     }
 }
 
-export default SwitchDevice
+export default LocalComponent(SwitchDevice)
