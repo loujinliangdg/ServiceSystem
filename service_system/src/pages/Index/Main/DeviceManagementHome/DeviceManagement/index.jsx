@@ -11,7 +11,6 @@ import req from '@/assets/js/req'
 import Loading from '@/components/Loading'
 import Util from '@/components/Util'
 import you_jian_tou_png from '../../../../Index/Question/assets/img/you_jian_tou_2x.png';
-import authorize_url from '@/assets/js/authorize_url'
 import ToSwitchDeviceItem from '@/components/ToSwitchDeviceItem/index'
 
 const ListItem = (props) =>{
@@ -78,10 +77,6 @@ class DeviceManagement extends Component {
         // timeName = beginTime || endTime
         params[timeName] = time;
         req.get('设置待机时间',params,(result) =>{
-            if(Math.abs(result.code) === 401){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
             if(result.code === 1){
                 this.state.data[timeName] = time;
                 this.setState({data:this.state.data});
