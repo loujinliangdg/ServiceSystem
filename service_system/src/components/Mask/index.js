@@ -11,7 +11,7 @@ class Mask extends PureComponent {
     }
 	render() {
 		return (
-			<div className="Mask" style={{position:'fixed',left:0,top:0,width:'100%',height:'100%',background:'rgba(0,0,0,0.3)',zIndex:'9999'}} onTouchMove={this.pageTouchMove.bind(this)} onClick={this.props.onClick}>
+			<div className="Mask" style={{position:'fixed',left:0,top:0,width:'100%',height:'100%',background:'rgba(0,0,0,0.3)',zIndex:'9990'}} onTouchMove={this.pageTouchMove.bind(this)} onClick={this.props.onClick}>
                 {this.props.children}
 			</div>
 		)

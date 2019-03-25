@@ -21,7 +21,7 @@ const Toast = {
             text-align:center;
             -webkit-transition:all .3s;
             transition:all .3s;
-            z-index:1000;
+            z-index:9992;
         `
         span.style.cssText = `
             max-width:80%;

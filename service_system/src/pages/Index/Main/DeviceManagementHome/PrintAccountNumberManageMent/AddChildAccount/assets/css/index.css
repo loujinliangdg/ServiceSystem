@@ -52,6 +52,17 @@
     font-size: 15px;
     border-radius: 38px;
 }
+.AddChildAccount .input-prompt{
+    padding: 5px;
+    font-style: normal;
+    font-size: 12px;
+    color: rgb(196, 196, 196);
+    display: block;
+    margin-left: 20%;
+    white-space :nowrap;
+    transform-origin: 0 center;
+    transform: scale(0.92);
+}
 
 @media screen and (min-width:375px){
     .AddChildAccount .formItem .submit{
