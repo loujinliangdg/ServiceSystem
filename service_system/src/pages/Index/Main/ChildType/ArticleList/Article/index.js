@@ -1,15 +1,15 @@
 import React,{PureComponent} from 'react'
-import req from '../../../../../../assets/js/req'
-
-import DocumentTitle from '../../../../../../components/DocumentTitle'
-import Loading from '../../../../../../components/Loading'
-import NoHaveMessage from '../../../../../../components/NoHaveMessage'
-import Util from '../../../../../../components/Util'
+import req from '@/assets/js/req'
+import {LocalComponent} from '@/HightComponent'
+import DocumentTitle from '@/components/DocumentTitle'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
+import Util from '@/components/Util'
 import './assets/css/index.css'
 import face_sad_png from './assets/img/face_sad.svg';
 import face_smile_png from './assets/img/face_smile.svg';
-import authorize_url from '../../../../../../assets/js/authorize_url'
-import Wechat from '../../../../../../assets/js/wx-chat'
+import authorize_url from '@/assets/js/authorize_url'
+import Wechat from '@/assets/js/wx-chat'
 const qs = require('querystring')
 
 
@@ -63,20 +63,16 @@ class ArticleDetail extends PureComponent{
             requested:false,
             isClick:false,  //有用无用，是否点击过
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
         this.wxAuthorize = null;
         this.localURL = window.location.href;
     }
     componentWillMount(){
         this.query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
-        this.query.bianlaId = this.bianlaId;
-
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-        
+        this.query.bianlaId = this.props.bianlaId; 
     }
     componentDidMount() {
         // 如果本地没变啦id,并且不是预览模式
-        if(!this.bianlaId && !this.query.timesTamp){
+        if(!this.props.bianlaId && !this.query.timesTamp){
             sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
             window.location.href = this.wxAuthorize;
         }
@@ -86,10 +82,6 @@ class ArticleDetail extends PureComponent{
     }
     getList(query){
         req.get(this.query.timesTamp ? '预览文章' : '根据文章id获取文章',query,(result) =>{
-            if(Math.abs(result.code) === 401){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
             if(result.code === 1){
                 var article = result.data.article || {};
                 article.created = article.created || '2018-08-08';
@@ -122,12 +114,8 @@ class ArticleDetail extends PureComponent{
         }
         this.setState({isClick:name});
         req.get(api_name,{id:this.state.article.id},(result) =>{
-            if(Math.abs(result.code) === 401){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
             if(result.code === 1){
-
+                //TODO:好像也没什么可干的
             } 
         })
     }
@@ -180,4 +168,4 @@ class ArticleDetail extends PureComponent{
         )
     }
 }
-export default ArticleDetail
+export default LocalComponent(ArticleDetail)

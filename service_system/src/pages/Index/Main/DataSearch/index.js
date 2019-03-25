@@ -1,7 +1,8 @@
 import React ,{Component} from 'react'
 import {Link,Switch,Route} from 'react-router-dom'
-import DocumentTitle from '../../../../components/DocumentTitle'
-import Mask from '../../../../components/Mask'
+import {LocalComponent} from '@/HightComponent'
+import DocumentTitle from '@/components/DocumentTitle'
+import Mask from '@/components/Mask'
 import PlayerNumber from './PlayerNumber'
 import WechatAddNumber from './WechatAddNumber'
 
@@ -10,14 +11,12 @@ import './assets/css/index.css'
 import you_jian_tou from './assets/img/you-jian-tou02.png'
 import Xclose from './assets/img/x-close.png'
 import wenhao from './assets/img/wenhao.png'
-import req from '../../../../assets/js/req'
-import Util from '../../../../components/Util'
+import req from '@/assets/js/req'
+import Util from '@/components/Util'
 import { Line,XAxis,CartesianGrid,LineChart,YAxis,Tooltip } from 'recharts';
-import Loading from '../../../../components/Loading'
-// import NoHaveMessage from '../../../../components/NoHaveMessage'
+import Loading from '@/components/Loading'
+// import NoHaveMessage from '@/components/NoHaveMessage'
 import you_jian_tou_png from '../../Question/assets/img/you_jian_tou_2x.png'
-
-import authorize_url from '../../../../assets/js/authorize_url'
 const qs = require('querystring')
 // recharts 中有用到Number，但是像iso 8.3不支持，所以在这写个Polyfill
 Number.isFinite = Number.isFinite || function(value) {
@@ -120,11 +119,7 @@ function buildDefaultGetFn(){
             })
         }
         else{
-            req.get('数据查询',{deviceId:this.deviceId,beginDate:dateStringToRequest(beginDate),endDate:dateStringToRequest(endDate)},(result) =>{
-                if(Math.abs(result.code === 401)){
-                    sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                    window.location.href = this.wxAuthorize;
-                }
+            req.get('数据查询',{deviceId:this.props.deviceId,beginDate:dateStringToRequest(beginDate),endDate:dateStringToRequest(endDate)},(result) =>{
                 if(result.code === 1){
                     // 存入缓存
                     cacheData.totalPlayerNumber = result.data.totalPlayerNumber;
@@ -211,34 +206,17 @@ class DataSearch extends Component{
             normalEndDate:dateStringToPageShow(this.normalDefaultEndDate),      //上秤人数，肥肥人数，新增粉丝 默认结束时间
         }
 
-        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
-        this.deviceId = this.deviceArray[0].deviceId;
-        this.deviceNo = this.deviceArray[0].deviceNo;
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
-
         this.getThisDayData = buildDefaultGetFn.call(this)     //调用 今日数据的 函数
         this.getThisWeekData = buildDefaultGetFn.call(this)    //调用 本周数据的 函数
         this.getThisMonthData = buildDefaultGetFn.call(this)    //调用 本月数据的 函数
     }
-    componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
     componentDidMount(){
-        // 重登录
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else{
-            // 设置tabIndex
-            var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
-            // 初始化组件更新tabIndex
-            this.setState({
-                tabIndex:parseInt(query.tabIndex)
-            })
-        }
+        // 设置tabIndex
+        var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
+        // 初始化组件更新tabIndex
+        this.setState({
+            tabIndex:parseInt(query.tabIndex)
+        })
     }
     shouldComponentUpdate(nextProps, nextState){
         // 当tabIndex发生改变时去请求数据
@@ -282,7 +260,8 @@ class DataSearch extends Component{
             // 周 /本周及前四周
             case 1:
                 // 4 * 7 = 4 周 再 加上本周（本周是几天，未知）
-                let thisWeekBeginDate = addDate(getDateString(date),-(date.getDay()-1))
+                // getDay()要加三目运算符的原因是js中获取一周中的第几天，是周一 ~ 周六是（1-6） 周日（0），所以为了解决这个问题 加个三目运算符
+                let thisWeekBeginDate = addDate(getDateString(date),-((date.getDay() ? date.getDay() : 7)-1))
                 beginDate = addDate(thisWeekBeginDate,-(4 * 7))
                 endDate = addDate(getDateString(date));
                 // 获取本周
@@ -413,11 +392,7 @@ class DataSearch extends Component{
             chartEndDate:dateStringToPageShow(endDate),
             requested:false,
         })
-        req.get('获取折线图数据',{deviceId:this.deviceId,beginDate:dateStringToRequest(beginDate),endDate:dateStringToRequest(endDate),curveType:curveType},(result) =>{
-            if(Math.abs(result.code === 401)){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
+        req.get('获取折线图数据',{deviceId:this.props.deviceId,beginDate:dateStringToRequest(beginDate),endDate:dateStringToRequest(endDate),curveType:curveType},(result) =>{
             if(result.code === 1){
                 this.concatDatas(result.data.countNumberList || []);
             }
@@ -485,7 +460,7 @@ class DataSearch extends Component{
                     <div className="current-device-block">
                         <div className="flex align-items-center">
                             <div className="flex1 current-device">
-                                当前设备：<span>{this.deviceNo}</span>
+                                当前设备：<span>{this.props.deviceNo}</span>
                             </div>
                             <div>
                                 <Link className="switch-device-btn" to="/index/deviceManagementHome/deviceManagement/switchDevice">切换</Link>
@@ -571,10 +546,12 @@ class DataSearch extends Component{
     }
 }
 
+
+
 const DataSearchRoute = () =>{
     return (
         <Switch>
-            <Route path="/index/dataSearch" exact={true} component={DataSearch} chineseName="数据查询"></Route>
+            <Route path="/index/dataSearch" exact={true} component={LocalComponent(DataSearch)} chineseName="数据查询"></Route>
             <Route path="/index/dataSearch/playerNumber"  component={PlayerNumber} chineseName="上秤人数"></Route>
             <Route path="/index/dataSearch/wechatAddNumber"  component={WechatAddNumber} chineseName="新增粉丝人数"></Route>
         </Switch>

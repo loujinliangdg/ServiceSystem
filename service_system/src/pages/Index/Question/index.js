@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import './assets/css/index.css'
-import req from '../../../assets/js/req'
-import Loading from '../../../components/Loading'
-import NoHaveMessage from '../../../components/NoHaveMessage'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
 
 import you_jian_tou_png from './assets/img/you_jian_tou_2x.png'
 import shuang_you_jian_tou_png from './assets/img/shuang_you_jian_tou_2x.png'

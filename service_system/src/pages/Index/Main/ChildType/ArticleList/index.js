@@ -1,39 +1,27 @@
 import React,{Component} from 'react'
 import {Link,Switch,Route} from 'react-router-dom'
-import DocumentTitle from '../../../../../components/DocumentTitle'
+import {LocalComponent} from '@/HightComponent'
+import DocumentTitle from '@/components/DocumentTitle'
 import ArticleDetail from './Article'
-import req from '../../../../../assets/js/req'
-import Loading from '../../../../../components/Loading'
-import NoHaveMessage from '../../../../../components/NoHaveMessage'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
 import './assets/css/index.css'
-import authorize_url from '../../../../../assets/js/authorize_url'
 const qs = require('querystring');
 
 class ArticleList extends Component{
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.query = {};
         this.state = {
             dataList:[], //分类列表
             requested:false,
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
     }
     componentWillMount() {
         this.query = qs.parse(this.props.location.search.slice(1));
-        this.query.bianlaId = this.bianlaId;
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount() {
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else{
-            this.getList(this.query);
-        }
+        this.query.bianlaId = this.props.bianlaId;
+        this.getList(this.query);
     }
     getTitleName(query){
         if(query.childType){
@@ -49,10 +37,6 @@ class ArticleList extends Component{
     }
     getList(query){
         req.get(query.childType ? '根据子分类获取文章列表' : '根据类型获取文章列表',query,(result) =>{
-            if(Math.abs(result.code) === 401){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
             if(result.code === 1){
                 var dataList = result.data.articleList || []
                 this.setState({
@@ -108,7 +92,7 @@ class ArticleList extends Component{
 const ArticleListRoute = () =>{
     return (
         <Switch>
-            <Route path="/index/childType/articleList" exact component={ArticleList} chineseName="文章列表"></Route>
+            <Route path="/index/childType/articleList" exact component={LocalComponent(ArticleList)} chineseName="文章列表"></Route>
             <Route path="/index/childType/articleList/article" component={ArticleDetail} chineseName="文章列表"></Route>
         </Switch>
     )

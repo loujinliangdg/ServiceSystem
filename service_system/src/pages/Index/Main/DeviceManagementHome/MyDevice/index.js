@@ -1,43 +1,28 @@
 import React,{Component} from 'react'
-import DocumentTitle from '../../../../../components/DocumentTitle'
+import {LocalComponent} from '@/HightComponent'
+import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
-import req from '../../../../../assets/js/req'
-import Loading from '../../../../../components/Loading'
-import Util from '../../../../../components/Util'
-import authorize_url from '../../../../../assets/js/authorize_url'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
+import Util from '@/components/Util'
 
-class DeviceManagement extends Component {
-    constructor(props){
+
+class MyDevice extends Component {
+    constructor(){
         super();
         this.state = {
             dataList:[], //分类列表
             requested:false,
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
     }
     componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount() {
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else{
-            this.getList();
-        }
+        this.getList();
     }
     /**
-     * 获取子分类列表
+     * 设备运行状态
      */
     getList(){
-        req.get('设备运行状态',{bianlaId:this.bianlaId},(result) =>{
-            if(Math.abs(result.code === 401)){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
+        req.get('设备运行状态',{bianlaId:this.props.bianlaId},(result) =>{
             if(result.code === 1){
                 var dataList = result.data.myDeviceList || [];
                 this.setState({
@@ -135,4 +120,4 @@ class DeviceManagement extends Component {
     }
 }
 
-export default DeviceManagement
+export default LocalComponent(MyDevice)

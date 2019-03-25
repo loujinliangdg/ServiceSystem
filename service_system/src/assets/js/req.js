@@ -1,4 +1,5 @@
 import axios from 'axios'
+import authorize_url from './authorize_url'
 class Req{
     constructor(){
         /**
@@ -147,11 +148,18 @@ class Req{
         if(authorization){
             axios.defaults.headers.authorization = authorization;
         }
-        axios.get(`${this[name]}`,{params:data}).then(function(result){
-            if(result.headers.authorization){
-                window.sessionStorage.setItem('authorization',result.headers.authorization)
+        axios.get(`${this[name]}`,{params:data}).then(function(res){
+            if(res.headers.authorization){
+                window.sessionStorage.setItem('authorization',res.headers.authorization)
             }
-            successCallback(result.data)
+            // token过期 重新登录
+            if(Math.abs(res.data.code) === 401){
+                const localURL = window.location.href;
+                const wxAuthorize = authorize_url(`${localURL.split('#')[0]}#/autoLogin?`);
+                window.location.href = wxAuthorize;
+                return;
+            }
+            successCallback(res.data)
         }).catch(errorCallback||function(error){console.error(`请求 [${name}] 接口报告错：${error.toString()}`)}.bind(this))
     }
     post(name,data,successCallback,errorCallback){
@@ -159,11 +167,18 @@ class Req{
         if(authorization){
             axios.defaults.headers.authorization = authorization;
         }
-        axios.post(`${this[name]}`,data).then(function(result){
-            if(result.headers.authorization){
-                window.sessionStorage.setItem('authorization',result.headers.authorization)
+        axios.post(`${this[name]}`,data).then(function(res){
+            if(res.headers.authorization){
+                window.sessionStorage.setItem('authorization',res.headers.authorization)
             }
-            successCallback(result.data)
+            // token过期 重新登录
+            if(Math.abs(res.data.code) === 401){
+                const localURL = window.location.href;
+                const wxAuthorize = authorize_url(`${localURL.split('#')[0]}#/autoLogin?`);
+                window.location.href = wxAuthorize;
+                return;
+            }
+            successCallback(res.data)
         }).catch(errorCallback||function(error){console.error(`请求 [${name}] 接口报告错：${error.toString()}`)}.bind(this))
     }
 }

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {Link,Switch,Route} from 'react-router-dom'
-import DocumentTitle from '../../../../components/DocumentTitle'
+import {LocalComponent} from '@/HightComponent'
+import DocumentTitle from '@/components/DocumentTitle'
 import ArticleListRoute from './ArticleList'
 import './assets/css/index.css'
-import req from '../../../../assets/js/req'
-import Loading from '../../../../components/Loading'
-import NoHaveMessage from '../../../../components/NoHaveMessage'
-import authorize_url from '../../../../assets/js/authorize_url'
+import req from '@/assets/js/req'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
+import authorize_url from '@/assets/js/authorize_url'
 const qs = require('querystring')
 
 /**
@@ -19,7 +20,6 @@ class ArticleList extends Component{
             dataList:[], //分类列表
             requested:false,
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
     }
     componentDidMount() {
         this.getList();
@@ -51,7 +51,7 @@ class ArticleList extends Component{
      * 获取子分类列表
      */
     getList(){
-        req.get('根据子分类获取文章列表',{type:this.props.postType,childType:this.props.childType,bianlaId:this.bianlaId},(result) =>{
+        req.get('根据子分类获取文章列表',{type:this.props.postType,childType:this.props.childType,bianlaId:this.props.bianlaId},(result) =>{
             if(result.code === 1){
                 var dataList = result.data.articleList || []
                 this.setState({
@@ -116,7 +116,7 @@ class SYJC extends Component {
                     return (
                         <div className="syjc-inner" key={item.id}>
                             <h5 className="childType">{item.classifyName}</h5>
-                            <ArticleList postType={this.props.postType} childType={item.classifyName}></ArticleList>
+                            <ArticleList postType={this.props.postType} childType={item.classifyName} bianlaId={this.props.bianlaId}></ArticleList>
                         </div>
                     )
                 })
@@ -135,23 +135,11 @@ class ChildType extends Component{
             requested:false,
         }
         this.postType = ''; //上级菜单名字
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
     }
     componentWillMount() {
         var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
         this.postType = query.postType;
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount() {
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else{
-            this.getList();
-        }
+        this.getList();
     }
     computedRenderContent(requested,dataList){
         // 未请求完成
@@ -165,10 +153,10 @@ class ChildType extends Component{
         // 有数据
         else{
             if(this.postType === 'yyzn'){
-                return <YYZN dataList={this.state.dataList} postType={this.postType}/>
+                return <YYZN dataList={this.state.dataList} postType={this.postType} bianlaId={this.props.bianlaId} />
             }
             else if(this.postType === 'syjc'){
-                return <SYJC dataList={this.state.dataList} postType={this.postType}/>
+                return <SYJC dataList={this.state.dataList} postType={this.postType} bianlaId={this.props.bianlaId} />
             }
         }
     }
@@ -176,12 +164,7 @@ class ChildType extends Component{
      * 获取子分类列表
      */
     getList(){
-
         req.get('根据文章类型获取子分类',{type:this.postType,bianlaId:this.bianlaId},(result) =>{
-            if(Math.abs(result.code) === 401){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
             if(result.code === 1){
                 var dataList = result.data.customerServiceClassifyList || []
                 this.setState({
@@ -214,7 +197,7 @@ class ChildType extends Component{
 const ChildTypeRoute = () =>{
     return (
         <Switch>
-            <Route path="/index/childType" exact={true}  component={ChildType} chineseName="文章子分类"></Route>
+            <Route path="/index/childType" exact={true}  component={LocalComponent(ChildType)} chineseName="文章子分类"></Route>
             <Route path="/index/childType/articleList" component={ArticleListRoute} chineseName="文章列表"></Route>
         </Switch>
     )

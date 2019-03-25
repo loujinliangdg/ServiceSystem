@@ -1,8 +1,9 @@
 import React,{Component} from 'react'
-import req from '../../../../../../assets/js/req'
+import req from '@/assets/js/req'
+import {LocalComponent} from '@/HightComponent'
 import './assets/css/index.css'
-import DocumentTitle from '../../../../../../components/DocumentTitle'
-const Util = require('../../../../../../components/Util')
+import DocumentTitle from '@/components/DocumentTitle'
+const Util = require('@/components/Util')
 
 const qs = require('querystring')
 class AddChildAccount extends Component{
@@ -12,10 +13,6 @@ class AddChildAccount extends Component{
             loginName:'',
             password:'',
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
-        this.deviceId = this.deviceArray[0].deviceId;
-        this.deviceNo = this.deviceArray[0].deviceNo;
     }
 
     onSubmit(event){
@@ -44,7 +41,7 @@ class AddChildAccount extends Component{
             return ;
         }
 
-        req.post('机主新增打印账号',qs.stringify({loginName:this.state.loginName,password:this.state.password,deviceId:this.deviceId}),(result) =>{
+        req.post('机主新增打印账号',qs.stringify({loginName:this.state.loginName,password:this.state.password,deviceId:this.props.deviceId}),(result) =>{
             Util.Toast(result.alertMsg);
             if(result.code == 1){
                 this.props.history.go(-1);
@@ -86,4 +83,4 @@ class AddChildAccount extends Component{
     }
 }
 
-export default AddChildAccount
+export default LocalComponent(AddChildAccount)

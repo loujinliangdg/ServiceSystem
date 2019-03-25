@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import {LocalComponent} from '@/HightComponent'
 import './assets/css/index.css'
-import Util from '../../../components/Util'
-import req from '../../../assets/js/req'
-import authorize_url from '../../../assets/js/authorize_url'
-
+import Util from '@/components/Util'
+import req from '@/assets/js/req'
 
 import yyzn_png from './assets/img/yyzn_2x.png'     //运营指南图标
 import sjcx_png from './assets/img/sjcx_2x.png'     //数据查询图标
@@ -47,23 +46,9 @@ class Main extends Component{
             syjc_isRead:true,
             xwbg_isRead:true,
         }
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
     }
     componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
-    }
-    componentDidMount(){
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else {
-            this.getPostTypeIsRead();
-        }
-
-
+        this.getPostTypeIsRead();
     }
     maskTouchMove(event){
         event.preventDefault();
@@ -88,11 +73,7 @@ class Main extends Component{
         }
         // 完成
         else{
-            req.get('标记用户已读提示语',{bianlaId:this.bianlaId},(result) =>{
-                if(Math.abs(result.code === 401)){
-                    sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                    window.location.href = this.wxAuthorize;
-                }
+            req.get('标记用户已读提示语',{bianlaId:this.props.bianlaId},(result) =>{
                 if(result.code == 1){
                     this.setState({
                         isRead:'true',
@@ -107,7 +88,7 @@ class Main extends Component{
     }
     getPostTypeIsRead(){
         ['yyzn','syjc','xwbg'].forEach((item,index) =>{
-            req.get('根据文章类型查询是否有未读文章',{postType:item,bianlaId:this.bianlaId},(result) =>{
+            req.get('根据文章类型查询是否有未读文章',{postType:item,bianlaId:this.props.bianlaId},(result) =>{
                 if(result.code === 1){
                     var obj = {};
                     obj[item+'_isRead'] = result.data.isRead;
@@ -210,4 +191,4 @@ class Main extends Component{
     }
 }
 
-export default Main
+export default LocalComponent(Main)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route,Switch } from 'react-router-dom';
 import './assets/css/index.css'
-import DocumentTitle from '../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import Banner from './Banner'
 import Main from './Main'
 import Question from './Question'

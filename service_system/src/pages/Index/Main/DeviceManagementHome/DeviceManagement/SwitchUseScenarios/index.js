@@ -1,11 +1,11 @@
 import React,{Component} from 'react'
-import DocumentTitle from '../../../../../../components/DocumentTitle'
+import {LocalComponent} from '@/HightComponent'
+import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
-import req from '../../../../../../assets/js/req'
-import Utils from '../../../../../../components/Util'
-import Loading from '../../../../../../components/Loading'
-import NoHaveMessage from '../../../../../../components/NoHaveMessage'
-import authorize_url from '../../../../../../assets/js/authorize_url'
+import req from '@/assets/js/req'
+import Utils from '@/components/Util'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
 
 const qs = require('querystring');
 
@@ -19,38 +19,19 @@ class SwitchUseScenarios extends Component {
             useScenariosZh:null,
             otherRemark:null,
         }
-        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
-        this.bianlaId = window.localStorage.getItem('bianlaId');
-        this.deviceId = this.deviceArray[0].deviceId;
-        
-        this.wxAuthorize = null;
-        this.localURL = window.location.href;
-    }
-    componentWillMount(){
-        this.wxAuthorize = authorize_url(`${this.localURL.split('#')[0]}#/autoLogin?`);
     }
     componentDidMount() {
-        if(!this.bianlaId){
-            sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-            window.location.href = this.wxAuthorize;
-        }
-        else {
-            var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
-            this.setState({
-                useScenariosEn:query.useScenariosEn, //获取当前应用的模式id
-                useScenariosZh:query.useScenariosZh, //获取当前应用的模式id
-                otherRemark: query.useScenariosEn === 'other' ? query.otherRemark : '', //如果是其它，则接收otherRemark否则置空
-            })
-            this.getAllUseScenarios();
-        }
+        var query = qs.parse(this.props.location.search.replace(/^\?&*/,''));
+        this.setState({
+            useScenariosEn:query.useScenariosEn, //获取当前应用的模式id
+            useScenariosZh:query.useScenariosZh, //获取当前应用的模式id
+            otherRemark: query.useScenariosEn === 'other' ? query.otherRemark : '', //如果是其它，则接收otherRemark否则置空
+        })
+        this.getAllUseScenarios();
     }
     getAllUseScenarios(){
         req.get('获取所有的使用场景',{},(result) =>{
             var dataList = [];
-            if(Math.abs(result.code) === 401){
-                sessionStorage.setItem('login_after_redirect_uri',this.localURL.split('#')[1]);
-                window.location.href = this.wxAuthorize;
-            }
             if(result.code === 1){
                 dataList = result.data.dictionaryItemsList || [];
             }
@@ -102,7 +83,7 @@ class SwitchUseScenarios extends Component {
     // 确认选择
     enterSwitchUseScenarios(){
         var params = {
-            deviceId:this.deviceId,
+            deviceId:this.props.deviceId,
             useScenariosEn:this.state.useScenariosEn,
         }
         // 如果是其它 则传入otherRemark
@@ -198,8 +179,6 @@ class SwitchUseScenarios extends Component {
             useScenariosZh:'',
             otherRemark:value
         });
-        console.log(this.state)
-        console.log(value)
     }
     render(){
         return (
@@ -211,4 +190,4 @@ class SwitchUseScenarios extends Component {
     }
 }
 
-export default SwitchUseScenarios
+export default LocalComponent(SwitchUseScenarios)

@@ -1,10 +1,11 @@
 import React,{Component} from 'react'
-import DocumentTitle from '../../../../../../components/DocumentTitle'
+import {LocalComponent} from '@/HightComponent'
+import DocumentTitle from '@/components/DocumentTitle'
 import './assets/css/index.css'
-import req from '../../../../../../assets/js/req'
-import Utils from '../../../../../../components/Util'
-import Loading from '../../../../../../components/Loading'
-import NoHaveMessage from '../../../../../../components/NoHaveMessage'
+import req from '@/assets/js/req'
+import Utils from '@/components/Util'
+import Loading from '@/components/Loading'
+import NoHaveMessage from '@/components/NoHaveMessage'
 
 class SwitchMode extends Component {
     constructor(props){
@@ -14,8 +15,6 @@ class SwitchMode extends Component {
             modes:[],
             currentModeId:null,
         }
-        this.deviceArray = JSON.parse(window.localStorage.getItem('deviceArray'));
-        this.deviceId = this.deviceArray[0].deviceId;
     }
     componentDidMount() {
         this.setState({
@@ -49,7 +48,7 @@ class SwitchMode extends Component {
         return modeName;
     }
     enterSwitchMode(){
-        req.get('切换模式',{deviceId:this.deviceId,deviceMode:this.state.currentModeId},(result) =>{
+        req.get('切换模式',{deviceId:this.props.deviceId,deviceMode:this.state.currentModeId},(result) =>{
             result.code === 1 ? Utils.Toast(result.alertMsg,() =>{
                 window.history.go(-1);
             }) : Utils.Toast(result.alertMsg);
@@ -119,4 +118,4 @@ class SwitchMode extends Component {
     }
 }
 
-export default SwitchMode
+export default LocalComponent(SwitchMode)

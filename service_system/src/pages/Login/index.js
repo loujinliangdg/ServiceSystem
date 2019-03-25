@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {Link,Switch,Route} from 'react-router-dom'
 import './assets/css/index.css'
-import DocumentTitle from '../../components/DocumentTitle'
+import DocumentTitle from '@/components/DocumentTitle'
 import ForgetPassword from './ForgetPassword'
 import logo_png from './assets/img/logo.png'
 import shouji_png from './assets/img/shouji.png'
 import shuo_png from './assets/img/shuo.png'
 
-import req from '../../assets/js/req'
+import req from '@/assets/js/req'
 const qs = require('querystring')
 
 class Login extends Component {
@@ -54,7 +54,7 @@ class Login extends Component {
                 localStorage.setItem('bianlaId',result.data.bianlaId);
                 localStorage.setItem('phoneNumber',this.state.bianlaId);
                 localStorage.setItem('isRead',result.data.isRead);
-                //登陆成功 去首页
+                //登陆成功 去其它页 或者 首页
                 var login_after_redirect_uri = sessionStorage.getItem('login_after_redirect_uri');
                 this.props.history.replace(login_after_redirect_uri ? login_after_redirect_uri : '/index');
             }
