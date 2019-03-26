@@ -11,10 +11,9 @@ import './assets/css/index.css'
 import req from '@/assets/js/req'
 import Loading from '@/components/Loading'
 import you_jian_tou_png from '../../../Index/Question/assets/img/you_jian_tou_2x.png';
-import authorize_url from '@/assets/js/authorize_url'
 
 class DeviceManagementHome extends Component {
-    constructor(props){
+    constructor(){
         super();
         this.state = {
             dataList:[], //分类列表

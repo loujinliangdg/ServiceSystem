@@ -60,7 +60,7 @@ class AddChildAccount extends Component{
                         <div className="inner">
                             <label htmlFor="" className="flex align-items-center">
                                 <span>账号：</span>
-                                <input className="flex1" value={this.state.loginName} type="text" placeholder="请输入账号" onChange={this.loginNameChange.bind(this)} />
+                                <input className="flex1" value={this.state.loginName} type="text" maxLength="20" placeholder="请输入账号" onChange={this.loginNameChange.bind(this)} />
                             </label>
                             <em className="input-prompt">20个以内字符，仅可使用字母、数字或下划线</em>
                         </div>
@@ -69,7 +69,7 @@ class AddChildAccount extends Component{
                         <div className="inner">
                             <label htmlFor="" className="flex align-items-center">
                                 <span>密码：</span>
-                                <input className="flex1" value={this.state.password} type="password" placeholder="请输入密码" onChange={this.passwordChange.bind(this)} />
+                                <input className="flex1" value={this.state.password} type="password" maxLength="20" placeholder="请输入密码" onChange={this.passwordChange.bind(this)} />
                             </label>
                             <em className="input-prompt">20个以内字符，仅可使用字母、数字或下划线</em>
                         </div>

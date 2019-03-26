@@ -56,7 +56,7 @@ class EditPassword extends Component{
                     <i className="iconfont icon-close" onClick={this.props.closeEditPassword}></i>
                 </div>
                 <div className="ps-body">
-                    <input className="new-password" value={this.state.password} type="password" placeholder="请输入新密码" onChange={this.passwordChange.bind(this)} />
+                    <input className="new-password" value={this.state.password} maxLength="20" type="password" placeholder="请输入新密码" onChange={this.passwordChange.bind(this)} />
                 </div>
                 <div className="ps-footer">
                     <button className="yes" onClick={this.sureEditPassword.bind(this)}>修改</button>
@@ -132,6 +132,10 @@ class PrintAccountNumber extends Component {
     }
     // 添加子账号
     addChildAccountClick(){
+        // 子账号最大不能多于15个，产品需求 ，我也不知道有什么用
+        if(this.state.accountList.length >= 15 + 1){
+            return Util.Toast('您最多可以创建15个子账号')
+        }
         this.props.history.push('/index/deviceManagementHome/printAccountNumber/addChildAccount')
     }
     // Mask 被点击
@@ -190,7 +194,7 @@ class PrintAccountNumber extends Component {
                                 <div className="row" key={index}>
                                     <SlideLeftDelete deleteHandle={this.deleteHandle.bind(this,item)}>
                                         <div className="flex align-items-center">
-                                            <div>{item.accountType === 1 ? '管理员账号' : '子账号'}{index+1}</div>
+                                            <div>{item.accountType === 1 ? '管理员账号' : '子账号'}</div>
                                             <div className="flex1 text-center">{item.loginName}</div>
                                             <div className="edit-password-box"><button className="edit-password" onClick={this.editPasswordHandle.bind(this,item)}>修改密码</button></div>
                                         </div>
