@@ -195,7 +195,7 @@ class PrintAccountNumber extends Component {
                                     <SlideLeftDelete deleteHandle={this.deleteHandle.bind(this,item)}>
                                         <div className="flex align-items-center">
                                             <div>{item.accountType === 1 ? '管理员账号' : '子账号'}</div>
-                                            <div className="flex1 text-center">{item.loginName}</div>
+                                            <div className="flex1 text-center" style={{wordBreak: "break-all"}}>{item.loginName}</div>
                                             <div className="edit-password-box"><button className="edit-password" onClick={this.editPasswordHandle.bind(this,item)}>修改密码</button></div>
                                         </div>
                                     </SlideLeftDelete>
