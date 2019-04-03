@@ -311,6 +311,7 @@ class DoMember extends Component{
             params = {
                 orderTakingSwitch:this.state.device.user.orderTakingSwitch,
                 originQrCode:this.state.device.user.originQrCode === default_qrCode_png ? null : this.state.device.user.originQrCode,
+                username:this.state.device.user.username,
                 id:this.state.device.user.id
             }
             api_name = '更新成员';
@@ -408,7 +409,7 @@ class DoMember extends Component{
                     <div className="flex align-items-center">
                         <div className="label">备注：</div>
                         <div className="flex1">
-                            <input className="username" onChange={this.usernameChange.bind(this)} type="text" placeholder="备注姓名信息(最长5位)" value={this.getRealValue('userName')} disabled={this.isAddMember ? false : true} />
+                            <input className="username" onChange={this.usernameChange.bind(this)} type="text" placeholder="备注姓名信息(最长5位)" value={this.getRealValue('userName')} />
                         </div>
                     </div>
                 </div>

@@ -85,6 +85,8 @@ class SwitchMode extends Component {
                         {
                             modes.map((item,index) =>{
                                 return (
+                                    // 轻聊模式 及 打印报告模式 不给选择
+                                    (item.modeName == '轻聊模式' || item.modeName == '打印报告模式') ? '' :
                                     <div className="row" onClick={this.switchMode.bind(this,item)} key={item.id}>
                                         <div className="flex align-items-center">
                                             <div className="flex1">
