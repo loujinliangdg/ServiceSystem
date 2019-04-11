@@ -314,12 +314,16 @@ class DoMember extends Component{
                 username:this.state.device.user.username,
                 id:this.state.device.user.id
             }
+            if(params.username){
+                Util.Toast('姓名不能为空',900);
+                return;
+            }
             api_name = '更新成员';
         }
         // 新增成员
         else{
-            console.log(this.state.add);
-            console.log(this.state.memberList);
+            // console.log(this.state.add);
+            // console.log(this.state.memberList);
             params = {
                 nickName:this.state.add.nickName,
                 phoneNumber:this.state.add.phoneNumber,
@@ -340,6 +344,9 @@ class DoMember extends Component{
             }
             else if(params.phoneNumber.length < 11){
                 Util.Toast('请输入完整的手机号码',900);
+                return;
+            }else if(params.nickName){
+                Util.Toast('姓名不能为空',900);
                 return;
             } else if(!params.deviceId){
                 Util.Toast('请绑定设备号',900);
