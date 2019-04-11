@@ -14,11 +14,15 @@ class SwitchMode extends Component {
             requested:false,
             modes:[],
             currentModeId:null,
+            defaultModeName:null,
+            defaultModeId:null,
         }
     }
     componentDidMount() {
+        var currentModeId = parseInt(this.props.match.params.currentMode) //获取当前应用的模式id
         this.setState({
-            currentModeId:parseInt(this.props.match.params.currentMode) //获取当前应用的模式id
+            currentModeId:currentModeId,
+            defaultModeId:currentModeId
         })
         this.getAllMode();
     }
@@ -30,6 +34,15 @@ class SwitchMode extends Component {
             }
             this.setState({
                 modes:modes,
+                defaultModeName:((modes) =>{
+                    var modeName = '';
+                    modes.forEach((item) =>{
+                        if(item.id === parseInt(this.state.defaultModeId)){
+                            modeName = item.modeName;
+                        }
+                    })
+                    return modeName;
+                })(modes),
                 requested:true,
             })
         },(error) =>{
@@ -37,15 +50,6 @@ class SwitchMode extends Component {
                 requested:true,
             })
         })
-    }
-    showCurrentMode(){
-        var modeName = '';
-        this.state.modes.forEach((item) =>{
-            if(item.id === parseInt(this.state.currentModeId)){
-                modeName = item.modeName;
-            }
-        })
-        return modeName;
     }
     enterSwitchMode(){
         req.get('切换模式',{deviceId:this.props.deviceId,deviceMode:this.state.currentModeId},(result) =>{
@@ -74,7 +78,7 @@ class SwitchMode extends Component {
                         <div className="row">
                             <div className="flex align-items-center">
                                 <div className="flex1">
-                                    <span>{this.showCurrentMode()}</span>
+                                    <span>{this.state.defaultModeName}</span>
                                 </div>
                                 <label className="on"><input name="xxx" type="radio" /></label>
                             </div>

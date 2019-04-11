@@ -407,9 +407,9 @@ class DoMember extends Component{
                         </div>
                     </div>
                     <div className="flex align-items-center">
-                        <div className="label">备注：</div>
+                        <div className="label">姓名：</div>
                         <div className="flex1">
-                            <input className="username" onChange={this.usernameChange.bind(this)} type="text" placeholder="备注姓名信息(最长5位)" value={this.getRealValue('userName')} />
+                            <input className="username" onChange={this.usernameChange.bind(this)} type="text" placeholder="请输入姓名(最长5位)" value={this.getRealValue('userName')} />
                         </div>
                     </div>
                 </div>
