@@ -314,7 +314,7 @@ class DoMember extends Component{
                 username:this.state.device.user.username,
                 id:this.state.device.user.id
             }
-            if(params.username){
+            if(!params.username.trim()){
                 Util.Toast('姓名不能为空',900);
                 return;
             }
@@ -345,7 +345,7 @@ class DoMember extends Component{
             else if(params.phoneNumber.length < 11){
                 Util.Toast('请输入完整的手机号码',900);
                 return;
-            }else if(params.nickName){
+            }else if(!params.nickName.trim()){
                 Util.Toast('姓名不能为空',900);
                 return;
             } else if(!params.deviceId){
