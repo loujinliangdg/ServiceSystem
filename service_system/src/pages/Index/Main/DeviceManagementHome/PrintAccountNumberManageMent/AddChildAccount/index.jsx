@@ -34,7 +34,7 @@ class AddChildAccount extends Component{
             return;
         }
         else if(partern.test(this.state.loginName)){
-            Util.Toast(`账号仅支持使用数字、大小写字母、或下划线`,1800);
+            Util.Toast(`账号仅支持数字、大小写字母、或下划线`,2200);
             return;
         }
   
@@ -59,7 +59,7 @@ class AddChildAccount extends Component{
                                 <span>账号：</span>
                                 <input className="flex1" value={this.state.loginName} type="text" maxLength="20" placeholder="请输入账号" onChange={this.loginNameChange.bind(this)} />
                             </label>
-                            <em className="input-prompt">20个以内字符，仅可使用字母、数字或下划线</em>
+                            <em className="input-prompt">20个以内字符，仅支持数字、大小写字母、或下划线</em>
                         </div>
                     </div>
                     <div className="formItem">
@@ -68,7 +68,7 @@ class AddChildAccount extends Component{
                                 <span>密码：</span>
                                 <input className="flex1" value={this.state.password} type="password" maxLength="20" placeholder="请输入密码" onChange={this.passwordChange.bind(this)} />
                             </label>
-                            <em className="input-prompt">20个以内字符，仅可使用字母、数字或下划线</em>
+                            <em className="input-prompt">{"8 - 20"}个字符，仅支持数字、大小写字母</em>
                         </div>
                     </div>
                     <div className="formItem">
