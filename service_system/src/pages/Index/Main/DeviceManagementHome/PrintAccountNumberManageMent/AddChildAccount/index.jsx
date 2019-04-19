@@ -29,18 +29,15 @@ class AddChildAccount extends Component{
     }
     addAchildAction(){
         var partern = /[^\w]/;
-        var name = '';
-        if(partern.test(this.state.loginName)){
-            name = '账号';
+        if(!this.state.loginName){
+            Util.Toast(`请输入账号`,1800);
+            return;
         }
-        else if(partern.test(this.state.password)){
-            name = '密码';
+        else if(partern.test(this.state.loginName)){
+            Util.Toast(`账号仅支持使用数字、大小写字母、或下划线`,1800);
+            return;
         }
-        if(name){
-            Util.Toast(`${name}中不能包含特殊字符`,1800);
-            return ;
-        }
-
+  
         req.post('机主新增打印账号',qs.stringify({loginName:this.state.loginName,password:this.state.password,deviceId:this.props.deviceId}),(result) =>{
             Util.Toast(result.alertMsg);
             if(result.code == 1){

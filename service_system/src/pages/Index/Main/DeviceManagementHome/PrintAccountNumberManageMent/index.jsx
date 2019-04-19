@@ -31,11 +31,6 @@ class EditPassword extends Component{
     }
 
     sureEditPassword(event){
-        var partern = /[^\w]/;
-        if(partern.test(this.state.password)){
-            Util.Toast(`密码中不能包含特殊字符`,1800);
-            return ;
-        }
         req.post('机主修改打印账号密码',qs.stringify({id:this.props.accountItem.id,password:this.state.password}),(result) =>{
             if(result.code == 1){
                 this.props.closeEditPassword();
